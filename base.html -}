@@ -1,0 +1,148 @@
+[1mdiff --git a/config/settings.py b/config/settings.py[m
+[1mindex 03995da..d10b151 100644[m
+[1m--- a/config/settings.py[m
+[1m+++ b/config/settings.py[m
+[36m@@ -117,6 +117,9 @@[m [mUSE_TZ = True[m
+ # https://docs.djangoproject.com/en/4.0/howto/static-files/[m
+ [m
+ STATIC_URL = 'static/'[m
+[32m+[m[32mSTATICFILES_DIRS = [[m
+[32m+[m[32m    BASE_DIR / 'static',[m
+[32m+[m[32m][m
+ [m
+ # Default primary key field type[m
+ # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field[m
+[1mdiff --git a/templates/base.html b/templates/base.html[m
+[1mindex e69de29..7715565 100644[m
+[1m--- a/templates/base.html[m
+[1m+++ b/templates/base.html[m
+[36m@@ -0,0 +1,20 @@[m
+[32m+[m[32m{% load static %}[m
+[32m+[m[32m<!doctype html>[m
+[32m+[m[32m<html lang="ko">[m
+[32m+[m[32m<head>[m
+[32m+[m[32m    <!-- Required meta tags -->[m
+[32m+[m[32m    <meta charset="utf-8">[m
+[32m+[m[32m    <meta name="viewport" content=""width="device-width, initial-scale=1, shrink-to-fit=no">[m
+[32m+[m[32m    <!-- Bootstrap CSS-->[m
+[32m+[m[32m    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">[m
+[32m+[m[32m    <!-- pybo CSS -->[m
+[32m+[m[32m    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">[m
+[32m+[m[32m    <title>Hello, pybo!</title>[m
+[32m+[m[32m</head>[m
+[32m+[m[32m<body>[m
+[32m+[m[32m<!-- 기본 템플릿 안에 삽입될 내용 Start -->[m
+[32m+[m[32m{% block content %}[m
+[32m+[m[32m{% endblock %}[m
+[32m+[m[32m<!-- 기본 템플릿 안에 삽입될 내용 End -->[m
+[32m+[m[32m</body>[m
+[32m+[m[32m</html>[m
+\ No newline at end of file[m
+[1mdiff --git a/templates/pybo/question_detail.html b/templates/pybo/question_detail.html[m
+[1mindex 1b34442..9e73bec 100644[m
+[1m--- a/templates/pybo/question_detail.html[m
+[1m+++ b/templates/pybo/question_detail.html[m
+[36m@@ -1,17 +1,40 @@[m
+[31m-<h1>{{question.subject}}</h1>[m
+[31m-<div>[m
+[31m-    {{question.content}}[m
+[31m-</div>[m
+[31m-<h5>{{ question.answer_set.count }}개의 답변이 있습니다.</h5>[m
+[31m-<div>[m
+[31m-    <ul>[m
+[32m+[m[32m{% extends 'base.html' %}[m
+[32m+[m[32m{% block content %}[m
+[32m+[m[32m<div class="container my-3">[m
+[32m+[m[32m    <!-- 질문 -->[m
+[32m+[m[32m    <h2 class="border-bottom py-2">{{ question.subject }}</h2>[m
+[32m+[m[32m    <div class="card my-3">[m
+[32m+[m[32m        <div class="card-body">[m
+[32m+[m[32m            <div class="card-text" style="white-space: pre-line;">{{ question.content }}</div>[m
+[32m+[m[32m            <div class="d-flex justify-content-end">[m
+[32m+[m[32m                <div class="badge bg-light text-dark p-2">[m
+[32m+[m[32m                    {{ question.create_date }}[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m            </div>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m    </div>[m
+[32m+[m[32m    <!-- 답변 -->[m
+[32m+[m[32m    <h5 class="border-bottom my-3 py-2">{{question.answer_set.count}}개의 답변이 있습니다.</h5>[m
+     {% for answer in question.answer_set.all %}[m
+[31m-        <li>{{ answer.content }}</li>[m
+[32m+[m[32m    <div class="card my-3">[m
+[32m+[m[32m        <div class="card-body">[m
+[32m+[m[32m            <div class="card-text" style="white-space: pre-line;">{{ answer.content }}</div>[m
+[32m+[m[32m            <div class="d-flex justify-content-end">[m
+[32m+[m[32m                <div class="badge bg-light text-dark p-2">[m
+[32m+[m[32m                    {{ answer.create_date }}[m
+[32m+[m[32m                </div>[m
+[32m+[m[32m            </div>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m    </div>[m
+     {% endfor %}[m
+[31m-    </ul>[m
+[32m+[m[32m    <!-- 답변 등록 -->[m
+[32m+[m[32m    <form action="{% url 'pybo:answer_create' question.id %}" method="post" class="my-3">[m
+[32m+[m[32m        {% csrf_token %}[m
+[32m+[m[32m        <div class="mb-3">[m
+[32m+[m[32m            <label for="content" class="form-label">답변내용</label>[m
+[32m+[m[32m            <textarea name="content" id="content" class="form-control" rows="10"></textarea>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m        <input type="submit" value="답변등록" class="btn btn-primary">[m
+[32m+[m[32m    </form>[m
+ </div>[m
+[31m-<form action="{% url 'pybo:answer_create' question.id %}" method="post">[m
+[31m-{% csrf_token %}[m
+[31m-<textarea name="content" id="content" rows="15"></textarea>[m
+[31m-<input type="submit" value="답변등록">[m
+[31m-</form>[m
+\ No newline at end of file[m
+[32m+[m[32m{% endblock %}[m
+\ No newline at end of file[m
+[1mdiff --git a/templates/pybo/question_list.html b/templates/pybo/question_list.html[m
+[1mindex 27fe3c0..8b084c6 100644[m
+[1m--- a/templates/pybo/question_list.html[m
+[1m+++ b/templates/pybo/question_list.html[m
+[36m@@ -1,9 +1,31 @@[m
+[31m-{% if question_list %}[m
+[31m-    <ul>[m
+[31m-    {% for question in question_list %}[m
+[31m-        <li><a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a></li>[m
+[31m-    {% endfor %}[m
+[31m-    </ul>[m
+[31m-{% else %}[m
+[31m-    <p>질문이 없습니다.</p>[m
+[31m-{% endif %}[m
+\ No newline at end of file[m
+[32m+[m[32m{% extends 'base.html' %}[m
+[32m+[m[32m{% block content %}[m
+[32m+[m[32m<div class="container my-3">[m
+[32m+[m[32m    <table class="table">[m
+[32m+[m[32m        <thead>[m
+[32m+[m[32m        <tr class="table-dark">[m
+[32m+[m[32m            <th>번호</th>[m
+[32m+[m[32m            <th>제목</th>[m
+[32m+[m[32m            <th>작성일시</th>[m
+[32m+[m[32m        </tr>[m
+[32m+[m[32m        </thead>[m
+[32m+[m[32m        <tbody>[m
+[32m+[m[32m        {% if question_list %}[m
+[32m+[m[32m        {% for question in question_list %}[m
+[32m+[m[32m        <tr>[m
+[32m+[m[32m            <td>{{ forloop.counter }}</td>[m
+[32m+[m[32m            <td>[m
+[32m+[m[32m                <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a>[m
+[32m+[m[32m            </td>[m
+[32m+[m[32m            <td>{{ question.create_date }}</td>[m
+[32m+[m[32m        </tr>[m
+[32m+[m[32m        {% endfor %}[m
+[32m+[m[32m        {% else %}[m
+[32m+[m[32m        <tr>[m
+[32m+[m[32m            <td colspan="3">질문이 없습니다.</td>[m
+[32m+[m[32m        </tr>[m
+[32m+[m[32m        {% endif %}[m
+[32m+[m[32m        </tbody>[m
+[32m+[m[32m    </table>[m
+[32m+[m[32m</div>[m
+[32m+[m[32m{% endblock %}[m
+\ No newline at end of file[m
