@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <!-- 프로그램 세부정보 -->
+    <h2 class="border-bottom py-2">{{ program.name }}</h2>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">
+                유형: {{ program.type }}
+                카테고리: {{ program.category }}
+                연령대: {{ program.age }}
+                비용: {{ program.price }}
+                기간시작: {{ program.start_date }}
+                기간끝: {{ program.end_date }}
+                기관: {{ program.host }}
+                신청링크:
+            </div>
+            <div class="d-flex justify-content-end">
+                <div class="badge bg-light text-dark p-2 text-start">
+                    <div class="mb-2">{{ program.category }}</div>
+                    <div>{{ program.age }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card my-3" style="background-color: rgba(255, 255, 128, .5);">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">
+                <h5>이런 프로그램은 어때요?</h5>
+                {{ program.type }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
