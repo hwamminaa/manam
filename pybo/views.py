@@ -45,6 +45,7 @@ def answer_create(request, question_id):
     context = {'question': question, 'form': form}
     return render(request, 'pybo/question_detail.html', context)
 
+
 @login_required(login_url='common:login')
 def question_create(request):
     if request.method == 'POST':

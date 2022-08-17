@@ -15,8 +15,8 @@ class Program(models.Model):
         return self.name
 
 
-class Category_list(models.Model):
-    category_list = models.CharField(verbose_name = 'category_list', max_length=10)
+class Category(models.Model):
+    name = models.CharField(max_length=10)
 
     def __str__(self):
-        return self.category_list
+        return self.name

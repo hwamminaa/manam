@@ -7,7 +7,7 @@ import json
 def map(request):
     return render(request, 'facility/test.html')
 
-def showFacilities(request):
+def downloadFacilities(request):
     with open('C:\dataton2022\전체시설정보.json', encoding='utf-8') as json_file:
         facility = json.load(json_file)
 
@@ -23,10 +23,23 @@ def showFacilities(request):
                 url = facility[i]['링크']
             )
 
-    facilities = Facility.objects.all
-    return render(request, 'facility/default.html', {'facilities': facilities})
+    return HttpResponse(f'''
+        <html>
+        <body>
+            <h1>Download Complete</h1>
+            {facility}
+        </body>
+        </html>
+        ''')
 
-def getlocation(request, location_input):
+
+def showFacilities(request):
+    facilities = Facility.objects.all
+    context = {'facilities': facilities}
+    return render(request, 'facility/default.html', context)
+
+
+def getlocation(request):
     with open('C:\dataton2022\전체시설정보.json', encoding='utf-8') as json_file:
         facility = json.load(json_file)
 

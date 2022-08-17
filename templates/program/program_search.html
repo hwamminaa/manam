@@ -14,19 +14,23 @@
               </thead>
               <br>
               <tbody>
+                <!--필터 바-->
                 <form class="form-inline my-2 my-md-0" method="get" action="{% url 'program:search' %}">
+
+                  <!--검색기능-->
                   <input class="form-control" type="text" placeholder="프로그램 검색" aria-label="Search" name="b" value="{{b}}">
                   <br>
+
+                  <!--카테고리필터-->
                   {% for g in category_list %}
                   <div class="form-check form-check-inline">
-                      &nbsp;&nbsp;&nbsp;
                       <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="f", value={{g}}>
-                      <class class="form-check-label" for="inlineCheckbox5" style="color: #580818">{{g}}</class>
+                      <class class="form-check-label" for="inlineCheckbox5" style="color: white">{{g}}</class>
                   </div>
                   {% endfor %}
-
                   <br>
 
+                  <!--가격필터-->
                   <div class="form-group">
                     <a href = "#" onclick= "event.stopPropagation()"></a>
                     <label for="customRange3" style="color: #CDCDCD">가격 범위</label>
@@ -41,54 +45,7 @@
                     </select>
 
                     <input type="range" class="custom-range" value = "0" min="0" max="5" step="1" id="customRange3" name="price", value={{price}}>
-               <!--프로그램가격필터 바의 위치에 따라 가격이 실시간으로 표시되게 하는 자바스크립트-->
-               <script>
-                        ;(function(){
 
-                      function emit(target, name) {
-                        var event
-                        if (document.createEvent) {
-                          event = document.createEvent("HTMLEvents");
-                          event.initEvent(name, true, true);
-                        } else {
-                          event = document.createEventObject();
-                          event.eventType = name;
-                        }
-
-                        event.eventName = name;
-
-                        if (document.createEvent) {
-                          target.dispatchEvent(event);
-                        } else {
-                          target.fireEvent("on" + event.eventType, event);
-                        }
-                      }
-
-                      var outputsSelector = "input[type=number][source],select[source]";
-
-                      function onChange(e) {
-                        var outputs = document.querySelectorAll(outputsSelector)
-                        for (var index = 0; index < outputs.length; index++) {
-                          var item = outputs[index]
-                          var source = document.querySelector(item.getAttribute('source'));
-                          if (source) {
-                            if (item === e.target) {
-                              source.value = item.value
-                              emit(source, 'input')
-                              emit(source, 'change')
-                            }
-
-                            if (source === e.target) {
-                              item.value = source.value
-                            }
-                          }
-                        }
-                      }
-
-                      document.addEventListener('change', onChange)
-                      document.addEventListener('input', onChange)
-                    }());
-                    </script>
                   </div>
                   <button type='submit' class='btn btn-warning' style="background-color:#ebc291">검색</button>  <!--위에것과 기능은 같음-->
                   <!-- <button type='reset' class='btn btn-info'>RESET</button> -->
@@ -139,4 +96,53 @@
         </role>
     </div>
 </div>
+
+<!--프로그램가격필터 바의 위치에 따라 가격이 실시간으로 표시되게 하는 자바스크립트-->
+<script>
+      ;(function(){
+
+      function emit(target, name) {
+        var event
+        if (document.createEvent) {
+          event = document.createEvent("HTMLEvents");
+          event.initEvent(name, true, true);
+        } else {
+          event = document.createEventObject();
+          event.eventType = name;
+        }
+
+        event.eventName = name;
+
+        if (document.createEvent) {
+          target.dispatchEvent(event);
+        } else {
+          target.fireEvent("on" + event.eventType, event);
+        }
+      }
+
+      var outputsSelector = "input[type=number][source],select[source]";
+
+      function onChange(e) {
+        var outputs = document.querySelectorAll(outputsSelector)
+        for (var index = 0; index < outputs.length; index++) {
+          var item = outputs[index]
+          var source = document.querySelector(item.getAttribute('source'));
+          if (source) {
+            if (item === e.target) {
+              source.value = item.value
+              emit(source, 'input')
+              emit(source, 'change')
+            }
+
+            if (source === e.target) {
+              item.value = source.value
+            }
+          }
+        }
+      }
+
+      document.addEventListener('change', onChange)
+      document.addEventListener('input', onChange)
+    }());
+</script>
 {% endblock %}
