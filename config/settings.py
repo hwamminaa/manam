@@ -33,8 +33,9 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'common.apps.CommonConfig',
     'pybo.apps.PyboConfig',
-    'program.apps.ProgramConfig',
     'manam.apps.ManamConfig',
+    'program.apps.ProgramConfig',
+    'facility.apps.FacilityConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

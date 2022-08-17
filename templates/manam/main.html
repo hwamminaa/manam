@@ -10,20 +10,29 @@
     <!-- pybo CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <!-- 폰트 불러오기 -->
-    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet" />
     <title>M:ANAM 만남</title>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
     <style>
+    @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+    html {
+      scroll-behavior: smooth;
+    }
+    * {
+      font-family: 'Spoqa Han Sans Neo', sans-serif;
+      }
     header {
       position: sticky;
       padding-top: 70px;
       top: -32px;
-      background: #b71c1c;
+      background: #982323;
       color: white;
       padding-left: 32px;
       padding-right: 32px;
+      padding-bottom: 5px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
     }
     ul {
       list-style-type: none;
@@ -33,14 +42,24 @@
       display: inline-block;
       margin-left: 16px;
       font-size: 18px;
-      color: white;
+      color: black;
     }
     .navbar-brand {
       font-size: 40px;
     }
+    .intro{
+      background: white;
+      height: 550px;
+      padding-left: 60px;
+      padding-top: 30px;
+    }
+    .shortcut{
+      padding-top: 30px;
+      /* text-align: center; */
+    }
     .container{
       background: white;
-      height: 600px;
+      height: 650px;
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
@@ -48,53 +67,31 @@
       align-items: center;  /* cross축 */
     }
     .item{
-      width: 400px;
+      width: 390px;
       height: 450px;
       background: #F5F5F5;
       color: black;
       opacity: 1;
       display: flex;
+      flex-direction: column;
       justify-content:center;
       align-items:center;
-      font-family: Inter;
+      border-top-left-radius: 60px;
+      border-top-right-radius: 60px;
+      border-bottom-left-radius: 60px;
+      border-bottom-right-radius: 60px;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+    }
+    .select{
       font-weight: Bold;
       font-size: 32px;
       text-align: center;
-      border-top-left-radius: 80px;
-      border-top-right-radius: 80px;
-      border-bottom-left-radius: 80px;
-      border-bottom-right-radius: 80px;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      overflow: hidden;
     }
-     /*
-    .box {
-      width: 519px;
-      height: 469px;
-      background: rgba(245,245,245,1);
-      opacity: 1;
-      position: relative;
-      top: 40px;
-      left: 40px;
-      border-top-left-radius: 80px;
-      border-top-right-radius: 80px;
-      border-bottom-left-radius: 80px;
-      border-bottom-right-radius: 80px;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      overflow: hidden;
-    }
-    .detail {
-      width: 229px;
-      color: rgba(0,0,0,1);
-      position: absolute;
-      top: 407px;
-      left: 151px;
-      font-family: Inter;
+    .detail{
+      font-size: 20px;
       font-weight: Regular;
-      font-size: 24px;
-      opacity: 1;
-      text-align: left;
-    } */
+    }
 
     </style>
 </head>
@@ -115,31 +112,34 @@
               <a class="nav-link" href="{% url 'common:signup' %}" style="color:white">회원가입</a>
               {% endif %}
           </li>
-          <li>문의사항</li>
+          <li style="color:white">문의사항</li>
 
     </ul>
   </nav>
 </header>
-<div class="container">
-    <div class="item item1">
-        내 주위 문화시설<br>찾아보기
+<div class="intro">
+    <h1>만남이란?</h1>
+    <h3>만남M:ANAM은 고려대학교 학생들의 재능 기부와 성북구 주민들의 참여를 통해<br>
+        안암 문화 공동체 형성에 기여하는 플랫폼입니다.<br><br>
+        설명추가
+    </h3>
+    <div class="shortcut" OnClick="location.href = '#menu'" style="cursor:pointer;">
+        만남 바로 시작하기
+        <i class="fa-solid fa-circle-arrow-right"></i>
+    </div>
+</div>
+<div class="container" id="menu">
+    <div class="item item1" OnClick="location.href ='{% url 'facility:facilitylist' %}'" style="cursor:pointer;">
+        <div class="select">내 주위 문화시설<br>찾아보기</div>
+        <div class="detail">위치기반</div>
     </div>
     <div class="item item2" OnClick="location.href ='{% url 'program:index' %}'" style="cursor:pointer;">
-        맞춤 프로그램<br>찾아보기
+        <div class="select">맞춤 프로그램<br>찾아보기</div>
     </div>
     <div class="item item3">
-        고려대 동아리<br>제공 프로그램
+        <div class="select">고려대 동아리<br>제공 프로그램</div>
     </div>
 </div>
-
-
-
-<div class="box" OnClick="location.href ='{% url 'program:index' %}'" style="cursor:pointer;">
-    <span class="menu">내 주위 문화시설 찾아보기</span>
-    <span class="detail">전체 시설 보러가기</span>
-</div>
-
 
 </body>
 </html>
-<br/><br/>

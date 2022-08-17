@@ -10,14 +10,83 @@
     <!-- pybo CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <title>Hello, pybo!</title>
+    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
+    <style>
+    @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+    html {
+      scroll-behavior: smooth;
+    }
+    * {
+      font-family: 'Spoqa Han Sans Neo', sans-serif;
+      }
+    header {
+      position: sticky;
+      padding-top: 30px;
+      top: -32px;
+      background: white;
+      color: black;
+      padding-left: 32px;
+      padding-right: 32px;
+      padding-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      display: inline-block;
+      margin-left: 16px;
+      font-size: 18px;
+      color: black;
+    }
+    .navbar-brand {
+      font-size: 40px;
+    }
+    </style>
 </head>
 <body>
 <!-- 네비게이션바 -->
-{% include "navbar.html" %}
+<header>
+  <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:black">M:ANAM</a>
+  <nav>
+      <ul>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">시설</a>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">프로그램</a>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:#982323">KU프로그램</a>
+          </li>
+          <li class="nav-item">
+              {% if user.is_authenticated %}
+              <a class="nav-link" href="{% url 'common:logout' %}" style="color:grey">{{ user.username }} (로그아웃)</a>
+              {% else %}
+              <a class="nav-link" href="{% url 'common:login' %}" style="color:grey">로그인</a>
+              {% endif %}
+          </li>
+          <li>
+              {% if not user.is_authenticated %}
+              <a class="nav-link" href="{% url 'common:signup' %}" style="color:grey">회원가입</a>
+              {% endif %}
+          </li>
+          <li style="color:grey">문의사항</li>
+
+    </ul>
+  </nav>
+</header>
+<!-- 네비게이션바 -->
+
 <!-- 기본 템플릿 안에 삽입될 내용 Start -->
 {% block content %}
 {% endblock %}
 <!-- 기본 템플릿 안에 삽입될 내용 End -->
+
 <!-- Bootstrap JS -->
 <script src="{% static 'bootstrap.min.js' %}"></script>
 </body>

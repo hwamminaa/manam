@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block title %} 검색 결과 {% endblock title %}
+{% block content %}
+<div class="container my-3">
+    <div class="row">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="background-color: #691414">
+        <div class="sidebar-sticky pt-3">
+          <ul class="nav flex-column">
+            <table class = 'table' style="background-color: #000000; color: ##691414">
+              <br>
+              <thead>
+                  <h5 style="color:#ebc291">프로그램 찾기</h5>
+              </thead>
+              <br>
+              <tbody>
+                <form class="form-inline my-2 my-md-0" method="get" action="{% url 'program:search' %}">
+                  <input class="form-control" type="text" placeholder="프로그램 검색" aria-label="Search" name="b" value="{{b}}">
+                  <br>
+                  {% for g in category_list %}
+                  <div class="form-check form-check-inline">
+                      &nbsp;&nbsp;&nbsp;
+                      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="f", value={{g}}>
+                      <class class="form-check-label" for="inlineCheckbox5" style="color: #580818">{{g}}</class>
+                  </div>
+                  {% endfor %}
+
+                  <br>
+
+                  <div class="form-group">
+                    <a href = "#" onclick= "event.stopPropagation()"></a>
+                    <label for="customRange3" style="color: #CDCDCD">가격 범위</label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <select source="[name=price]">
+                      <option value="0">Any Price</option>
+                      <option value="1">20000원 이하</option>
+                      <option value="2">30000원 이하</option>
+                      <option value="3">40000원 이하</option>
+                      <option value="4">50000원 이하</option>
+                      <option value="5">50000원 이상</option>
+                    </select>
+
+                    <input type="range" class="custom-range" value = "0" min="0" max="5" step="1" id="customRange3" name="price", value={{price}}>
+               <!--프로그램가격필터 바의 위치에 따라 가격이 실시간으로 표시되게 하는 자바스크립트-->
+               <script>
+                        ;(function(){
+
+                      function emit(target, name) {
+                        var event
+                        if (document.createEvent) {
+                          event = document.createEvent("HTMLEvents");
+                          event.initEvent(name, true, true);
+                        } else {
+                          event = document.createEventObject();
+                          event.eventType = name;
+                        }
+
+                        event.eventName = name;
+
+                        if (document.createEvent) {
+                          target.dispatchEvent(event);
+                        } else {
+                          target.fireEvent("on" + event.eventType, event);
+                        }
+                      }
+
+                      var outputsSelector = "input[type=number][source],select[source]";
+
+                      function onChange(e) {
+                        var outputs = document.querySelectorAll(outputsSelector)
+                        for (var index = 0; index < outputs.length; index++) {
+                          var item = outputs[index]
+                          var source = document.querySelector(item.getAttribute('source'));
+                          if (source) {
+                            if (item === e.target) {
+                              source.value = item.value
+                              emit(source, 'input')
+                              emit(source, 'change')
+                            }
+
+                            if (source === e.target) {
+                              item.value = source.value
+                            }
+                          }
+                        }
+                      }
+
+                      document.addEventListener('change', onChange)
+                      document.addEventListener('input', onChange)
+                    }());
+                    </script>
+                  </div>
+                  <button type='submit' class='btn btn-warning' style="background-color:#ebc291">검색</button>  <!--위에것과 기능은 같음-->
+                  <!-- <button type='reset' class='btn btn-info'>RESET</button> -->
+                </form>
+              </tbody>
+            </table>
+
+            <br>
+            <br>
+          </ul>
+        </div>
+      </nav>
+      <role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        <table class="table">
+            <thead>
+            <tr class="table-dark">
+                <th>프로그램명</th>
+                <th>유형</th>
+                <th>카테고리</th>
+                <th>연령대</th>
+                <th>비용</th>
+                <th>기간시작</th>
+                <th>기간끝</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if program_list %}
+            {% for program in program_list %}
+            <tr class="text-center">
+                <td class="text-start">
+                    <a href="{% url 'program:detail' program.id %}">{{ program.name }}</a>
+                </td>
+                <td>{{ program.type }}</td>
+                <td>{{ program.category }}</td>
+                <td>{{ program.age }}</td>
+                <td>{{ program.price }}</td>
+                <td>{{ program.start_date }}</td>
+                <td>{{ program.end_date }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="4">프로그램이 없습니다.</td>
+            </tr>
+        {% endif %}
+        </tbody>
+        </table>
+        </role>
+    </div>
+</div>
+{% endblock %}

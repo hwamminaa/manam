@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Map</title>
+    <meta charset="utf-8">
+    <title>닫기가 가능한 커스텀 오버레이</title>
+    <style>
+    .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+    .wrap * {padding: 0;margin: 0;}
+    .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+    .info .close:hover {cursor: pointer;}
+    .info .body {position: relative;overflow: hidden;}
+    .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+    .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+    .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+    .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+    .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+    .info .link {color: #5085BB;}
+</style>
+</head>
+<body>
+    <h2>나의 위치는 어디인가요?</h2>
+    <div id="map" style="width:800px;height:600px;"></div>
+
+    <div id="lat" style="display: none">
+        {% for fa in facilities %}
+            {{fa.lat}},
+        {% endfor %}
+    </div>
+    <div id="lng" style="display: none">
+        {%for fa in facilities%}
+            {{fa.lng}},
+        {% endfor %}
+    </div>
+    <div id="name" style="display: none">
+        {%for fa in facilities%}
+            {{fa.name}},
+        {% endfor %}
+    </div>
+     <div id="cate" style="display: none">
+        {%for fa in facilities%}
+            {{fa.cate_1}},
+        {% endfor %}
+    </div>
+     <div id="url" style="display: none">
+        {%for fa in facilities%}
+            {{fa.url}},
+        {% endfor %}
+    </div>
+
+<!-- 조회폼 -->
+<form action="https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=rlatmdtn81&logNo=10136058053" method="post">
+    <label for="위치조회">위치조회 </label>
+    <input type="text" name="location_input" value="{{ location_input }}">
+    <input type="submit" value="해당주소로 지도 이동">
+</form>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3464eb8d032a6121616cba7859e41673&libraries=service,clusterer,drawing"></script>
+    <script>
+        var container = document.getElementById('map');
+        var options = {
+            center: new kakao.maps.LatLng(37.58641690228, 127.02918113964),
+            level: 3
+        };
+
+        var map = new kakao.maps.Map(container,options);
+
+        var list_lat = document.getElementById("lat").innerText.split(',');
+        var list_lng = document.getElementById("lng").innerText.split(',');
+        var list_name = document.getElementById("name").innerText.split(',');
+        var list_cate = document.getElementById("cate").innerText.split(',');
+        var list_url = document.getElementById("url").innerText.split(',');
+
+        var facilityCoordinates = [];
+
+        for(var idx=0; idx<list_lat.length;idx++){
+            var content = {
+                latlng : new kakao.maps.LatLng(list_lat[idx],list_lng[idx]),
+                name : list_name[idx],
+                cate : list_cate[idx],
+                url : list_url[idx]
+            }
+            facilityCoordinates.push(content);
+            };
+            console.log(facilityCoordinates);
+
+
+        for(var idx=0; idx<facilityCoordinates.length;idx++){
+            var marker = new kakao.maps.Marker({
+            map: map,
+            position: facilityCoordinates[idx].latlng,
+            title: facilityCoordinates[idx].name
+            });
+            (function(marker, place) {
+                kakao.maps.event.addListener(marker, 'mouseover', function() {
+                    var overlay = new kakao.maps.CustomOverlay({
+                        content: '<div class="wrap">' +
+                                '    <div class="info">' +
+                                '        <div class="title">' +
+                                            place.name +
+                                '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
+                                '        </div>' +
+                                '        <div class="body">' +
+                                '            <div class="desc">' +
+                                '                <div class="cate">' + place.cate + '</div>' +
+                                '		         <div><a href= place.url target="_blank" class="link">홈페이지</a></div>' +
+                                '            </div>' +
+                                '        </div>' +
+                                '    </div>' +
+                                '</div>',
+                        map: map,
+                        position: marker.getPosition()
+                        });
+                        // 아무데나 클릭하게되면 overlay를 끄기
+                    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+                        overlay.setMap(null)
+                    })
+
+                    console.log(overlay);
+                    overlay.setMap(map);
+                    })
+                })(marker, facilityCoordinates[idx]);
+            }
+
+
+        function getLocation() {
+            if (navigator.geolocation) { // GPS를 지원하면
+                navigator.geolocation.getCurrentPosition(function(position) {
+                     alert(position.coords.latitude + ',' + position.coords.longitude)
+                     map.setCenter(new kakao.maps.LatLng(position.coords.latitude, position.coords.longitude));
+                }, function(error) {
+                    console.error(error);
+                }, {
+                    enableHighAccuracy: false,
+                    maximumAge: 0,
+                    timeout: Infinity
+                });
+            } else {
+                alert('GPS를 지원하지 않습니다');
+            }
+        }
+        getLocation();
+
+    </script>
+
+</body>
+</html>
