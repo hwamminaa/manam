@@ -4,7 +4,7 @@
 {% block content %}
 <div class="container my-3">
     <div class="row">
-      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="background-color: #691414">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="background-color: #982323">
         <div class="sidebar-sticky pt-3">
           <ul class="nav flex-column">
             <table class = 'table' style="background-color: #000000; color: ##691414">
@@ -16,11 +16,9 @@
               <tbody>
                 <!--필터 바-->
                 <form class="form-inline my-2 my-md-0" method="get" action="{% url 'program:search' %}">
-
                   <!--검색기능-->
                   <input class="form-control" type="text" placeholder="프로그램 검색" aria-label="Search" name="b" value="{{b}}">
                   <br>
-
                   <!--카테고리필터-->
                   {% for g in category_list %}
                   <div class="form-check form-check-inline">
@@ -29,22 +27,22 @@
                   </div>
                   {% endfor %}
                   <br>
-
                   <!--가격필터-->
                   <div class="form-group">
                     <a href = "#" onclick= "event.stopPropagation()"></a>
                     <label for="customRange3" style="color: #CDCDCD">가격 범위</label>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <select source="[name=price]">
-                      <option value="0">Any Price</option>
-                      <option value="1">20000원 이하</option>
-                      <option value="2">30000원 이하</option>
-                      <option value="3">40000원 이하</option>
-                      <option value="4">50000원 이하</option>
-                      <option value="5">50000원 이상</option>
+                      <option value="0">전체</option>
+                      <option value="1">무료</option>
+                      <option value="2">20000원 이하</option>
+                      <option value="3">30000원 이하</option>
+                      <option value="4">40000원 이하</option>
+                      <option value="5">50000원 이하</option>
+                      <option value="6">50000원 이상</option>
                     </select>
 
-                    <input type="range" class="custom-range" value = "0" min="0" max="5" step="1" id="customRange3" name="price", value={{price}}>
+                    <input type="range" class="custom-range" value = "0" min="0" max="6" step="1" id="customRange3" name="price", value={{price}}>
 
                   </div>
                   <button type='submit' class='btn btn-warning' style="background-color:#ebc291">검색</button>  <!--위에것과 기능은 같음-->
@@ -94,7 +92,49 @@
         </tbody>
         </table>
         </role>
+
+        <!-- 페이징처리 시작 -->
+        <ul class="pagination justify-content-center">
+            <!-- 이전페이지 -->
+            {% if program_list.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ program_list.previous_page_number }}">이전</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+            </li>
+            {% endif %}
+            <!-- 페이지리스트 -->
+            {% for page_number in program_list.paginator.page_range %}
+            {% if page_number >= program_list.number|add:-5 and page_number <= program_list.number|add:5 %}
+            {% if page_number == program_list.number %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            <!-- 다음페이지 -->
+            {% if program_list.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ program_list.next_page_number }}">다음</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+            </li>
+            {% endif %}
+        </ul>
+        <!-- 페이징처리 끝 -->
     </div>
+
+
+
 </div>
 
 <!--프로그램가격필터 바의 위치에 따라 가격이 실시간으로 표시되게 하는 자바스크립트-->
