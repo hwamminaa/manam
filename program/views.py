@@ -63,59 +63,53 @@ def answer_create(request, program_id):
     return render(request, 'program/program_result.html', context)
 
 
-def index2(request):
-    page = request.GET.get('page', '1')  # 페이지
-    program_list = Program.objects.order_by('start_date')
-    paginator = Paginator(program_list, 10)  # 페이지당 10개씩 보여주기
-    page_obj = paginator.get_page(page)
-    context = {'program_list': page_obj}
-    return render(request, 'program/program_search.html', context) # 객체 있으면 세번째 parameter: context
-
-
 def program_search(request):
 
     context = {}
 
+    #사이트에서 필터 선택 여부 받아오기
     b = request.GET.get('b', '')
     f = request.GET.getlist('f')
     price = request.GET.get('price', '')
     program_list = Program.objects.order_by('-start_date')
-    print(price)
 
-    ########## 장르 리스트 ###############
+    ########## 카테고리 리스트 ###############
     category_list = Category.objects.all()
     context['category_list'] = category_list
 
-    if b or f or price:
-        if b:
-            program_list = program_list.filter(
-                Q(name__icontains=b) |
-                Q(category__icontains=b)
-            ).distinct()
+    if b:
+        program_list = program_list.filter(
+            Q(name__icontains=b) |
+            Q(category__icontains=b)
+        ).distinct()
 
-        if f:
-            print(f)
-            query = Q()
-            for i in f:
-                query = query | Q(category__icontains=i)
-                program_list = program_list.filter(query)
+    if f:
+        print(f)
+        query = Q()
+        for i in f:
+            query = query | Q(category__icontains=i)
+        program_list = program_list.filter(query)
 
-        if price == '0':
-            program_list = program_list
-        elif price == '1':
-            program_list = program_list.filter(price=0)
-        elif price == '2':
-            program_list = program_list.filter(price=20000)
-        elif price == '3':
-            program_list = program_list.filter(price=30000)
-        elif price == '4':
-            program_list = program_list.filter(price=40000)
-        elif price == '5':
-            program_list = program_list.filter(price=50000)
-        else:
-            program_list = program_list.filter(price=50000)
+    if price == '0':
+        program_list = program_list
+    elif price == '1':
+        program_list = program_list.filter(price=0)
+    elif price == '2':
+        program_list = program_list.filter(price=20000)
+    elif price == '3':
+        program_list = program_list.filter(price=30000)
+    elif price == '4':
+        program_list = program_list.filter(price=40000)
+    elif price == '5':
+        program_list = program_list.filter(price=50000)
+    elif price == '6':
+        program_list = program_list.filter(price=60000)
+    else:
+        program_list = program_list
 
 
+    # 필터링 된 결과 개수
+    context['program_number'] = program_list.count()
 
     # 페이징 처리 시작
     page = request.GET.get('page', '1')  # 페이지
