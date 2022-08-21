@@ -5,7 +5,89 @@
     <title>Map</title>
     <meta charset="utf-8">
     <title>닫기가 가능한 커스텀 오버레이</title>
+    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
+
     <style>
+     @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+    html {
+      scroll-behavior: smooth;
+    }
+    * {
+      font-family: 'Spoqa Han Sans Neo', sans-serif;
+      }
+    header {
+      position: sticky;
+      padding-top: 30px;
+      top: -32px;
+      background: white;
+      color: black;
+      padding-left: 32px;
+      padding-right: 32px;
+      padding-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      display: inline-block;
+      margin-left: 16px;
+      font-size: 18px;
+      color: black;
+    }
+    .navbar-brand {
+      font-size: 40px;
+    }
+    {% block style %}
+    {% endblock %}}
+
+    .v2_35 {
+    width: 969px;
+    height: 59px;
+    background: rgba(245,245,245,1);
+    opacity: 1;
+    position: relative;
+    top: 228px;
+    left: 800px;
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+    border-bottom-left-radius: 13px;
+    border-bottom-right-radius: 13px;
+    overflow: hidden;
+    }
+    .v30_9 {
+    width: 500px;
+    color: rgba(0,0,0,1);
+    position: absolute;
+    top: 150px;
+    left: 400px;
+    font-family: Inter;
+    font-weight: Bold;
+    font-size: 40px;
+    opacity: 1;
+    text-align: left;
+    }
+    div > form{
+    width:500px;
+    height:50px;
+    left: 680px;
+    position:relative;
+    top : -280px;
+    }
+    #map {
+    width:800px;
+    height:400px;
+    position:relative;
+    top : 150px;
+    left: 225px;
+    }
+
+
+
     .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
     .wrap * {padding: 0;margin: 0;}
     .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
@@ -20,11 +102,47 @@
     .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
     .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
     .info .link {color: #5085BB;}
+
+
+
 </style>
 </head>
 <body>
-    <h2>나의 위치는 어디인가요?</h2>
-    <div id="map" style="width:800px;height:600px;"></div>
+<!-- 네비게이션바 -->
+<header>
+  <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:black">M:ANAM</a>
+  <nav>
+      <ul>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">시설</a>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">프로그램</a>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:#982323">KU프로그램</a>
+          </li>
+          <li class="nav-item">
+              {% if user.is_authenticated %}
+              <a class="nav-link" href="{% url 'common:logout' %}" style="color:grey">{{ user.username }} (로그아웃)</a>
+              {% else %}
+              <a class="nav-link" href="{% url 'common:login' %}" style="color:grey">로그인</a>
+              {% endif %}
+          </li>
+          <li>
+              {% if not user.is_authenticated %}
+              <a class="nav-link" href="{% url 'common:signup' %}" style="color:grey">회원가입</a>
+              {% endif %}
+          </li>
+          <li style="color:grey">문의사항</li>
+
+    </ul>
+  </nav>
+</header>
+
+    <div class="v2_35"></div>
+    <div class="v30_9">나의 위치는 어디인가요?</div>
+    <div id="map" ></div>
 
     <div id="lat" style="display: none">
         {% for fa in facilities %}
@@ -51,13 +169,15 @@
             {{fa.url}},
         {% endfor %}
     </div>
-
+<div>
 <!-- 조회폼 -->
-<form action="https://m.blog.naver.com/PostView.naver?isHttpsRedirect=true&blogId=rlatmdtn81&logNo=10136058053" method="post">
+    <form action={% url 'facility:location_input' %} method="get">
+    {% csrf_token %}
     <label for="위치조회">위치조회 </label>
-    <input type="text" name="location_input" value="{{ location_input }}">
+    <input type="text" name="location_input" value="{{ location_input }}" id="location_input">
     <input type="submit" value="해당주소로 지도 이동">
-</form>
+    </form>
+</div>
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3464eb8d032a6121616cba7859e41673&libraries=service,clusterer,drawing"></script>
     <script>
@@ -107,7 +227,7 @@
                                 '        <div class="body">' +
                                 '            <div class="desc">' +
                                 '                <div class="cate">' + place.cate + '</div>' +
-                                '		         <div><a href= place.url target="_blank" class="link">홈페이지</a></div>' +
+                                '               <div><a href= place.url target="_blank" class="link">홈페이지</a></div>' +
                                 '            </div>' +
                                 '        </div>' +
                                 '    </div>' +
@@ -115,6 +235,7 @@
                         map: map,
                         position: marker.getPosition()
                         });
+
                         // 아무데나 클릭하게되면 overlay를 끄기
                     kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
                         overlay.setMap(null)
@@ -127,23 +248,64 @@
             }
 
 
-        function getLocation() {
-            if (navigator.geolocation) { // GPS를 지원하면
-                navigator.geolocation.getCurrentPosition(function(position) {
-                     alert(position.coords.latitude + ',' + position.coords.longitude)
-                     map.setCenter(new kakao.maps.LatLng(position.coords.latitude, position.coords.longitude));
-                }, function(error) {
-                    console.error(error);
-                }, {
-                    enableHighAccuracy: false,
-                    maximumAge: 0,
-                    timeout: Infinity
-                });
-            } else {
-                alert('GPS를 지원하지 않습니다');
-            }
+        // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
+        if (navigator.geolocation) {
+
+            // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+            navigator.geolocation.getCurrentPosition(function(position) {
+
+                var lat = position.coords.latitude, // 위도
+                    lon = position.coords.longitude; // 경도
+
+                var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+                    message = '<div style="padding:5px;">현재 내 위치</div>'; // 인포윈도우에 표시될 내용입니다
+
+                // 마커와 인포윈도우를 표시합니다
+                displayMarker(locPosition, message);
+
+            });
+
+        } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+
+            var locPosition = new kakao.maps.LatLng(37.58641690228, 127.02918113964),
+                message = 'geolocation을 사용할수 없어요..'
+
+            displayMarker(locPosition, message);
         }
-        getLocation();
+
+        // 지도에 마커와 인포윈도우를 표시하는 함수입니다
+        function displayMarker(locPosition, message) {
+            var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+            // 마커 이미지의 이미지 크기 입니다
+            var imageSize = new kakao.maps.Size(24, 35);
+
+            // 마커 이미지를 생성합니다
+            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+
+            // 마커를 생성합니다
+            var marker = new kakao.maps.Marker({
+                map: map, // 마커를 표시할 지도
+                position: locPosition, // 마커를 표시할 위치
+                image : markerImage, // 마커 이미지
+                text: message
+            });
+
+            var iwContent = message, // 인포윈도우에 표시할 내용
+                iwRemoveable = true;
+
+            // 인포윈도우를 생성합니다
+            var infowindow = new kakao.maps.InfoWindow({
+                content : iwContent,
+                removable : iwRemoveable
+            });
+
+            // 인포윈도우를 마커위에 표시합니다
+            infowindow.open(map, marker);
+
+            // 지도 중심좌표를 접속위치로 변경합니다
+            map.setCenter(locPosition);
+        }
 
     </script>
 

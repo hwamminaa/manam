@@ -13,6 +13,7 @@ def downloadProgram(request):
     filename = 'C:/dataton2022/8월전체프로그램.csv'
     df = pd.read_csv(filename, encoding="UTF-8", na_values='nan')
     category_list = []
+    count = 0
     for i in range(len(df)):
         # 기간 format 변경 (str > date)
         start_date_string = df["행사기간시작일"][i]
@@ -25,7 +26,8 @@ def downloadProgram(request):
         Program.objects.create(name=df["프로그램명"][i], type=df["유형"][i],
                                category=df["카테고리"][i], host=df["행사시설명"][i], age=df["대상"][i],
                                price=df["수강료"][i], start_date=start_date_result, end_date=end_date_result,
-                               link=df["안내URL"], coorx=df["X좌표값"], coory=df["Y좌표값"])
+                               link=df["안내URL"][i], coorx=df["X좌표값"][i], coory=df["Y좌표값"][i])
+        count = count+1
         if df["카테고리"][i] not in category_list:
             Category.objects.create(name=df["카테고리"][i])
             category_list.append(df["카테고리"][i])
@@ -34,7 +36,8 @@ def downloadProgram(request):
     <body>
         <h1>카테고리 이름</h1>
         <h1>Download Complete</h1>
-        {df}
+        {len(df)}
+        {count}
         <h2>Data Types</h2>
         {df.dtypes}
     </body>
@@ -69,7 +72,7 @@ def program_search(request):
 
     #사이트에서 필터 선택 여부 받아오기
     b = request.GET.get('b', '')
-    f = request.GET.getlist('f')
+    f = request.GET.get('f', '')
     price = request.GET.get('price', '')
     program_list = Program.objects.order_by('-start_date')
 
@@ -95,18 +98,22 @@ def program_search(request):
     elif price == '1':
         program_list = program_list.filter(price=0)
     elif price == '2':
-        program_list = program_list.filter(price=20000)
+        program_list = program_list.filter(price__lte=20000)
     elif price == '3':
-        program_list = program_list.filter(price=30000)
+        program_list = program_list.filter(Q(price__gt=20000)&Q(price__lte=30000))
     elif price == '4':
-        program_list = program_list.filter(price=40000)
+        program_list = program_list.filter(Q(price__gt=30000)&Q(price__lte=40000))
     elif price == '5':
-        program_list = program_list.filter(price=50000)
+        program_list = program_list.filter(Q(price__gt=40000)&Q(price__lte=50000))
     elif price == '6':
-        program_list = program_list.filter(price=60000)
+        program_list = program_list.filter(price__gt=50000)
     else:
         program_list = program_list
 
+    # 필터 옵션
+    context['b'] = b
+    context['f'] = f
+    context['price'] = price
 
     # 필터링 된 결과 개수
     context['program_number'] = program_list.count()

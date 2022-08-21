@@ -21,10 +21,9 @@
                   <br>
                   <!--카테고리필터-->
                   {% for g in category_list %}
-                  <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="f", value={{g}}>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="checkbox" name="f", value={{g}}>
                       <class class="form-check-label" for="inlineCheckbox5" style="color: white">{{g}}</class>
-
                   </div>
                   {% endfor %}
                   <br>
@@ -44,6 +43,54 @@
                     </select>
 
                     <input type="range" class="custom-range" value = "0" min="0" max="6" step="1" id="customRange3" name="price", value={{price}}>
+					<!--게임가격필터 바의 위치에 따라 가격이 실시간으로 표시되게 하는 자바스크립트-->
+					<script>
+                        ;(function(){
+
+                      function emit(target, name) {
+                        var event
+                        if (document.createEvent) {
+                          event = document.createEvent("HTMLEvents");
+                          event.initEvent(name, true, true);
+                        } else {
+                          event = document.createEventObject();
+                          event.eventType = name;
+                        }
+
+                        event.eventName = name;
+
+                        if (document.createEvent) {
+                          target.dispatchEvent(event);
+                        } else {
+                          target.fireEvent("on" + event.eventType, event);
+                        }
+                      }
+
+                      var outputsSelector = "input[type=number][source],select[source]";
+
+                      function onChange(e) {
+                        var outputs = document.querySelectorAll(outputsSelector)
+                        for (var index = 0; index < outputs.length; index++) {
+                          var item = outputs[index]
+                          var source = document.querySelector(item.getAttribute('source'));
+                          if (source) {
+                            if (item === e.target) {
+                              source.value = item.value
+                              emit(source, 'input')
+                              emit(source, 'change')
+                            }
+
+                            if (source === e.target) {
+                              item.value = source.value
+                            }
+                          }
+                        }
+                      }
+
+                      document.addEventListener('change', onChange)
+                      document.addEventListener('input', onChange)
+                    }());
+                    </script>
 
                   </div>
                   <button type='submit' class='btn btn-warning' style="background-color:#ebc291">검색</button>  <!--위에것과 기능은 같음-->
@@ -75,7 +122,7 @@
             {% for program in program_list %}
             <tr class="text-center">
                 <td class="text-start">
-                    <a href="{% url 'program:detail' program.id %}" style="text-decoration:none; color:black;">{{ program.name }}</a>
+                    <a href="{% url 'program:detail' program.id %}">{{ program.name }}</a>
                 </td>
                 <td>{{ program.type }}</td>
                 <td>{{ program.category }}</td>

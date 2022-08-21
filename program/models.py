@@ -10,7 +10,7 @@ class Program(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     host = models.CharField(max_length=20, null=True)
-    link = models.URLField(null=True)
+    link = models.CharField(max_length=400, null=True)
     coorx = models.CharField(max_length=30, null=True)
     coory = models.CharField(max_length=30, null=True)
 
