@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="facilitylist"><a href="{% url 'facility:showFacilitylist' %}" style="position:relative;top:65px;left:1100px;"> 전체시설목록 </a></div>
+<div class="container my-3">
+    <!-- 시설 세부정보 -->
+    <h2 class="border-bottom py-2">{{ facility.name }}</h2>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">
+                <구분>
+                {{ facility.cate_1 }}
+
+                <행정동>
+                {{ facility.dong }}
+
+                <분류체계>
+                {{ facility.cate_2 }}
+
+                <시설정보>
+                {{ facility.content }}
+
+                <홈페이지>
+                <a href= "{{ facility.url }}" > {{ facility.url }}</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

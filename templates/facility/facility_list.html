@@ -1,0 +1,86 @@
+    <style>
+    .table-title{
+    position:relative;
+    left: 80px;
+    top: 10px;
+    }
+</style>
+
+{% extends 'base.html' %}
+{% block style %}
+    .h3 {
+      text-align:center
+    }
+{% endblock %}
+{% block content %}
+    <div class="table-title">
+        <h3>전체 시설 목록</h3>
+    </div>
+    <div class="container my-3">
+        <table class="table">
+            <thead>
+            <tr class="table-dark">
+                <th>시설명</th>
+                <th>구분</th>
+                <th>행정동</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if facility_list %}
+            {% for facility in facility_list %}
+            <tr class="text-center">
+                <td class="text-start">
+                    <a href="{% url 'facility:detail' facility.id %}">{{ facility.name }}</a>
+                </td>
+                <td>{{ facility.cate_1 }}</td>
+                <td>{{ facility.dong }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="4">시설이 없습니다.</td>
+            </tr>
+            {% endif %}
+            </tbody>
+        </table>
+        <!-- 페이징처리 시작 -->
+        <ul class="pagination justify-content-center">
+            <!-- 이전페이지 -->
+            {% if facility_list.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ facility_list.previous_page_number }}">이전</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+            </li>
+            {% endif %}
+            <!-- 페이지리스트 -->
+            {% for page_number in facility_list.paginator.page_range %}
+            {% if page_number >= facility_list.number|add:-5 and page_number <= facility_list.number|add:5 %}
+            {% if page_number == facility_list.number %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            <!-- 다음페이지 -->
+            {% if facility_list.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ facility_list.next_page_number }}">다음</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+            </li>
+            {% endif %}
+        </ul>
+        <!-- 페이징처리 끝 -->
+    </div>
+<div class="facilitylist"><a href="{% url 'facility:facilitylist' %}" style="position:relative;top:-540px;left:1020px;"> 내 위치 주변 시설 보러가기 </a></div>
+{% endblock %}

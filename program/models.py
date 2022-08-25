@@ -23,3 +23,14 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Recommendation(models.Model):
+    name = models.CharField(max_length=200)
+    recommendation1 = models.CharField(max_length=200)
+    recommendation2 = models.CharField(max_length=200)
+    recommendation3 = models.CharField(max_length=200)
+    recommendation4 = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name

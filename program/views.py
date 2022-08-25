@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
-from .models import Program, Category
+from .models import Program, Category, Recommendation
 import pandas as pd
 from datetime import datetime
 from django.core.paginator import Paginator
@@ -87,11 +87,7 @@ def program_search(request):
         ).distinct()
 
     if f:
-        print(f)
-        query = Q()
-        for i in f:
-            query = query | Q(category__icontains=i)
-        program_list = program_list.filter(query)
+        program_list = program_list.filter(Q(category__icontains=f))
 
     if price == '0':
         program_list = program_list
@@ -126,4 +122,22 @@ def program_search(request):
 
     return render(request, 'program/program_search.html', context)
 
+
+
+def downloadRecommendation(request):
+    filename = 'C:/dataton2022/8월추천프로그램.csv'
+    df = pd.read_csv(filename, encoding="UTF-8", na_values='nan')
+    for i in range(len(df)):
+        recommendlist = df["추천 프로그램"][i].split(', ')
+        # 추천 데이터 db에 저장
+        Recommendation.objects.create(name=df["프로그램명"][i],
+                                      recommendation1=recommendlist[0], recommendation2=recommendlist[1][1:-1],
+                                      recommendation3=recommendlist[2][1:-1], recommendation4=recommendlist[3][1:-1])
+    return HttpResponse(f'''
+    <html>
+    <body>
+    {df}
+    </body>
+    </html>
+    ''')
 
