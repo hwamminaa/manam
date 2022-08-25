@@ -20,19 +20,56 @@
                   <input class="form-control" type="text" placeholder="프로그램 검색" aria-label="Search" name="b" value="{{b}}">
                   <br>
                   <!--카테고리필터-->
-                  {% for g in category_list %}
+                  <label for="customRange3" style="color: #CDCDCD">카테고리</label>
                   <div class="form-check form-check-inline">
-                      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" name="f", value={{g}}>
-                      <class class="form-check-label" for="inlineCheckbox5" style="color: white">{{g}}</class>
-
+                      <input class="form-radio-input" type="radio" id="customRadio1" name="f", value="생활교양">
+                      <label class="form-radio-label" for="customRadio1" style="color: white">생활교양</label>
                   </div>
-                  {% endfor %}
-                  <br>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio2" name="f", value="행사">
+                      <label class="form-radio-label" for="customRadio2" style="color: white">행사</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio3" name="f", value="미술">
+                      <label class="form-radio-label" for="customRadio3" style="color: white">미술</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio4" name="f", value="미디어">
+                      <label class="form-radio-label" for="customRadio4" style="color: white">미디어</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio5" name="f", value="음악">
+                      <label class="form-radio-label" for="customRadio5" style="color: white">음악</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio6" name="f", value="공예">
+                      <label class="form-radio-label" for="customRadio6" style="color: white">공예</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio7" name="f", value="운동">
+                      <label class="form-radio-label" for="customRadio7" style="color: white">운동</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio8" name="f", value="공연">
+                      <label class="form-radio-label" for="customRadio8" style="color: white">공연</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio9" name="f", value="무용">
+                      <label class="form-radio-label" for="customRadio9" style="color: white">무용</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio10" name="f", value="사회활동">
+                      <label class="form-radio-label" for="customRadio10" style="color: white">사회활동</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio11" name="f", value="문학">
+                      <label class="form-radio-label" for="customRadio11" style="color: white">문학</label>
+                  </div>
+
                   <!--가격필터-->
                   <div class="form-group">
                     <a href = "#" onclick= "event.stopPropagation()"></a>
                     <label for="customRange3" style="color: #CDCDCD">가격 범위</label>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <select source="[name=price]">
                       <option value="0">전체</option>
                       <option value="1">무료</option>
@@ -62,12 +99,11 @@
             <thead>
             <tr class="table-dark">
                 <th>프로그램명</th>
-                <th>유형</th>
                 <th>카테고리</th>
                 <th>연령대</th>
                 <th>비용</th>
-                <th>기간시작</th>
-                <th>기간끝</th>
+                <th>시작일</th>
+                <th>종료일</th>
             </tr>
             </thead>
             <tbody>
@@ -77,7 +113,6 @@
                 <td class="text-start">
                     <a href="{% url 'program:detail' program.id %}" style="text-decoration:none; color:black;">{{ program.name }}</a>
                 </td>
-                <td>{{ program.type }}</td>
                 <td>{{ program.category }}</td>
                 <td>{{ program.age }}</td>
                 <td>{{ program.price }}</td>
