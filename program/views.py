@@ -12,7 +12,6 @@ import time
 def downloadProgram(request):
     filename = 'C:/dataton2022/8월전체프로그램.csv'
     df = pd.read_csv(filename, encoding="UTF-8", na_values='nan')
-    category_list = []
     count = 0
     for i in range(len(df)):
         # 기간 format 변경 (str > date)
@@ -27,10 +26,6 @@ def downloadProgram(request):
                                category=df["카테고리"][i], host=df["행사시설명"][i], age=df["대상"][i],
                                price=df["수강료"][i], start_date=start_date_result, end_date=end_date_result,
                                link=df["안내URL"][i], coorx=df["X좌표값"][i], coory=df["Y좌표값"][i])
-        count = count+1
-        if df["카테고리"][i] not in category_list:
-            Category.objects.create(name=df["카테고리"][i])
-            category_list.append(df["카테고리"][i])
     return HttpResponse(f'''
     <html>
     <body>
