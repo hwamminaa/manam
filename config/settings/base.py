@@ -32,10 +32,12 @@ ALLOWED_HOSTS = ['43.200.226.59']
 
 INSTALLED_APPS = [
     'common.apps.CommonConfig',
-    'pybo.apps.PyboConfig',
     'manam.apps.ManamConfig',
-    'program.apps.ProgramConfig',
     'facility.apps.FacilityConfig',
+    'program.apps.ProgramConfig',
+    'circle.apps.CircleConfig',
+    'kuprogram.apps.KuprogramConfig',
+    'circlelist.apps.CirclelistConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

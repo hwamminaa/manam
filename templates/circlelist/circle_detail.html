@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <!-- 동아리 세부정보 -->
+    <h2 class="border-bottom py-2">{{ circle.name }}</h2>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">
+                <분과>
+                {{ circle.category }}
+
+                <해시태그>
+                {{ circle.tag }}
+
+                <동아리 소개>
+                {{ circle.content }}
+
+                <소속>
+                {{ circle.type }}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

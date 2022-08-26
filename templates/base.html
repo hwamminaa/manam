@@ -55,13 +55,13 @@
   <nav>
       <ul>
           <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">시설</a>
+              <a class="nav-link" href="{% url 'facility:facilitylist' %}" style="color:black">시설</a>
           </li>
           <li class="nav-item active">
               <a class="nav-link" href="{% url 'program:index' %}" style="color:black">프로그램</a>
           </li>
           <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:index' %}" style="color:#982323">KU프로그램</a>
+              <a class="nav-link" href="{% url 'circle:index' %}" style="color:#982323">KU프로그램</a>
           </li>
           <li class="nav-item">
               {% if user.is_authenticated %}

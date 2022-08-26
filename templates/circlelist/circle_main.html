@@ -10,7 +10,7 @@
     <!-- pybo CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <!-- 폰트 불러오기 -->
-    <title>M:ANAM 만남</title>
+    <title>성북구X고려대 M:ANAM</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
     <style>
     @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
@@ -97,7 +97,7 @@
 </head>
 <body>
 <header>
-  <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:white">M:ANAM</a>
+  <a class="navbar-brand" href="{% url 'circle:index' %}" style="color:white">성북구X고려대 M:ANAM</a>
   <nav>
       <ul>
           <li class="nav-item">
@@ -111,33 +111,18 @@
               {% if not user.is_authenticated %}
               <a class="nav-link" href="{% url 'common:signup' %}" style="color:white">회원가입</a>
               {% endif %}
-          </li>
-          <li style="color:white">문의사항</li>
 
     </ul>
   </nav>
 </header>
-<div class="intro">
-    <h1>만남이란?</h1>
-    <h3>만남M:ANAM은 고려대학교 학생들의 재능 기부와 성북구 주민들의 참여를 통해<br>
-        안암 문화 공동체 형성에 기여하는 플랫폼입니다.<br><br>
-        설명추가
-    </h3>
-    <div class="shortcut" OnClick="location.href = '#menu'" style="cursor:pointer;">
-        만남 바로 시작하기
-        <i class="fa-solid fa-circle-arrow-right"></i>
-    </div>
-</div>
+
 <div class="container" id="menu">
-    <div class="item item1" OnClick="location.href ='{% url 'facility:facilitylist' %}'" style="cursor:pointer;">
-        <div class="select">내 주위 문화시설<br>찾아보기</div>
-        <div class="detail">위치기반</div>
+    <div class="item item1" OnClick="location.href ='{% url 'circle:gwangjang' %}'" style="cursor:pointer;">
+        <div class="select">만남의 광장(가칭)</div>
+        <div class="detail">동아리 프로그램 찾아보기</div>
     </div>
-    <div class="item item2" OnClick="location.href ='{% url 'program:search' %}'" style="cursor:pointer;">
-        <div class="select">맞춤 프로그램<br>찾아보기</div>
-    </div>
-    <div class="item item3" OnClick="location.href ='{% url 'circle:index' %}'" style="cursor:pointer;">
-        <div class="select">고려대 동아리<br>제공 프로그램</div>
+    <div class="item item2" OnClick="location.href ='{% url 'circle:circle_list' %}'" style="cursor:pointer;">
+        <div class="select">동아리 모아보기</div>
     </div>
 </div>
 

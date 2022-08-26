@@ -13,8 +13,55 @@
     * {
       font-family: 'Spoqa Han Sans Neo', sans-serif;
       }
+
+
+    .v2_35 {
+    width: 700px;
+    height: 65px;
+    background: rgba(245,245,245,1);
+    opacity: 1;
+    position: relative;
+    top: 5px;
+    left: 260px;
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+    border-bottom-left-radius: 13px;
+    border-bottom-right-radius: 13px;
+    overflow: hidden;
+    }
+    .v30_9 {
+    width: 500px;
+    color: rgba(0,0,0,1);
+    position: absolute;
+    top: 110px;
+    left: 400px;
+    font-family: Inter;
+    font-weight: Bold;
+    font-size: 40px;
+    opacity: 1;
+    text-align: left;
+    }
+    div > form{
+    width:500px;
+    height:50px;
+    left: 680px;
+    position:relative;
+    top : -350px;
+    }
+    #map {
+    width:800px;
+    height:400px;
+    position:relative;
+    top : 90px;
+    left: 225px;
+    }
+    p {
+    position:relative;
+    left: 460px;
+    top: 10px;
+    }
     header {
-      position: sticky;
+      position: relative;
       padding-top: 30px;
       top: -32px;
       background: white;
@@ -41,53 +88,6 @@
       font-size: 40px;
     }
 
-    .v2_35 {
-    width: 969px;
-    height: 59px;
-    background: rgba(245,245,245,1);
-    opacity: 1;
-    position: relative;
-    top: 228px;
-    left: 800px;
-    border-top-left-radius: 13px;
-    border-top-right-radius: 13px;
-    border-bottom-left-radius: 13px;
-    border-bottom-right-radius: 13px;
-    overflow: hidden;
-    }
-    .v30_9 {
-    width: 500px;
-    color: rgba(0,0,0,1);
-    position: absolute;
-    top: 150px;
-    left: 400px;
-    font-family: Inter;
-    font-weight: Bold;
-    font-size: 40px;
-    opacity: 1;
-    text-align: left;
-    }
-    div > form{
-    width:500px;
-    height:50px;
-    left: 680px;
-    position:relative;
-    top : -280px;
-    }
-    #map {
-    width:800px;
-    height:400px;
-    position:relative;
-    top : 150px;
-    left: 225px;
-    }
-    p {
-    position:relative;
-    left: 460px;
-    top: 70px;
-    }
-
-
     .wrap {position: absolute;left: 0;bottom: 40px;width: 270px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
     .wrap * {padding: 0;margin: 0;}
     .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
@@ -108,23 +108,23 @@
 <body>
 <!-- 네비게이션바 -->
 <header>
-  <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:black; text-decoration:none;">M:ANAM</a>
+  <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:black">M:ANAM</a>
   <nav>
       <ul>
           <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:index' %}" style="color:black; text-decoration:none;">시설</a>
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">시설</a>
           </li>
           <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:index' %}" style="color:black; text-decoration:none;">프로그램</a>
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">프로그램</a>
           </li>
           <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:index' %}" style="color:#982323; text-decoration:none;">KU프로그램</a>
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:#982323">KU프로그램</a>
           </li>
           <li class="nav-item">
               {% if user.is_authenticated %}
-              <a class="nav-link" href="{% url 'common:logout' %}" style="color:grey; text-decoration:none;">{{ user.username }} (로그아웃)</a>
+              <a class="nav-link" href="{% url 'common:logout' %}" style="color:grey">{{ user.username }} (로그아웃)</a>
               {% else %}
-              <a class="nav-link" href="{% url 'common:login' %}" style="color:grey; text-decoration:none;">로그인</a>
+              <a class="nav-link" href="{% url 'common:login' %}" style="color:grey">로그인</a>
               {% endif %}
           </li>
           <li>
@@ -167,24 +167,25 @@
             {{fa.url}},
         {% endfor %}
     </div>
+
 <div>
 <!-- 조회폼 -->
-    <form action={% url 'facility:location_input' %} method="get">
+    <form action="{% url 'facility:location_input' %}" method="get">
     {% csrf_token %}
-    <label for="위치조회">위치조회 </label>
+    <label for="location_input"> 위치조회 </label>
     <input type="text" name="location_input" value="{{ location_input }}" id="location_input">
     <input type="submit" value="해당주소로 지도 이동">
     </form>
 </div>
 
-<div class="facilitylist"><a href="{% url 'facility:showFacilitylist' %}" style="position:relative;top:-430px;left:1050px;"> 전체시설목록 보러가기 </a></div>
-    <p>
+<div class="facilitylist"><a href="{% url 'facility:showFacilitylist' %}" style="position:relative;top:-530px;left:1070px;"> 전체시설목록 보러가기 </a></div>
+
+<p>
     <input type="checkbox" id="chkTraffic" onclick="setOverlayMapTypeId()" /> 교통정보 보기
     <input type="checkbox" id="chkBicycle" onclick="setOverlayMapTypeId()" /> 자전거도로 정보 보기
     <input type="checkbox" id="chkUseDistrict" onclick="setOverlayMapTypeId()" /> 지적편집도 정보 보기
     <input type="checkbox" id="chkTerrain" onclick="setOverlayMapTypeId()" /> 지형정보 보기
     </p>
-
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3464eb8d032a6121616cba7859e41673&libraries=service,clusterer,drawing"></script>
     <script>
@@ -223,11 +224,8 @@
             position: facilityCoordinates[idx].latlng,
             title: facilityCoordinates[idx].name
             });
-            (function(marker, place) {
 
-                function closeOverlay() {
-                        overlay.setMap(null);
-                    }
+            (function(marker, place) {
 
                 kakao.maps.event.addListener(marker, 'click', function() {
                     var overlay = new kakao.maps.CustomOverlay({
@@ -235,13 +233,13 @@
                                 '    <div class="info">' +
                                 '        <div class="title">' +
                                             place.name +
-                                '            <div class="close" onclick= "closeOverlay()" title="닫기"></div>' +
+                                '            <div id="closed" class="close" title="닫기"></div>' +
                                 '        </div>' +
                                 '        <div class="body">' +
                                 '            <div class="desc">' +
-                                '                <div class="cate">' + place.cate + '</div>' +
-                                '                <div> 시설 홈페이지: </div>' +
-                                '		         <div><a href=' + place.url + '>' + place.url + '</a></div>' +
+                                '                <div class="cate">' +  place.cate  +'</div>' +
+                                '                  <div> 시설 홈페이지: </div>' +
+                                '               <div><a href= ' + place.url +  ' target="_blank">' + place.url + '</a></div>' +
                                 '            </div>' +
                                 '        </div>' +
                                 '    </div>' +
@@ -251,14 +249,14 @@
 
                         });
 
-                // 아무데나 클릭하게되면 overlay를 끄기
-                kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
-                    overlay.setMap(null)
-                })
+                    console.log(overlay);
+                    overlay.setMap(map);
 
-                console.log(overlay);
-                overlay.setMap(map);
-                })
+                    // 아무데나 클릭하게되면 overlay를 끄기
+                    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+                        overlay.setMap(null)
+                        })
+                    })
 
 
 
@@ -369,6 +367,7 @@ function setOverlayMapTypeId() {
 }
 
     </script>
+<div> {{ facilityCoordinates }} </div>
 
 </body>
 </html>

@@ -1,9 +1,4 @@
 
-from django.contrib import admin
-from django.urls import path
-from pybo import views
-from django.conf.urls import include
-from pybo import views
 from django.urls import path
 from facility import views
 

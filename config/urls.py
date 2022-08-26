@@ -20,9 +20,11 @@ from manam import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('manam/', include('manam.urls')),
-    path('pybo/', include('pybo.urls')),
     path('common/', include('common.urls')),
     path('', views.index, name='index'),  # '/' 에 해당되는 path
-    path('program/', include('program.urls')),
     path('facility/', include('facility.urls')),
+    path('program/', include('program.urls')),
+    path('circle/', include('circle.urls')),
+    path('circle/kuprogram/', include('kuprogram.urls')),
+    path('circle/circlelist', include('circlelist.urls')),
 ]

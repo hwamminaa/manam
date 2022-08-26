@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block title %} 검색 결과 {% endblock title %}
+{% block content %}
+<div class="container my-3">
+    <div class="row">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="background-color: #982323">
+        <div class="sidebar-sticky pt-3">
+          <ul class="nav flex-column">
+            <table class = 'table' style="background-color: #000000; color: ##691414">
+              <br>
+              <thead>
+                  <h5 style="color:#ebc291">동아리 찾기</h5>
+              </thead>
+              <br>
+              <tbody>
+                <!--필터 바-->
+                <form class="form-inline my-2 my-md-0" method="get" action="{% url 'circlelist:search' %}">
+                  <!--검색기능-->
+                  <input class="form-control" type="text" placeholder="동아리 검색" aria-label="Search" name="b" value="{{b}}">
+                  <br>
+                  <!--카테고리필터-->
+                  <label for="customRange3" style="color: #CDCDCD">분과</label>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio1" name="f", value="기악예술분과">
+                      <label class="form-radio-label" for="customRadio1" style="color: white">기악예술분과</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio2" name="f", value="문화체육분과">
+                      <label class="form-radio-label" for="customRadio2" style="color: white">문화체육분과</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio3" name="f", value="사회분과">
+                      <label class="form-radio-label" for="customRadio3" style="color: white">사회분과</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio4" name="f", value="사회종교분과">
+                      <label class="form-radio-label" for="customRadio4" style="color: white">사회종교분과</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio5" name="f", value="생활문화분과">
+                      <label class="form-radio-label" for="customRadio5" style="color: white">생활문화분과</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio6" name="f", value="언어분과">
+                      <label class="form-radio-label" for="customRadio6" style="color: white">언어분과</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio7" name="f", value="연행예술분과">
+                      <label class="form-radio-label" for="customRadio7" style="color: white">연행예술분과</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio8" name="f", value="인문과학분과">
+                      <label class="form-radio-label" for="customRadio8" style="color: white">인문과학분과</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio9" name="f", value="전시창작분과">
+                      <label class="form-radio-label" for="customRadio9" style="color: white">전시창작분과</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio10" name="f", value="종교분과">
+                      <label class="form-radio-label" for="customRadio10" style="color: white">종교분과</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio11" name="f", value="체육분과">
+                      <label class="form-radio-label" for="customRadio11" style="color: white">체육분과</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                      <input class="form-radio-input" type="radio" id="customRadio12" name="f", value="학술연구분과">
+                      <label class="form-radio-label" for="customRadio12" style="color: white">학술연구분과</label>
+                  </div>
+
+                  <button type='submit' class='btn btn-warning' style="background-color:#ebc291">검색</button>  <!--위에것과 기능은 같음-->
+                  <!-- <button type='reset' class='btn btn-info'>RESET</button> -->
+                </form>
+              </tbody>
+            </table>
+
+            <br>
+            <br>
+          </ul>
+        </div>
+      </nav>
+
+        <role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        <table class="table">
+            <thead>
+            <tr class="table-dark">
+                <th><center>동아리명</center></th>
+                <th> <center>해시태그</center></th>
+                <th><center>분과</center></th>
+                <th><center>소속</center></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if circle_list %}
+            {% for circle in circle_list %}
+            <tr class="text-center">
+                <td class="text-start">
+                    <a href="{% url 'circlelist:detail' circle.id %}"><center>{{ circle.name }}</center></a>
+                </td>
+                <td>{{ circle.tag }}</td>
+                <td>{{ circle.category }}</td>
+                <td>{{ circle.type }}</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="4">동아리가 없습니다.</td>
+            </tr>
+            {% endif %}
+            </tbody>
+        </table>
+        <!-- 페이징처리 시작 -->
+        <ul class="pagination justify-content-center">
+            <!-- 이전페이지 -->
+            {% if circle_list.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ circle_list.previous_page_number }}">이전</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+            </li>
+            {% endif %}
+            <!-- 페이지리스트 -->
+            {% for page_number in circle_list.paginator.page_range %}
+            {% if page_number >= circle_list.number|add:-5 and page_number <= circle_list.number|add:5 %}
+            {% if page_number == circle_list.number %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            <!-- 다음페이지 -->
+            {% if circle_list.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ circle_list.next_page_number }}">다음</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+            </li>
+            {% endif %}
+        </ul>
+        <!-- 페이징처리 끝 -->
+    </div>
+</div>
+
+
+{% endblock %}
