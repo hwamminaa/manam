@@ -27,10 +27,15 @@ class Category(models.Model):
 
 class Recommendation(models.Model):
     name = models.CharField(max_length=200)
-    recommendation1 = models.CharField(max_length=200)
-    recommendation2 = models.CharField(max_length=200)
-    recommendation3 = models.CharField(max_length=200)
-    recommendation4 = models.CharField(max_length=200)
+    age = models.CharField(max_length=20, null=True)
+    rec1 = models.CharField(max_length=200)
+    rec2 = models.CharField(max_length=200)
+    rec3 = models.CharField(max_length=200)
+    rec4 = models.CharField(max_length=200)
+    rec1age = models.CharField(max_length=20, null=True)
+    rec2age = models.CharField(max_length=20, null=True)
+    rec3age = models.CharField(max_length=20, null=True)
+    rec4age = models.CharField(max_length=20, null=True)
 
     def __str__(self):
         return self.name

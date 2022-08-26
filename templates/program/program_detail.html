@@ -1,5 +1,105 @@
-{% extends 'base.html' %}
-{% block content %}
+{% load static %}
+<! doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content=""width="device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <!-- pybo CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <title>Hello, pybo!</title>
+    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
+    <style>
+    @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+    html {
+      scroll-behavior: smooth;
+    }
+    * {
+      font-family: 'Spoqa Han Sans Neo', sans-serif;
+      }
+    header {
+      position: sticky;
+      padding-top: 20px;
+      top: -32px;
+      background: white;
+      color: black;
+      padding-left: 32px;
+      padding-right: 32px;
+      padding-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+      z-index:4;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      display: inline-block;
+      margin-left: 16px;
+      font-size: 18px;
+      color: black;
+    }
+    .navbar-brand {
+      font-size: 40px;
+    }
+    .item{
+      width: 300px;
+      height: 300px;
+      background: #F5F5F5;
+      color: black;
+      opacity: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content:center;
+      align-items:center;
+      border-top-left-radius: 50px;
+      border-top-right-radius: 50px;
+      border-bottom-left-radius: 50px;
+      border-bottom-right-radius: 50px;
+      box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+    }
+    </style>
+</head>
+<body>
+<!-- 네비게이션바 -->
+<header>
+  <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:black">M:ANAM</a>
+  <nav>
+      <ul>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">시설</a>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">프로그램</a>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:#982323">KU프로그램</a>
+          </li>
+          <li class="nav-item">
+              {% if user.is_authenticated %}
+              <a class="nav-link" href="{% url 'common:logout' %}" style="color:grey">{{ user.username }} (로그아웃)</a>
+              {% else %}
+              <a class="nav-link" href="{% url 'common:login' %}" style="color:grey">로그인</a>
+              {% endif %}
+          </li>
+          <li>
+              {% if not user.is_authenticated %}
+              <a class="nav-link" href="{% url 'common:signup' %}" style="color:grey">회원가입</a>
+              {% endif %}
+          </li>
+          <li style="color:grey">문의사항</li>
+
+    </ul>
+  </nav>
+</header>
+<!-- 네비게이션바 -->
+
 <div class="container my-3">
     <!-- 프로그램 세부정보 -->
     <h2 class="border-bottom py-2">{{ program.name }}</h2>
@@ -10,10 +110,14 @@
                 카테고리: {{ program.category }}
                 연령대: {{ program.age }}
                 비용: {{ program.price }}
-                기간시작: {{ program.start_date }}
-                기간끝: {{ program.end_date }}
+                시작일: {{ program.start_date }}
+                종료일: {{ program.end_date }}
                 기관: {{ program.host }}
+                {% if program.link %}
                 신청링크: <a href = {{ program.link }}> {{ program.link }} </a>
+                {% else %}
+                신청링크: 제공되지 않습니다
+                {% endif %}
             </div>
             <div class="d-flex justify-content-end">
                 <div class="badge bg-light text-dark p-2 text-start">
@@ -26,10 +130,31 @@
     <div class="card my-3" style="background-color: #F5F5F5;">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;">
-                <h5>이런 프로그램은 어때요?</h5>
-                {{ program.type }}
+                <h4>이런 프로그램은 어때요?</h4>
+                <div class="container" style="display: flex; flex-direction: row; flex-wrap: nowrap; justify-content:space-around; align-items: center;">
+                    <div class="item item1" OnClick="location.href ='{% url 'program:detail' recommend1.id %}'" style="cursor:pointer;">
+                        <div class="select" style="text-align:center; font-weight:bold;">{{ recommend1.name }}</div>
+                        <div class="detail">{{ recommend1.category}}</div>
+                    </div>
+                    <div class="item item2" OnClick="location.href ='{% url 'program:detail' recommend2.id %}'" style="cursor:pointer;">
+                        <div class="select" style="text-align:center; font-weight:bold;">{{ recommend2.name }}</div>
+                        <div class="detail">{{ recommend2.category}}</div>
+                    </div>
+                    <div class="item item3" OnClick="location.href ='{% url 'program:detail' recommend3.id %}'" style="cursor:pointer;">
+                        <div class="select" style="text-align:center; font-weight:bold;">{{ recommend3.name }}</div>
+                        <div class="detail">{{ recommend3.category}}</div>
+                    </div>
+                    <div class="item item4" OnClick="location.href ='{% url 'program:detail' recommend4.id %}'" style="cursor:pointer;">
+                        <div class="select" style="text-align:center; font-weight:bold;">{{ recommend4.name }}</div>
+                        <div class="detail">{{ recommend4.category}}</div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-{% endblock %}
+
+<!-- Bootstrap JS -->
+<script src="{% static 'bootstrap.min.js' %}"></script>
+</body>
+</html>

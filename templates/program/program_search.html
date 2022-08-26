@@ -2,7 +2,7 @@
 
 {% block title %} 검색 결과 {% endblock title %}
 {% block content %}
-<div class="container my-3">
+<div class="container">
     <div class="row">
       <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="background-color: #982323">
         <div class="sidebar-sticky pt-3">
@@ -12,72 +12,102 @@
               <thead>
                   <h5 style="color:#ebc291">프로그램 찾기</h5>
               </thead>
-              <br>
               <tbody>
                 <!--필터 바-->
                 <form class="form-inline my-2 my-md-0" method="get" action="{% url 'program:search' %}">
                   <!--검색기능-->
                   <input class="form-control" type="text" placeholder="프로그램 검색" aria-label="Search" name="b" value="{{b}}">
                   <br>
+                  <div>
+                      카테고리 |
+                      {% if f %}
+                      {{ f }}
+                      {% else %}
+                      전체
+                      {% endif %}
+                  </div>
+                  <div>
+                      가격 |
+                      {% if price == '0' %}
+                      전체
+                      {% elif price == '1' %}
+                      무료
+                      {% elif price == '2' %}
+                      ~10,000원
+                      {% elif price == '3' %}
+                      10,001원~20,000원
+                      {% elif price == '4' %}
+                      20,001원~50,000원
+                      {% elif price == '5' %}
+                      50,001원~100,000원
+                      {% elif price == '6' %}
+                      100,001원~
+                      {% else %}
+                      전체
+                      {% endif %}
+                    </div>
                   <!--카테고리필터-->
                   <label for="customRange3" style="color: #CDCDCD">카테고리</label>
+
                   <div class="form-check form-check-inline">
-                      <input class="form-radio-input" type="radio" id="customRadio1" name="f", value="생활교양">
-                      <label class="form-radio-label" for="customRadio1" style="color: white">생활교양</label>
+                      <input class="form-check-input" type="radio" id="customRadio1" name="f", value="생활교양">
+                      <label class="form-check-label" for="customRadio1" style="color: white">생활교양</label>
                   </div>
                   <div class="form-check form-check-inline">
-                      <input class="form-radio-input" type="radio" id="customRadio2" name="f", value="행사">
-                      <label class="form-radio-label" for="customRadio2" style="color: white">행사</label>
+                      <input class="form-check-input" type="radio" id="customRadio2" name="f", value="행사">
+                      <label class="form-check-label" for="customRadio2" style="color: white">행사</label>
                   </div>
                   <div class="form-check form-check-inline">
-                      <input class="form-radio-input" type="radio" id="customRadio3" name="f", value="미술">
-                      <label class="form-radio-label" for="customRadio3" style="color: white">미술</label>
+                      <input class="form-check-input" type="radio" id="customRadio3" name="f", value="미술">
+                      <label class="form-check-label" for="customRadio3" style="color: white">미술</label>
                   </div>
                   <div class="form-check form-check-inline">
-                      <input class="form-radio-input" type="radio" id="customRadio4" name="f", value="미디어">
-                      <label class="form-radio-label" for="customRadio4" style="color: white">미디어</label>
+                      <input class="form-check-input" type="radio" id="customRadio4" name="f", value="미디어">
+                      <label class="form-check-label" for="customRadio4" style="color: white">미디어</label>
                   </div>
                   <div class="form-check form-check-inline">
-                      <input class="form-radio-input" type="radio" id="customRadio5" name="f", value="음악">
-                      <label class="form-radio-label" for="customRadio5" style="color: white">음악</label>
+                      <input class="form-check-input" type="radio" id="customRadio5" name="f", value="음악">
+                      <label class="form-check-label" for="customRadio5" style="color: white">음악</label>
                   </div>
                   <div class="form-check form-check-inline">
-                      <input class="form-radio-input" type="radio" id="customRadio6" name="f", value="공예">
-                      <label class="form-radio-label" for="customRadio6" style="color: white">공예</label>
+                      <input class="form-check-input" type="radio" id="customRadio6" name="f", value="공예">
+                      <label class="form-check-label" for="customRadio6" style="color: white">공예</label>
                   </div>
                   <div class="form-check form-check-inline">
-                      <input class="form-radio-input" type="radio" id="customRadio7" name="f", value="운동">
-                      <label class="form-radio-label" for="customRadio7" style="color: white">운동</label>
+                      <input class="form-check-input" type="radio" id="customRadio7" name="f", value="운동">
+                      <label class="form-check-label" for="customRadio7" style="color: white">운동</label>
                   </div>
                   <div class="form-check form-check-inline">
-                      <input class="form-radio-input" type="radio" id="customRadio8" name="f", value="공연">
-                      <label class="form-radio-label" for="customRadio8" style="color: white">공연</label>
+                      <input class="form-check-input" type="radio" id="customRadio8" name="f", value="공연">
+                      <label class="form-check-label" for="customRadio8" style="color: white">공연</label>
                   </div>
                   <div class="form-check form-check-inline">
-                      <input class="form-radio-input" type="radio" id="customRadio9" name="f", value="무용">
-                      <label class="form-radio-label" for="customRadio9" style="color: white">무용</label>
+                      <input class="form-check-input" type="radio" id="customRadio9" name="f", value="무용">
+                      <label class="form-check-label" for="customRadio9" style="color: white">무용</label>
                   </div>
                   <div class="form-check form-check-inline">
-                      <input class="form-radio-input" type="radio" id="customRadio10" name="f", value="사회활동">
-                      <label class="form-radio-label" for="customRadio10" style="color: white">사회활동</label>
+                      <input class="form-check-input" type="radio" id="customRadio10" name="f", value="사회활동">
+                      <label class="form-check-label" for="customRadio10" style="color: white">사회활동</label>
                   </div>
                   <div class="form-check form-check-inline">
-                      <input class="form-radio-input" type="radio" id="customRadio11" name="f", value="문학">
-                      <label class="form-radio-label" for="customRadio11" style="color: white">문학</label>
+                      <input class="form-check-input" type="radio" id="customRadio11" name="f", value="문학">
+                      <label class="form-check-label" for="customRadio11" style="color: white">문학</label>
                   </div>
+
 
                   <!--가격필터-->
                   <div class="form-group">
                     <a href = "#" onclick= "event.stopPropagation()"></a>
                     <label for="customRange3" style="color: #CDCDCD">가격 범위</label>
+
                     <select source="[name=price]">
                       <option value="0">전체</option>
                       <option value="1">무료</option>
-                      <option value="2">~20000원</option>
-                      <option value="3">20000원~30000원</option>
-                      <option value="4">30000원~40000원</option>
-                      <option value="5">40000원~50000원</option>
-                      <option value="6">50000원~</option>
+                      <option value="2">~10,000원</option>
+                      <option value="3">10,001원~20,000원</option>
+                      <option value="4">20,001원~50,000원</option>
+                      <option value="5">50,001원~100,000원</option>
+                      <option value="6">100,001원~</option>
                     </select>
 
                     <input type="range" class="custom-range" value = "0" min="0" max="6" step="1" id="customRange3" name="price", value={{price}}>
@@ -95,6 +125,7 @@
         </div>
       </nav>
       <role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        총 <b>{{ program_number }}</b>개의 프로그램
         <table class="table">
             <thead>
             <tr class="table-dark">
@@ -129,7 +160,6 @@
         </table>
         </role>
 
-        결과: {{ program_number }} 개
         <!-- 페이징처리 시작 -->
         <ul class="pagination justify-content-center">
             <!-- 이전페이지 -->

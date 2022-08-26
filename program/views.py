@@ -51,8 +51,35 @@ def index(request):
 
 def detail(request, program_id):
     program = get_object_or_404(Program, pk=program_id)
-    context = {'program': program}
+    context = {}
+    context['program'] = program
+    
+    #detail의 프로그램에 대한 recommendation 정보 불러오기
+    search_name = program.name
+    search_age = program.age
+    recobj = Recommendation.objects.filter(Q(name=search_name) & Q(age=search_age))
+    recobj = recobj.first()
+
+    #추천 프로그램1
+    recommend = Program.objects.filter(Q(name=recobj.rec1) & Q(age=recobj.rec1age)).order_by('-start_date')
+    recommend1 = recommend.first()
+    context['recommend1'] = recommend1
+    # 추천 프로그램2
+    recommend = Program.objects.filter(Q(name=recobj.rec2) & Q(age=recobj.rec2age)).order_by('-start_date')
+    recommend2 = recommend.first()
+    context['recommend2'] = recommend2
+    # 추천 프로그램3
+    recommend = Program.objects.filter(Q(name=recobj.rec3) & Q(age=recobj.rec3age)).order_by('-start_date')
+    recommend3 = recommend.first()
+    context['recommend3'] = recommend3
+    # 추천 프로그램4
+    recommend = Program.objects.filter(Q(name=recobj.rec4) & Q(age=recobj.rec4age)).order_by('-start_date')
+    recommend4 = recommend.first()
+    context['recommend4'] = recommend4
+
     return render(request, 'program/program_detail.html', context)
+
+
 
 
 def answer_create(request, program_id):
@@ -89,15 +116,15 @@ def program_search(request):
     elif price == '1':
         program_list = program_list.filter(price=0)
     elif price == '2':
-        program_list = program_list.filter(price__lte=20000)
+        program_list = program_list.filter(price__lte=10000)
     elif price == '3':
-        program_list = program_list.filter(Q(price__gt=20000)&Q(price__lte=30000))
+        program_list = program_list.filter(Q(price__gt=10000) & Q(price__lte=20000))
     elif price == '4':
-        program_list = program_list.filter(Q(price__gt=30000)&Q(price__lte=40000))
+        program_list = program_list.filter(Q(price__gt=20000) & Q(price__lte=50000))
     elif price == '5':
-        program_list = program_list.filter(Q(price__gt=40000)&Q(price__lte=50000))
+        program_list = program_list.filter(Q(price__gt=50000) & Q(price__lte=100000))
     elif price == '6':
-        program_list = program_list.filter(price__gt=50000)
+        program_list = program_list.filter(price__gt=100000)
     else:
         program_list = program_list
 
@@ -119,19 +146,23 @@ def program_search(request):
 
 
 
+
 def downloadRecommendation(request):
     filename = 'C:/dataton2022/8월추천프로그램.csv'
     df = pd.read_csv(filename, encoding="UTF-8", na_values='nan')
+    list1 = []
     for i in range(len(df)):
-        recommendlist = df["추천 프로그램"][i].split(', ')
         # 추천 데이터 db에 저장
-        Recommendation.objects.create(name=df["프로그램명"][i],
-                                      recommendation1=recommendlist[0], recommendation2=recommendlist[1][1:-1],
-                                      recommendation3=recommendlist[2][1:-1], recommendation4=recommendlist[3][1:-1])
+        Recommendation.objects.create(name=df["프로그램명"][i], age=df["대상"][i],
+                                      rec1=df["rec_pg1"][i], rec2=df["rec_pg2"][i],
+                                      rec3=df["rec_pg3"][i], rec4=df["rec_pg4"][i],
+                                      rec1age=df["rec_pg1_대상"][i], rec2age=df["rec_pg2_대상"][i],
+                                      rec3age=df["rec_pg3_대상"][i], rec4age=df["rec_pg4_대상"][i])
+        list1.append([df["rec_pg1"][i], df["rec_pg2"][i], df["rec_pg3"][i], df["rec_pg4"][i]])
     return HttpResponse(f'''
     <html>
     <body>
-    {df}
+    {list1}
     </body>
     </html>
     ''')
