@@ -200,5 +200,5 @@ LOGGING = {
             'handlers': ['console', 'file'],
             'level': 'INFO',
         },
-    }
+    },
 }
