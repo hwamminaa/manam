@@ -196,7 +196,7 @@ LOGGING = {
             'level': 'INFO',
             'propagate': False,
         },
-        'pybo': {
+        'manam': {
             'handlers': ['console', 'file'],
             'level': 'INFO',
         },
