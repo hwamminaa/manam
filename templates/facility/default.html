@@ -1,12 +1,17 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Map</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content=""width="device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <!-- pybo CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <title>Hello, pybo!</title>
     <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
-
     <style>
-     @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+    @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
     html {
       scroll-behavior: smooth;
     }
@@ -21,20 +26,19 @@
     background: rgba(245,245,245,1);
     opacity: 1;
     position: relative;
-    top: 5px;
-    left: 260px;
+    top: 10px;
+    left: 360px;
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
     border-bottom-left-radius: 13px;
     border-bottom-right-radius: 13px;
-    overflow: hidden;
     }
     .v30_9 {
     width: 500px;
     color: rgba(0,0,0,1);
     position: absolute;
-    top: 110px;
-    left: 400px;
+    top: 105px;
+    left: 500px;
     font-family: Inter;
     font-weight: Bold;
     font-size: 40px;
@@ -44,7 +48,7 @@
     div > form{
     width:500px;
     height:50px;
-    left: 680px;
+    left: 710px;
     position:relative;
     top : -350px;
     }
@@ -53,16 +57,16 @@
     height:400px;
     position:relative;
     top : 90px;
-    left: 225px;
+    left: 310px;
     }
     p {
     position:relative;
-    left: 460px;
-    top: 10px;
+    left: 570px;
+    top: -5px;
     }
     header {
-      position: relative;
-      padding-top: 30px;
+      position: sticky;
+      padding-top: 20px;
       top: -32px;
       background: white;
       color: black;
@@ -112,13 +116,13 @@
   <nav>
       <ul>
           <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">시설</a>
+              <a class="nav-link" href="{% url 'facility:facilitylist' %}" style="color:black">시설</a>
           </li>
           <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">프로그램</a>
+              <a class="nav-link" href="{% url 'program:search' %}" style="color:black">프로그램</a>
           </li>
           <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:index' %}" style="color:#982323">KU프로그램</a>
+              <a class="nav-link" href="{% url 'circle:index' %}" style="color:#982323">KU프로그램</a>
           </li>
           <li class="nav-item">
               {% if user.is_authenticated %}
@@ -132,7 +136,6 @@
               <a class="nav-link" href="{% url 'common:signup' %}" style="color:grey">회원가입</a>
               {% endif %}
           </li>
-          <li style="color:grey">문의사항</li>
 
     </ul>
   </nav>
@@ -178,8 +181,9 @@
     </form>
 </div>
 
-<div class="facilitylist"><a href="{% url 'facility:showFacilitylist' %}" style="position:relative;top:-530px;left:1070px;"> 전체시설목록 보러가기 </a></div>
+<a href="{% url 'facility:showFacilitylist' %}" class="delete btn btn-sm btn-outline-success" style="position:relative;top:-500px;left:1200px;">전체시설목록 보러가기</a>
 
+<div style="position:relative;top:-460px;left:490px;"> * 위치접근 허용을 해주시면 현재 내 위치 주변으로 지도가 이동합니다 :)</div>
 <p>
     <input type="checkbox" id="chkTraffic" onclick="setOverlayMapTypeId()" /> 교통정보 보기
     <input type="checkbox" id="chkBicycle" onclick="setOverlayMapTypeId()" /> 자전거도로 정보 보기
@@ -233,13 +237,13 @@
                                 '    <div class="info">' +
                                 '        <div class="title">' +
                                             place.name +
-                                '            <div id="closed" class="close" title="닫기"></div>' +
+                                '            <div class="close" onclick= "closeOverlay()" title="닫기"></div> '+
                                 '        </div>' +
                                 '        <div class="body">' +
                                 '            <div class="desc">' +
                                 '                <div class="cate">' +  place.cate  +'</div>' +
                                 '                  <div> 시설 홈페이지: </div>' +
-                                '               <div><a href= ' + place.url +  ' target="_blank">' + place.url + '</a></div>' +
+                                '		         <div><a href= ' + place.url +  ' target="_blank">' + place.url + '</a></div>' +
                                 '            </div>' +
                                 '        </div>' +
                                 '    </div>' +
@@ -249,17 +253,14 @@
 
                         });
 
+
                     console.log(overlay);
                     overlay.setMap(map);
 
-                    // 아무데나 클릭하게되면 overlay를 끄기
-                    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
-                        overlay.setMap(null)
-                        })
+                    function closeOverlay() {
+                        overlay.setMap(null);
+                    }
                     })
-
-
-
 
                 })(marker, facilityCoordinates[idx]);
 
@@ -368,6 +369,6 @@ function setOverlayMapTypeId() {
 
     </script>
 <div> {{ facilityCoordinates }} </div>
-
+<script src="{% static 'bootstrap.min.js' %}"></script>
 </body>
 </html>

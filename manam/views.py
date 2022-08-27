@@ -1,9 +1,8 @@
-from django.shortcuts import HttpResponse, render
-
-import logging
-logger = logging.getLogger('manam')
+from django.shortcuts import render
 
 # Create your views here.
 def index(request):
-    logger.info("INFO 레벨로 출력")
     return render(request, 'manam/main.html')
+
+def intro(request):
+    return render(request,'manam/intro.html')

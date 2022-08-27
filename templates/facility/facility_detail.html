@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="facilitylist"><a href="{% url 'facility:showFacilitylist' %}" style="position:relative;top:65px;left:1100px;"> 전체시설목록 </a></div>
+<a href="{% url 'facility:showFacilitylist' %}" class="delete btn btn-sm btn-outline-success" style="position:relative;top:65px;left:1100px;">전체시설목록</a>
 <div class="container my-3">
     <!-- 시설 세부정보 -->
     <h2 class="border-bottom py-2">{{ facility.name }}</h2>

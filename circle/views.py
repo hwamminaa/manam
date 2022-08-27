@@ -13,10 +13,7 @@ def index(request):
     return render(request, 'circle/circle_main.html')
 
 def circle_list(request):
-    return render(request, 'circlelist/circle_list.html')
-
-def circle_program(request):
-    return render(request, 'circle/circle_list.html')
+    return render(request, 'circlelist/circle_search.html')
 
 def gwangjang(request):
     page = request.GET.get('page', '1')  # 페이지

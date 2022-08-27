@@ -45,6 +45,8 @@
             <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
        data-uri="{% url 'kuprogram:question_delete' question.id  %}">삭제</a>
             {% endif %}
+            <a href="{% url 'kuprogram:search' %}" class="delete btn btn-sm btn-outline-success" >돌아가기</a>
+
             </div>
         </div>
     </div>

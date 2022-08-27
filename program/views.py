@@ -10,7 +10,7 @@ import time
 
 # Create your views here.
 def downloadProgram(request):
-    filename = 'C:/dataton2022/8월전체프로그램.csv'
+    filename = 'C:\Korea university\데이터톤\장고\8월전체프로그램.csv'
     df = pd.read_csv(filename, encoding="UTF-8", na_values='nan')
     count = 0
     for i in range(len(df)):
@@ -46,21 +46,21 @@ def index(request):
     paginator = Paginator(program_list, 10)  # 페이지당 10개씩 보여주기
     page_obj = paginator.get_page(page)
     context = {'program_list': page_obj}
-    return render(request, 'program/program_list.html', context) # 객체 있으면 세번째 parameter: context
+    return render(request, 'program/program_list.html', context)  # 객체 있으면 세번째 parameter: context
 
 
 def detail(request, program_id):
     program = get_object_or_404(Program, pk=program_id)
     context = {}
     context['program'] = program
-    
-    #detail의 프로그램에 대한 recommendation 정보 불러오기
+
+    # detail의 프로그램에 대한 recommendation 정보 불러오기
     search_name = program.name
     search_age = program.age
     recobj = Recommendation.objects.filter(Q(name=search_name) & Q(age=search_age))
     recobj = recobj.first()
 
-    #추천 프로그램1
+    # 추천 프로그램1
     recommend = Program.objects.filter(Q(name=recobj.rec1) & Q(age=recobj.rec1age)).order_by('-start_date')
     recommend1 = recommend.first()
     context['recommend1'] = recommend1
@@ -80,8 +80,6 @@ def detail(request, program_id):
     return render(request, 'program/program_detail.html', context)
 
 
-
-
 def answer_create(request, program_id):
     program = get_object_or_404(Program, pk=program_id)
     context = {'program': program}
@@ -89,10 +87,9 @@ def answer_create(request, program_id):
 
 
 def program_search(request):
-
     context = {}
 
-    #사이트에서 필터 선택 여부 받아오기
+    # 사이트에서 필터 선택 여부 받아오기
     b = request.GET.get('b', '')
     f = request.GET.get('f', '')
     price = request.GET.get('price', '')
@@ -145,8 +142,6 @@ def program_search(request):
     return render(request, 'program/program_search.html', context)
 
 
-
-
 def downloadRecommendation(request):
     filename = 'C:/dataton2022/8월추천프로그램.csv'
     df = pd.read_csv(filename, encoding="UTF-8", na_values='nan')
@@ -166,4 +161,3 @@ def downloadRecommendation(request):
     </body>
     </html>
     ''')
-

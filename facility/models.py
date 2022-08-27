@@ -10,3 +10,9 @@ class Facility(models.Model):
     cate_2 = models.CharField(max_length=50)
     content = models.TextField()
     url = models.CharField(max_length=500)
+
+class Category(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name

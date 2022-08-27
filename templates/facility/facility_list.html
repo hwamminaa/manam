@@ -1,4 +1,4 @@
-    <style>
+<style>
     .table-title{
     position:relative;
     left: 80px;
@@ -7,22 +7,237 @@
 </style>
 
 {% extends 'base.html' %}
-{% block style %}
-    .h3 {
-      text-align:center
-    }
-{% endblock %}
+{% block title %} 검색 결과 {% endblock title %}
 {% block content %}
-    <div class="table-title">
-        <h3>전체 시설 목록</h3>
-    </div>
-    <div class="container my-3">
+<div class="container my-3">
+    <div class="row">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="background-color: #982323;location:relative;left:-50px;">
+        <div class="sidebar-sticky pt-3">
+          <ul class="nav flex-column">
+            <table class = 'table' style="background-color: #000000; color: ##691414">
+              <br>
+              <thead>
+                <a href="{% url 'facility:showFacilitylist' %}" class="btn" style="text-align:left; background-color: #982323; color: white;  font-size:1.5em;" >시설 찾기</a>
+
+              </thead>
+              <br>
+              <tbody>
+                <!--필터 바-->
+                <form class="form-inline my-2 my-md-0" method="get" action="{% url 'facility:showFacilitylist' %}">
+                  <!--검색기능-->
+                  <input class="form-control" type="text" placeholder="시설 검색" aria-label="Search" name="b" value="{{b}}">
+                  <br>
+                  <div style="color:white">
+                      조회된 시설 |
+                      {% if price == '0' %}
+                      전체
+                      {% elif price == '1' %}
+                      공공도서관
+                      {% elif price == '2' %}
+                      공공체육시설
+                      {% elif price == '3' %}
+                      공연장
+                      {% elif price == '4' %}
+                      교육기관
+                      {% elif price == '5' %}
+                      도서관
+                      {% elif price == '6' %}
+                      동주민센터
+                      {% elif price == '7' %}
+                      문화시설
+                      {% elif price == '8' %}
+                      문화예술회관
+                      {% elif price == '9' %}
+                      문화원
+                      {% elif price == '10' %}
+                      미술관
+                      {% elif price == '11' %}
+                      박물관/기념관
+                      {% elif price == '12' %}
+                      아동청소년지원센터
+                      {% elif price == '13' %}
+                      작은도서관
+                      {% elif price == '14' %}
+                      노인복지시설(경로당)
+                      {% elif price == '15' %}
+                      노인여가복지시설
+                      {% elif price == '16' %}
+                      노인요양공동생활가정
+                      {% elif price == '17' %}
+                      노인요양시설
+                      {% elif price == '18' %}
+                      노인주거복지시설
+                      {% elif price == '19' %}
+                      재가노인지원시설
+                      {% elif price == '20' %}
+                      재가노인주야간보호
+                      {% elif price == '21' %}
+                      방과후교실
+                      {% elif price == '22' %}
+                      지역아동센터
+                      {% elif price == '23' %}
+                      틈새돌봄기관
+                      {% elif price == '24' %}
+                      거주시설
+                      {% elif price == '25' %}
+                      공동생활가정
+                      {% elif price == '26' %}
+                      단기거주시설
+                      {% elif price == '27' %}
+                      복지관1
+                      {% elif price == '28' %}
+                      복지관2
+                      {% elif price == '29' %}
+                      지역사회재활시설
+                      {% elif price == '30' %}
+                      직업재활시설
+                      {% elif price == '31' %}
+                      기타
+                      {% elif price == '32' %}
+                      교육·문화시설 전체
+                      {% elif price == '33' %}
+                      노인시설 전체
+                      {% elif price == '34' %}
+                      보육·가족 및 여성시설 전체
+                      {% elif price == '35' %}
+                      사회복지일반시설 전체
+                      {% else %}
+                      전체
+                      {% endif %}
+                  </div>
+                  <!--카테고리필터-->
+
+                  <div class="form-group">
+                    <a href = "#" onclick= "event.stopPropagation()"></a>
+                    <label for="customRange3" style="color:white">교육·문화</label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <select source="[name=price]">
+                      <option value="0">전체</option>
+                      <option value="32">교육·문화시설 전체</option>
+                      <option value="1">공공도서관</option>
+                      <option value="2">공공체육시설</option>
+                      <option value="3">공연장</option>
+                      <option value="4">교육기관</option>
+                      <option value="5">도서관</option>
+                      <option value="6">동주민센터</option>
+                      <option value="7">문화시설</option>
+                      <option value="8">문화예술회관</option>
+                      <option value="9">문화원</option>
+                      <option value="10">미술관</option>
+                      <option value="11">박물관/기념관</option>
+                      <option value="12">아동청소년지원센터</option>
+                      <option value="13">작은도서관</option>
+                      <option value="31">기타</option>
+
+                    </select>
+                      <br>
+                    <label for="customRange3" style="color:white">노인</label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <select source="[name=price]">
+                      <option value="0">전체</option>
+                      <option value="33">노인시설 전체</option>
+                      <option value="14">노인복지시설(경로당)</option>
+                      <option value="15">노인여가복지시설</option>
+                      <option value="16">노인요양공동생활가정</option>
+                      <option value="17">노인요양시설</option>
+                      <option value="18">노인주거복지시설</option>
+                      <option value="19">재가노인지원시설</option>
+                      <option value="20">재가노인주야간보호</option>
+                    </select>
+
+                    <label for="customRange3" style="color:white">보육·가족 및 여성</label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <select source="[name=price]">
+                      <option value="0">전체</option>
+                      <option value="34">보육·가족및여성 전체</option>
+                      <option value="21">방과후교실</option>
+                      <option value="22">지역아동센터</option>
+                      <option value="23">틈새돌봄기관</option>
+                    </select>
+
+                    <label for="customRange3" style="color:white">사회복지일반</label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <select source="[name=price]">
+                      <option value="0">전체</option>
+                      <option value="35">사회복지일반시설 전체</option>
+                      <option value="24">거주시설</option>
+                      <option value="25">공동생활가정</option>
+                      <option value="26">단기거주시설</option>
+                      <option value="27">복지관1</option>
+                      <option value="28">복지관2</option>
+                      <option value="29">지역사회재활시설</option>
+                      <option value="30">직업재활시설</option>
+                    </select>
+                  <input type="range" class="custom-range" value = "0" min="0" max="35" step="1" id="customRange3" name="price", value={{ price }}>
+                  <script>
+                        ;(function(){
+
+                      function emit(target, name) {
+                        var event
+                        if (document.createEvent) {
+                          event = document.createEvent("HTMLEvents");
+                          event.initEvent(name, true, true);
+                        } else {
+                          event = document.createEventObject();
+                          event.eventType = name;
+                        }
+
+                        event.eventName = name;
+
+                        if (document.createEvent) {
+                          target.dispatchEvent(event);
+                        } else {
+                          target.fireEvent("on" + event.eventType, event);
+                        }
+                      }
+
+                      var outputsSelector = "input[type=number][source],select[source]";
+
+                      function onChange(e) {
+                        var outputs = document.querySelectorAll(outputsSelector)
+                        for (var index = 0; index < outputs.length; index++) {
+                          var item = outputs[index]
+                          var source = document.querySelector(item.getAttribute('source'));
+                          if (source) {
+                            if (item === e.target) {
+                              source.value = item.value
+                              emit(source, 'input')
+                              emit(source, 'change')
+                            }
+
+                            if (source === e.target) {
+                              item.value = source.value
+                            }
+                          }
+                        }
+                      }
+
+                      document.addEventListener('change', onChange)
+                      document.addEventListener('input', onChange)
+                    }());
+                    </script>
+                  </div>
+
+                  <button type='submit' class='btn btn-warning' style="background-color:#ebc291;">검색</button>  <!--위에것과 기능은 같음-->
+                  <!-- <button type='reset' class='btn btn-info'>RESET</button> -->
+                </form>
+              </tbody>
+            </table>
+
+            <br>
+            <br>
+          </ul>
+
+             </div>
+            </nav>
+
+        <role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
         <table class="table">
             <thead>
             <tr class="table-dark">
                 <th>시설명</th>
-                <th>구분</th>
-                <th>행정동</th>
+                <th><center>구분</center></th>
+                <th><center>행정동</center></th>
             </tr>
             </thead>
             <tbody>
@@ -43,12 +258,12 @@
             {% endif %}
             </tbody>
         </table>
-        <!-- 페이징처리 시작 -->
+          <!-- 페이징처리 시작 -->
         <ul class="pagination justify-content-center">
             <!-- 이전페이지 -->
-            {% if facility_list.has_previous %}
+            {% if program_list.has_previous %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ facility_list.previous_page_number }}">이전</a>
+                <a class="page-link" href="?b={{request.GET.b}}&price={{request.GET.price}}&page={{ facility_list.previous_page_number }}">이전</a>
             </li>
             {% else %}
             <li class="page-item disabled">
@@ -60,11 +275,11 @@
             {% if page_number >= facility_list.number|add:-5 and page_number <= facility_list.number|add:5 %}
             {% if page_number == facility_list.number %}
             <li class="page-item active" aria-current="page">
-                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                <a class="page-link" href="?b={{request.GET.b}}&price={{request.GET.price}}&page={{ page_number }}">{{ page_number }}</a>
             </li>
             {% else %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                <a class="page-link" href="?b={{request.GET.b}}&price={{request.GET.price}}&page={{ page_number }}">{{ page_number }}</a>
             </li>
             {% endif %}
             {% endif %}
@@ -72,7 +287,7 @@
             <!-- 다음페이지 -->
             {% if facility_list.has_next %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ facility_list.next_page_number }}">다음</a>
+                <a class="page-link" href="?b={{request.GET.b}}&price={{request.GET.price}}&page={{ facility_list.next_page_number }}">다음</a>
             </li>
             {% else %}
             <li class="page-item disabled">
@@ -82,5 +297,10 @@
         </ul>
         <!-- 페이징처리 끝 -->
     </div>
-<div class="facilitylist"><a href="{% url 'facility:facilitylist' %}" style="position:relative;top:-540px;left:1020px;"> 내 위치 주변 시설 보러가기 </a></div>
+    </div>
+</div>
+<a href="{% url 'facility:facilitylist' %}" class="delete btn btn-sm btn-outline-success" style="position:relative;top:-50px;left:1150px;">내 위치 주변 시설 보러가기</a>
+
+
+
 {% endblock %}

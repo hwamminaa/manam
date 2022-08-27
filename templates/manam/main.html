@@ -38,6 +38,11 @@
       list-style-type: none;
       padding: 0;
     }
+    a {
+       list-style-type: none;
+       font-size: 18px;
+       margin-left:16px;
+    }
     li {
       display: inline-block;
       margin-left: 16px;
@@ -67,8 +72,8 @@
       align-items: center;  /* cross축 */
     }
     .item{
-      width: 390px;
-      height: 450px;
+      width: 350px;
+      height: 350px;
       background: #F5F5F5;
       color: black;
       opacity: 1;
@@ -93,6 +98,38 @@
       font-weight: Regular;
     }
 
+      body {
+        font-family: Consolas, monospace;
+      }
+      .a {
+        letter-spacing: 0px;
+        font-size: 32px;
+      }
+      .b {
+        letter-spacing: 0px;
+        word-spacing: 2px;
+        font-stretch: condensed;
+        line-height: 35px
+      }
+      .c {
+        letter-spacing: 0px;
+        font-size: 22px;
+        line-height: 40px
+      }
+      .d {
+        word-spacing: 0px;
+        font-size: 45px;
+        line-height: 100px;
+        letter-spacing: 2px;
+      }
+      .e {
+        word-spacing: 0px;
+      }
+      .f {
+        word-spacing: 20px;
+      }
+    </style>
+  </head>
     </style>
 </head>
 <body>
@@ -100,6 +137,7 @@
   <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:white">M:ANAM</a>
   <nav>
       <ul>
+          <a class="nav-item" href="{% url 'manam:intro' %}" style="color:white; text-decoration-line : none;" >만남M:ANAM 소개</a>
           <li class="nav-item">
               {% if user.is_authenticated %}
               <a class="nav-link" href="{% url 'common:logout' %}" style="color:white">{{ user.username }} (로그아웃)</a>
@@ -112,33 +150,25 @@
               <a class="nav-link" href="{% url 'common:signup' %}" style="color:white">회원가입</a>
               {% endif %}
           </li>
-          <li style="color:white">문의사항</li>
+
 
     </ul>
   </nav>
 </header>
-<div class="intro">
-    <h1>만남이란?</h1>
-    <h3>만남M:ANAM은 고려대학교 학생들의 재능 기부와 성북구 주민들의 참여를 통해<br>
-        안암 문화 공동체 형성에 기여하는 플랫폼입니다.<br><br>
-        설명추가
-    </h3>
-    <div class="shortcut" OnClick="location.href = '#menu'" style="cursor:pointer;">
-        만남 바로 시작하기
-        <i class="fa-solid fa-circle-arrow-right"></i>
-    </div>
-</div>
 <div class="container" id="menu">
     <div class="item item1" OnClick="location.href ='{% url 'facility:facilitylist' %}'" style="cursor:pointer;">
-        <div class="select">내 주위 문화시설<br>찾아보기</div>
+        <div class="select">주변 문화 시설 찾아보기</div>
+        <div class="detail">현재 내 주위 이용 가능한 문화 시설</div>
+
     </div>
     <div class="item item2" OnClick="location.href ='{% url 'program:search' %}'" style="cursor:pointer;">
-        <div class="select">맞춤 프로그램<br>찾아보기</div>
+        <div class="select">맞춤 프로그램 찾아보기</div>
+        <div class="detail"><center>빅데이터가 추천해주는 <br>성북구 여가문화 프로그램<center></center></div>
     </div>
     <div class="item item3" OnClick="location.href ='{% url 'circle:index' %}'" style="cursor:pointer;">
-        <div class="select">성북구X고려대<br>M:ANAM</div>
+        <div class="select">성북구X고려대 M:ANAM</div>
+        <div class="detail">고려대 동아리 프로그램 /<br> 성북구 주민 자치 동아리 </div>
     </div>
 </div>
-
 </body>
 </html>

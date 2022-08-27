@@ -5,7 +5,7 @@ from . import views
 app_name = 'circle'
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.index, name = 'index'),
     ##광장
     path('gwangjang/', views.gwangjang, name = 'gwangjang'),
     path('gwangjang/<int:question_id>/', views.detail, name = 'detail'),
@@ -22,5 +22,5 @@ urlpatterns = [
 
 
     ##동아리 모아보기
-    #path('circlelist/',views.circle_list, name = 'circle_list'),
+    path('circlelist/',views.circle_list, name = 'circle_list'),
 ]

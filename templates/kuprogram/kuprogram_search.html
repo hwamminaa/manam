@@ -9,21 +9,15 @@
         <div class="sidebar-sticky pt-3">
           <ul class="nav flex-column">
             <table class = 'table' style="background-color: #000000; color: ##691414">
-              <br>
               <thead>
-                  <h5 style="color:#ebc291">KU 어울림</h5>
+                  <a href="{% url 'kuprogram:search' %}" class="btn" style="text-align:left; background-color: #982323; color: white;  font-size:1.5em" >KU 어울림</a>
               </thead>
-              <br>
               <tbody>
                 <!--필터 바-->
-                <form class="form-inline my-2 my-md-0" method="get" action="{% url 'kuprogram:index' %}">
-                    <a href="{% url 'kuprogram:question_create' %}" class="btn btn-secondary" >새 글 등록하기</a>
-                    <br>
-                  <!--검색기능-->
-                  <div class="input-group">
-                      <input type="text" id="search_kw" placeholder="검색어 입력" class="form-control" name="kw" value="{{ kw|default_if_none:'' }}">
-
+                <form class="form-inline my-2 my-md-0" method="get" action="{% url 'kuprogram:search' %}">
+                  <input class="form-control" type="text" placeholder="동아리 검색" aria-label="Search" name="b" value="{{b}}">
                   <!--카테고리필터-->
+                      <br>
                   <label for="customRange3" style="color: #CDCDCD">분과</label>
                   <div class="form-check form-check-inline">
                       <input class="form-radio-input" type="radio" id="customRadio1" name="f", value="기악예술분과">
@@ -73,11 +67,8 @@
                       <input class="form-radio-input" type="radio" id="customRadio12" name="f", value="학술연구분과">
                       <label class="form-radio-label" for="customRadio12" style="color: white">학술연구분과</label>
                   </div>
-                  <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
-                    </div>
-            </div>  <!--위에것과 기능은 같음-->
-                  <!-- <button type='reset' class='btn btn-info'>RESET</button> -->
+                    <br>
+                    <button type='submit' class='btn btn-warning' style="background-color:#ebc291">검색</button>  <!--위에것과 기능은 같음-->
                 </form>
               </tbody>
             </table>
@@ -90,6 +81,10 @@
     <br>
     <br>
     <role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+        <div>
+            <a href="{% url 'kuprogram:question_create' %}" class="btn btn-secondary" >새 글 등록하기</a>
+        </div>
+        <br>
         <table class="table">
             <thead>
             <tr class="text-center table-dark">

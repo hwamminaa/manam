@@ -8,17 +8,21 @@
         <div class="sidebar-sticky pt-3">
           <ul class="nav flex-column">
             <table class = 'table' style="background-color: #000000; color: ##691414">
-              <br>
               <thead>
-                  <h5 style="color:#ebc291">프로그램 찾기</h5>
+                  <table class = 'table' style="background-color: #000000; color: ##691414">
+              <thead>
+                  <a href="{% url 'program:search' %}" class="btn" style="text-align:left; background-color: #982323; color: white;  font-size:1.5em" >프로그램 찾기</a>
               </thead>
               <tbody>
                 <!--필터 바-->
                 <form class="form-inline my-2 my-md-0" method="get" action="{% url 'program:search' %}">
                   <!--검색기능-->
                   <input class="form-control" type="text" placeholder="프로그램 검색" aria-label="Search" name="b" value="{{b}}">
-                  <br>
-                  <div>
+
+                  <div style="line-height:170%; color:grey">
+                      <label for="customRange3" style="color: #CDCDCD">현재 결과<br>
+                      </label>
+                      <br>
                       카테고리 |
                       {% if f %}
                       {{ f }}
@@ -26,7 +30,7 @@
                       전체
                       {% endif %}
                   </div>
-                  <div>
+                  <div style="line-height:170%; color:grey">
                       가격 |
                       {% if price == '0' %}
                       전체
@@ -125,7 +129,7 @@
         </div>
       </nav>
       <role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-        총 <b>{{ program_number }}</b>개의 프로그램
+        <br>총 <b>{{ program_number }}</b>개의 프로그램
         <table class="table">
             <thead>
             <tr class="table-dark">

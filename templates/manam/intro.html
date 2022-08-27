@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="ko">
 {% load static %}
 <! doctype html>
 <html lang="ko">
@@ -10,7 +12,7 @@
     <!-- pybo CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <!-- 폰트 불러오기 -->
-    <title>성북구X고려대 M:ANAM</title>
+    <title>M:ANAM 만남</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
     <style>
     @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
@@ -37,6 +39,11 @@
     ul {
       list-style-type: none;
       padding: 0;
+    }
+    a {
+       list-style-type: none;
+       font-size: 18px;
+       margin-left:16px;
     }
     li {
       display: inline-block;
@@ -67,8 +74,8 @@
       align-items: center;  /* cross축 */
     }
     .item{
-      width: 390px;
-      height: 450px;
+      width: 350px;
+      height: 350px;
       background: #F5F5F5;
       color: black;
       opacity: 1;
@@ -93,13 +100,47 @@
       font-weight: Regular;
     }
 
+      body {
+        font-family: Consolas, monospace;
+      }
+      .a {
+        letter-spacing: 0px;
+        font-size: 32px;
+        line-height: 50px;
+      }
+      .b {
+        letter-spacing: 0px;
+        word-spacing: 0px;
+        font-stretch: condensed;
+        line-height: 35px;
+      }
+      .c {
+        letter-spacing: 0px;
+        font-size: 18px;
+        line-height: 25px;
+      }
+      .d {
+        word-spacing: 0px;
+        font-size: 22px;
+        line-height: 25px;
+        letter-spacing: 0px;
+      }
+      .e {
+        word-spacing: 0px;
+      }
+      .f {
+        word-spacing: 20px;
+      }
+    </style>
+  </head>
     </style>
 </head>
-<body>
+<head>
 <header>
-  <a class="navbar-brand" href="{% url 'circle:index' %}" style="color:white">성북구X고려대 M:ANAM</a>
+  <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:white">M:ANAM</a>
   <nav>
       <ul>
+          <a class="nav-item" href="{% url 'manam:intro' %}" style="color:white; text-decoration-line : none;" >만남M:ANAM 소개</a>
           <li class="nav-item">
               {% if user.is_authenticated %}
               <a class="nav-link" href="{% url 'common:logout' %}" style="color:white">{{ user.username }} (로그아웃)</a>
@@ -111,20 +152,36 @@
               {% if not user.is_authenticated %}
               <a class="nav-link" href="{% url 'common:signup' %}" style="color:white">회원가입</a>
               {% endif %}
+          </li>
+
 
     </ul>
   </nav>
 </header>
 
-<div class="container" id="menu">
-    <div class="item item1" OnClick="location.href ='{% url 'circle:gwangjang' %}'" style="cursor:pointer;">
-        <div class="select">만남의 광장(가칭)</div>
-        <div class="detail">동아리 프로그램 찾아보기</div>
-    </div>
-    <div class="item item2" OnClick="location.href ='{% url 'circle:circle_list' %}'" style="cursor:pointer;">
-        <div class="select">동아리 모아보기</div>
-    </div>
-</div>
+</head>
+<body>
 
+<div class="intro">
+    <h2 class = "a">📌만남M:ANAM의 역할</h2>
+    <h3 class="d">✅추천플랫폼<br> </h3>
+    <h4 class="c">위치 기반 성북구 내 문화시설 및 사용자 취향 기반 프로그램 추천 플랫폼<br> </h4>
+    <h3 class="d">✅소통플랫폼 <br></h3>
+    <h4 class="c">고려대학교 동아리가 성북구 주민과 함께하고 싶은 프로그램 홍보,<br>
+    성북구 주민들이 고려대학교 동아리와 함께하고 싶은 프로그램 제안할 수 있는 양방향 소통 플랫폼
+    </h4>
+    <br>
+    <br>
+    <h1 class="a"> 📌만남M:ANAM이 향하는 길</h1>
+        <h3 class="c">캠퍼스의 가장 큰 사회적 의미는 다양한 관심사를 지니고 그에 대한 열정을 공유하는 학생들에게 만남의 장이 되어준다는 점입니다.
+        <br> 이 만남의 장을 통해 학생들은 서로로부터 많은 것들을 느끼고, 배우거나 익히며 발전해 나아갑니다.
+        <br> 우리는 만남M:ANAM이라는 새로운 장을 열어, 이러한 캠퍼스의 사회적 가치를 성북구 전반의 분위기로 확장시키고자 합니다.
+        <br> 자연어 처리, 추천 알고리즘 등 다양한 최신의 데이터 분석 기법을 적극 활용하여 ‘만남’을 주제로 하여
+        <br>여러 문화, 교육 프로그램 및 동아리들에 대한 정보를 제공하고, 소통의 계기를 마련하여 사회적 가치를 실현시키고자 합니다.</h3>
+    <br>
+    <div class="a" OnClick="location.href ='{% url 'manam:index' %}'" style="cursor:pointer; font-weight:bold;">📌지금 바로 만남 시작하기(CLICK🖱️)
+</div>
+    <br>
+    <br>
 </body>
 </html>

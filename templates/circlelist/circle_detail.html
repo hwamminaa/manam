@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+<a href="{% url 'circlelist:search' %}" class="delete btn btn-sm btn-outline-success" style="position:relative;top:65px;left:1100px;">전체동아리목록</a>
 <div class="container my-3">
     <!-- 동아리 세부정보 -->
     <h2 class="border-bottom py-2">{{ circle.name }}</h2>
