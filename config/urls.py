@@ -28,3 +28,5 @@ urlpatterns = [
     path('circle/kuprogram/', include('kuprogram.urls')),
     path('circle/circlelist/', include('circlelist.urls')),
 ]
+
+handler404 = 'common.views.page_not_found'
