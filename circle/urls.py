@@ -22,5 +22,5 @@ urlpatterns = [
 
 
     ##동아리 모아보기
-    path('circlelist/',views.circle_list, name = 'circle_list'),
+    #path('circlelist/',views.circle_list, name = 'circle_list'),
 ]

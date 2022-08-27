@@ -59,7 +59,7 @@
     }
     .container{
       background: white;
-      height: 650px;
+      height: 500px;
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
@@ -97,7 +97,7 @@
 </head>
 <body>
 <header>
-  <a class="navbar-brand" href="{% url 'circle:index' %}" style="color:white">성북구X고려대 M:ANAM</a>
+  <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:white">M:ANAM</a>
   <nav>
       <ul>
           <li class="nav-item">
@@ -116,6 +116,9 @@
   </nav>
 </header>
 
+
+<div><br><h2 style="text-align:center">성북구X고려대 M:ANAM</h2></div>
+
 <div class="container" id="menu">
     <div class="item item1" OnClick="location.href ='{% url 'circle:gwangjang' %}'" style="cursor:pointer;">
         <div class="select">성북 어울림</div>
@@ -125,7 +128,7 @@
         <div class="select">KU 어울림</div>
         <div class="detail">고려대학교 동아리 제공 프로그램</div>
     </div>
-    <div class="item item3" OnClick="location.href ='{% url 'circle:circle_list' %}'" style="cursor:pointer;">
+    <div class="item item3" OnClick="location.href ='{% url 'circlelist:search' %}'" style="cursor:pointer;">
         <div class="select">동아리 모아보기</div>
     </div>
 </div>

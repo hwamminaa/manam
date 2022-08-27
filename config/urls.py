@@ -26,5 +26,5 @@ urlpatterns = [
     path('program/', include('program.urls')),
     path('circle/', include('circle.urls')),
     path('circle/kuprogram/', include('kuprogram.urls')),
-    path('circle/circlelist', include('circlelist.urls')),
+    path('circle/circlelist/', include('circlelist.urls')),
 ]

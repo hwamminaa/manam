@@ -9,7 +9,7 @@ def index(request):
 
 
 def downloadCircle(request):
-    filename = 'C:\Korea university\데이터톤\장고\동아리전체데이터.csv'
+    filename = 'C:\dataton2022\동아리전체데이터.csv'
     df = pd.read_csv(filename, encoding="cp949", na_values='nan')
 
     category_list = []
