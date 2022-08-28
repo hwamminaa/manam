@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
     <!-- pybo CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <title>Hello, pybo!</title>
+    <title>M:ANAM</title>
     <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
     <style>
     @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
@@ -46,6 +46,64 @@
     .navbar-brand {
       font-size: 40px;
     }
+
+    .navbar__menu {
+    list-style: none;
+    display: stick;
+    margin: 0;
+    padding-left: 0;
+    }
+
+    .navbar__menu li:hover {
+    text-color: var(--accent-color);
+    border-radius: 3px;
+     }
+
+    .dropdown-button {
+
+         background-color: white;
+         margin-right: 5px;
+            font-size: 18px;
+            color: black;
+            border:none;
+      }
+
+     .dropdown {
+        position: relative;
+        display: inline-block;
+     }
+
+     .dropdown-content {
+        display: none;
+        position: absolute;
+        min-width: 75px;
+        padding: 8px;
+        background-color: white;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+   }
+
+    .dropdown-content a {
+         color: black;
+         padding: 8px;
+         text-decoration: none;
+         display: block;
+      }
+   .dropdown-content a:hover { background-color: #E2E2E2; }
+   .dropdown:hover .dropdown-content { display: block; }
+   .dropdown:hover .dropdown-button { background-color: white }
+
+
+    a.active-color { color:#000; }
+
+
+    :root{
+    --text-color:black;
+    --background-color: white;
+    --accent-color: #982323;
+    --backbackground-color: lightgray;
+    }
+    li.on{color:#982323}
+
     </style>
 </head>
 <body>
@@ -54,15 +112,25 @@
   <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:black">M:ANAM</a>
   <nav>
       <ul>
+          <div class="dropdown">
+              <button class="dropdown-button" style="color:black">성북구 문화 시설</button>
+              <div class="dropdown-content">
+                  <a href="{% url 'facility:facilitylist' %}">내 위치 인접<br>시설</a>
+                  <a href="{% url 'facility:showFacilitylist' %}">전체 문화 시설</a>
+              </div>
+          </div>
           <li class="nav-item active">
-              <a class="nav-link" href="{% url 'facility:facilitylist' %}" style="color:black">시설</a>
+              <a class="nav-link" href="{% url 'program:search' %}" style="color:black">맞춤 프로그램</a>
           </li>
-          <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:search' %}" style="color:black">프로그램</a>
-          </li>
-          <li class="nav-item active">
-              <a class="nav-link" href="{% url 'circle:index' %}" style="color:#982323">KU프로그램</a>
-          </li>
+          <div class="dropdown">
+              <button class="dropdown-button" a href="{% url 'manam:index' %}" style="color:black">성북구X고려대 M:ANAM</button>
+              <div class="dropdown-content">
+                  <a href="{% url 'circle:index' %}">메인 페이지</a>
+                  <a href="{% url 'circle:gwangjang' %}">성북구 어울림</a>
+                  <a href="{% url 'kuprogram:search' %}">KU 어울림</a>
+                  <a href="{% url 'circlelist:search' %}">KU 동아리 모아보기</a>
+              </div>
+          </div>
           <li class="nav-item">
               {% if user.is_authenticated %}
               <a class="nav-link" href="{% url 'common:logout' %}" style="color:grey">{{ user.username }} (로그아웃)</a>
@@ -76,7 +144,6 @@
               {% endif %}
           </li>
 
-
     </ul>
   </nav>
 </header>
@@ -89,5 +156,6 @@
 
 <!-- Bootstrap JS -->
 <script src="{% static 'bootstrap.min.js' %}"></script>
+
 </body>
 </html>

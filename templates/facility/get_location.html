@@ -1,36 +1,246 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>주소로 장소 표시하기</title>
+    <meta charset="UTF-8">
+    <title>Map</title>
 
+
+    <style>
+     @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+    html {
+      scroll-behavior: smooth;
+    }
+    * {
+      font-family: 'Spoqa Han Sans Neo', sans-serif;
+      }
+
+
+    .v2_35 {
+    width: 700px;
+    height: 65px;
+    background: rgba(245,245,245,1);
+    opacity: 1;
+    position: relative;
+    top: 5px;
+    left: 260px;
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+    border-bottom-left-radius: 13px;
+    border-bottom-right-radius: 13px;
+    overflow: hidden;
+    }
+    .v30_9 {
+    width: 500px;
+    color: rgba(0,0,0,1);
+    position: absolute;
+    top: 115px;
+    left: 350px;
+    font-family: Inter;
+    font-weight: Bold;
+    font-size: 30px;
+    opacity: 1;
+    text-align: left;
+    }
+
+    #map {
+    width:800px;
+    height:400px;
+    position:relative;
+    top : 40px;
+    left: 225px;
+    }
+    p {
+    position:relative;
+    left: 460px;
+    top: 10px;
+    }
+    header {
+      position: relative;
+      padding-top: 30px;
+      top: -32px;
+      background: white;
+      color: black;
+      padding-left: 32px;
+      padding-right: 32px;
+      padding-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      display: inline-block;
+      margin-left: 16px;
+      font-size: 18px;
+      color: black;
+    }
+    .navbar-brand {
+      font-size: 40px;
+    }
+
+    .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+    .wrap * {padding: 0;margin: 0;}
+    .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
+    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
+    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
+    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+    .info .close:hover {cursor: pointer;}
+    .info .body {position: relative;overflow: hidden;}
+    .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
+    .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+    .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
+    .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
+    .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
+    .info .link {color: #5085BB;}
+</style>
 </head>
 <body>
-<p style="margin-top:-12px">
-    <em class="link">
-        <a href="javascript:void(0);" onclick="window.open('http://fiy.daum.net/fiy/map/CsGeneral.daum', '_blank', 'width=981, height=650')">
-            혹시 주소 결과가 잘못 나오는 경우에는 여기에 제보해주세요.
-        </a>
-    </em>
-</p>
-<div id="map" style="width:100%;height:350px;"></div>
+<!-- 네비게이션바 -->
+<header>
+  <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:black">M:ANAM</a>
+  <nav>
+      <ul>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">시설</a>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">프로그램</a>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:#982323">KU프로그램</a>
+          </li>
+          <li class="nav-item">
+              {% if user.is_authenticated %}
+              <a class="nav-link" href="{% url 'common:logout' %}" style="color:grey">{{ user.username }} (로그아웃)</a>
+              {% else %}
+              <a class="nav-link" href="{% url 'common:login' %}" style="color:grey">로그인</a>
+              {% endif %}
+          </li>
+          <li>
+              {% if not user.is_authenticated %}
+              <a class="nav-link" href="{% url 'common:signup' %}" style="color:grey">회원가입</a>
+              {% endif %}
+          </li>
+          <li style="color:grey">문의사항</li>
 
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 사용하세요&libraries=services"></script>
-<script>
-var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };
+    </ul>
+  </nav>
+</header>
 
-// 지도를 생성합니다
-var map = new kakao.maps.Map(mapContainer, mapOption);
+    <div class="v2_35"></div>
+    <div class="v30_9">검색한 주소: {{ location_input }}</div>
+    <div id="map"></div>
 
-// 주소-좌표 변환 객체를 생성합니다
-var geocoder = new kakao.maps.services.Geocoder();
+    <div id="lat" style="display: none">
+        {% for fa in facilities %}
+            {{fa.lat}},
+        {% endfor %}
+    </div>
+    <div id="lng" style="display: none">
+        {%for fa in facilities%}
+            {{fa.lng}},
+        {% endfor %}
+    </div>
+    <div id="name" style="display: none">
+        {%for fa in facilities%}
+            {{fa.name}},
+        {% endfor %}
+    </div>
+     <div id="cate" style="display: none">
+        {%for fa in facilities%}
+            {{fa.cate_1}},
+        {% endfor %}
+    </div>
+     <div id="url" style="display: none">
+        {%for fa in facilities%}
+            {{fa.url}},
+        {% endfor %}
+    </div>
 
-// 주소로 좌표를 검색합니다
-geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+    <div class="facilitylist"><a href="{% url 'facility:showFacilitylist' %}" style="position:relative;top:-470px;left:1070px;"> 전체시설목록 보러가기 </a></div>
+
+<p>
+    <input type="checkbox" id="chkTraffic" onclick="setOverlayMapTypeId()" /> 교통정보 보기
+    <input type="checkbox" id="chkBicycle" onclick="setOverlayMapTypeId()" /> 자전거도로 정보 보기
+    <input type="checkbox" id="chkUseDistrict" onclick="setOverlayMapTypeId()" /> 지적편집도 정보 보기
+    <input type="checkbox" id="chkTerrain" onclick="setOverlayMapTypeId()" /> 지형정보 보기
+    </p>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3464eb8d032a6121616cba7859e41673&libraries=services,clusterer,drawing"></script>
+    <script>
+        var container = document.getElementById('map');
+        var options = {
+            center: new kakao.maps.LatLng(37.58641690228, 127.02918113964),
+            level: 3
+        };
+
+        var map = new kakao.maps.Map(container,options);
+
+        var list_lat = document.getElementById("lat").innerText.split(',');
+        var list_lng = document.getElementById("lng").innerText.split(',');
+        var list_name = document.getElementById("name").innerText.split(',');
+        var list_cate = document.getElementById("cate").innerText.split(',');
+        var list_url = document.getElementById("url").innerText.split(',');
+
+        var facilityCoordinates = [];
+
+        for(var idx=0; idx<list_lat.length;idx++){
+            var content = {
+                latlng : new kakao.maps.LatLng(list_lat[idx],list_lng[idx]),
+                name : list_name[idx],
+                cate : list_cate[idx],
+                url : list_url[idx]
+            }
+            facilityCoordinates.push(content);
+            };
+            console.log(facilityCoordinates);
+
+
+        for(var idx=0; idx<facilityCoordinates.length;idx++){
+            var marker = new kakao.maps.Marker({
+            map: map,
+            position: facilityCoordinates[idx].latlng,
+            title: facilityCoordinates[idx].name
+            });
+            (function(marker, place) {
+                kakao.maps.event.addListener(marker, 'mouseover', function() {
+                    var overlay = new kakao.maps.CustomOverlay({
+                        content: '<div class="wrap">' +
+                                '    <div class="info">' +
+                                '        <div class="title">' +
+                                            place.name +
+                                '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
+                                '        </div>' +
+                                '        <div class="body">' +
+                                '            <div class="desc">' +
+                                '                <div class="cate">' + place.cate + '</div>' +
+                                '               <div><a href= place.url target="_blank" class="link">홈페이지</a></div>' +
+                                '            </div>' +
+                                '        </div>' +
+                                '    </div>' +
+                                '</div>',
+                        map: map,
+                        position: marker.getPosition()
+                        });
+                        // 아무데나 클릭하게되면 overlay를 끄기
+                    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
+                        overlay.setMap(null)
+                    })
+
+                    console.log(overlay);
+                    overlay.setMap(map);
+                    })
+                })(marker, facilityCoordinates[idx]);
+            }
+
+
+    var geocoder = new kakao.maps.services.Geocoder();
+
+    geocoder.addressSearch(location_input, function(result, status) {
 
     // 정상적으로 검색이 완료됐으면
      if (status === kakao.maps.services.Status.OK) {
@@ -45,7 +255,7 @@ geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function
 
         // 인포윈도우로 장소에 대한 설명을 표시합니다
         var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">검색한 위치</div>'
         });
         infowindow.open(map, marker);
 
@@ -53,6 +263,8 @@ geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function
         map.setCenter(coords);
     }
 });
-</script>
+
+    </script>
+
 </body>
 </html>
