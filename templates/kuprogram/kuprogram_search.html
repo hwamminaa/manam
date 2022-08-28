@@ -7,11 +7,13 @@
     <div class="row my-100">
         <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="background-color: #982323">
         <div class="sidebar-sticky pt-3">
-          <ul class="nav flex-column">
+           <ul class="nav flex-column">
             <table class = 'table' style="background-color: #000000; color: ##691414">
-              <thead>
+              <br>
+                <thead>
                   <a href="{% url 'kuprogram:search' %}" class="btn" style="text-align:left; background-color: #982323; color: white;  font-size:1.5em" >KU 어울림</a>
               </thead>
+                <br>
               <tbody>
                 <!--필터 바-->
                 <form class="form-inline my-2 my-md-0" method="get" action="{% url 'kuprogram:search' %}">
