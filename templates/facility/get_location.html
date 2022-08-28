@@ -1,102 +1,27 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Map</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content=""width="device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <!-- pybo CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <title>Hello, pybo!</title>
+    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
 
 
     <style>
-         @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+     @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
     html {
       scroll-behavior: smooth;
     }
     * {
       font-family: 'Spoqa Han Sans Neo', sans-serif;
       }
-    header {
-      position: sticky;
-      padding-top: 20px;
-      top: -32px;
-      background: white;
-      color: black;
-      padding-left: 32px;
-      padding-right: 32px;
-      padding-bottom: 5px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-    }
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    li {
-      display: inline-block;
-      margin-left: 16px;
-      font-size: 18px;
-      color: black;
-    }
-    .navbar-brand {
-      font-size: 40px;
-    }
-
-    .navbar__menu {
-    list-style: none;
-    display: stick;
-    margin: 0;
-    padding-left: 0;
-    }
-
-    .navbar__menu li:hover {
-    text-color: var(--accent-color);
-    border-radius: 3px;
-     }
-
-    .dropdown-button {
-
-         background-color: white;
-         margin-right: 5px;
-            font-size: 18px;
-            color: black;
-            border:none;
-      }
-
-     .dropdown {
-        position: relative;
-        display: inline-block;
-     }
-
-     .dropdown-content {
-        display: none;
-        position: absolute;
-        min-width: 75px;
-        padding: 8px;
-        background-color: white;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-   }
-
-    .dropdown-content a {
-         color: black;
-         padding: 8px;
-         text-decoration: none;
-         display: block;
-      }
-   .dropdown-content a:hover { background-color: #E2E2E2; }
-   .dropdown:hover .dropdown-content { display: block; }
-   .dropdown:hover .dropdown-button { background-color: white }
-
-
-    a.active-color { color:#000; }
-
-
-    :root{
-    --text-color:black;
-    --background-color: white;
-    --accent-color: #982323;
-    --backbackground-color: lightgray;
-    }
-    li.on{color:#982323}
 
 
     .v2_35 {
@@ -188,25 +113,15 @@
   <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:black">M:ANAM</a>
   <nav>
       <ul>
-          <div class="dropdown">
-              <button class="dropdown-button" style="color:black">성북구 문화 시설</button>
-              <div class="dropdown-content">
-                  <a href="{% url 'facility:facilitylist' %}">내 위치 인접<br>시설</a>
-                  <a href="{% url 'facility:showFacilitylist' %}">전체 문화 시설</a>
-              </div>
-          </div>
           <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:search' %}" style="color:black">맞춤 프로그램</a>
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">시설</a>
           </li>
-          <div class="dropdown">
-              <button class="dropdown-button" a href="{% url 'manam:index' %}" style="color:black">성북구X고려대 M:ANAM</button>
-              <div class="dropdown-content">
-                  <a href="{% url 'circle:index' %}">메인 페이지</a>
-                  <a href="{% url 'circle:gwangjang' %}">성북구 어울림</a>
-                  <a href="{% url 'kuprogram:search' %}">KU 어울림</a>
-                  <a href="{% url 'circlelist:search' %}">KU 동아리 모아보기</a>
-              </div>
-          </div>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">프로그램</a>
+          </li>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'program:index' %}" style="color:#982323">KU프로그램</a>
+          </li>
           <li class="nav-item">
               {% if user.is_authenticated %}
               <a class="nav-link" href="{% url 'common:logout' %}" style="color:grey">{{ user.username }} (로그아웃)</a>
@@ -219,11 +134,11 @@
               <a class="nav-link" href="{% url 'common:signup' %}" style="color:grey">회원가입</a>
               {% endif %}
           </li>
+          <li style="color:grey">문의사항</li>
 
     </ul>
   </nav>
 </header>
-<!-- 네비게이션바 -->
 
     <div class="v2_35"></div>
     <div class="v30_9">검색한 주소: {{ location_input }}</div>
@@ -254,8 +169,7 @@
             {{fa.url}},
         {% endfor %}
     </div>
-
-    <div class="facilitylist"><a href="{% url 'facility:showFacilitylist' %}" style="position:relative;top:-470px;left:1070px;"> 전체시설목록 보러가기 </a></div>
+<a href="{% url 'facility:showFacilitylist' %}" class="delete btn btn-sm btn-outline-success" style="position:relative;top:-480px;left:1080px;">전체시설목록 보러가기</a>
 
 <p>
     <input type="checkbox" id="chkTraffic" onclick="setOverlayMapTypeId()" /> 교통정보 보기
@@ -264,7 +178,7 @@
     <input type="checkbox" id="chkTerrain" onclick="setOverlayMapTypeId()" /> 지형정보 보기
     </p>
 
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3464eb8d032a6121616cba7859e41673&libraries=services,clusterer,drawing"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3464eb8d032a6121616cba7859e41673&libraries=service,clusterer,drawing"></script>
     <script>
         var container = document.getElementById('map');
         var options = {
@@ -287,11 +201,12 @@
                 latlng : new kakao.maps.LatLng(list_lat[idx],list_lng[idx]),
                 name : list_name[idx],
                 cate : list_cate[idx],
-                url : list_url[idx]
+                url : list_url[idx],
             }
             facilityCoordinates.push(content);
             };
             console.log(facilityCoordinates);
+
 
 
         for(var idx=0; idx<facilityCoordinates.length;idx++){
@@ -300,36 +215,85 @@
             position: facilityCoordinates[idx].latlng,
             title: facilityCoordinates[idx].name
             });
+
             (function(marker, place) {
-                kakao.maps.event.addListener(marker, 'mouseover', function() {
+
+                kakao.maps.event.addListener(marker, 'click', function() {
                     var overlay = new kakao.maps.CustomOverlay({
                         content: '<div class="wrap">' +
                                 '    <div class="info">' +
                                 '        <div class="title">' +
                                             place.name +
-                                '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
+                                '            <div class="close" onclick= "closeOverlay()" title="닫기"></div> '+
                                 '        </div>' +
                                 '        <div class="body">' +
                                 '            <div class="desc">' +
-                                '                <div class="cate">' + place.cate + '</div>' +
-                                '               <div><a href= place.url target="_blank" class="link">홈페이지</a></div>' +
+                                '                <div class="cate">' +  place.cate  +'</div>' +
+                                '                  <div> 시설 홈페이지: </div>' +
+                                '               <div><a href= ' + place.url +  ' target="_blank">' + place.url + '</a></div>' +
                                 '            </div>' +
                                 '        </div>' +
                                 '    </div>' +
                                 '</div>',
                         map: map,
                         position: marker.getPosition()
+
                         });
-                        // 아무데나 클릭하게되면 overlay를 끄기
-                    kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
-                        overlay.setMap(null)
-                    })
+
 
                     console.log(overlay);
                     overlay.setMap(map);
+
+                    function closeOverlay() {
+                        overlay.setMap(null);
+                    }
                     })
+
                 })(marker, facilityCoordinates[idx]);
+
             }
+
+        var mapTypes = {
+    terrain : kakao.maps.MapTypeId.TERRAIN,
+    traffic :  kakao.maps.MapTypeId.TRAFFIC,
+    bicycle : kakao.maps.MapTypeId.BICYCLE,
+    useDistrict : kakao.maps.MapTypeId.USE_DISTRICT
+};
+
+// 체크 박스를 선택하면 호출되는 함수입니다
+function setOverlayMapTypeId() {
+    var chkTerrain = document.getElementById('chkTerrain'),
+        chkTraffic = document.getElementById('chkTraffic'),
+        chkBicycle = document.getElementById('chkBicycle'),
+        chkUseDistrict = document.getElementById('chkUseDistrict');
+
+    // 지도 타입을 제거합니다
+    for (var type in mapTypes) {
+        map.removeOverlayMapTypeId(mapTypes[type]);
+    }
+
+    // 지적편집도정보 체크박스가 체크되어있으면 지도에 지적편집도정보 지도타입을 추가합니다
+    if (chkUseDistrict.checked) {
+        map.addOverlayMapTypeId(mapTypes.useDistrict);
+    }
+
+    // 지형정보 체크박스가 체크되어있으면 지도에 지형정보 지도타입을 추가합니다
+    if (chkTerrain.checked) {
+        map.addOverlayMapTypeId(mapTypes.terrain);
+    }
+
+    // 교통정보 체크박스가 체크되어있으면 지도에 교통정보 지도타입을 추가합니다
+    if (chkTraffic.checked) {
+        map.addOverlayMapTypeId(mapTypes.traffic);
+    }
+
+    // 자전거도로정보 체크박스가 체크되어있으면 지도에 자전거도로정보 지도타입을 추가합니다
+    if (chkBicycle.checked) {
+        map.addOverlayMapTypeId(mapTypes.bicycle);
+    }
+
+}
+
 
 
     var geocoder = new kakao.maps.services.Geocoder();
