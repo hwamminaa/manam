@@ -6,13 +6,97 @@
 
 
     <style>
-     @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+         @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
     html {
       scroll-behavior: smooth;
     }
     * {
       font-family: 'Spoqa Han Sans Neo', sans-serif;
       }
+    header {
+      position: sticky;
+      padding-top: 20px;
+      top: -32px;
+      background: white;
+      color: black;
+      padding-left: 32px;
+      padding-right: 32px;
+      padding-bottom: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      display: inline-block;
+      margin-left: 16px;
+      font-size: 18px;
+      color: black;
+    }
+    .navbar-brand {
+      font-size: 40px;
+    }
+
+    .navbar__menu {
+    list-style: none;
+    display: stick;
+    margin: 0;
+    padding-left: 0;
+    }
+
+    .navbar__menu li:hover {
+    text-color: var(--accent-color);
+    border-radius: 3px;
+     }
+
+    .dropdown-button {
+
+         background-color: white;
+         margin-right: 5px;
+            font-size: 18px;
+            color: black;
+            border:none;
+      }
+
+     .dropdown {
+        position: relative;
+        display: inline-block;
+     }
+
+     .dropdown-content {
+        display: none;
+        position: absolute;
+        min-width: 75px;
+        padding: 8px;
+        background-color: white;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+   }
+
+    .dropdown-content a {
+         color: black;
+         padding: 8px;
+         text-decoration: none;
+         display: block;
+      }
+   .dropdown-content a:hover { background-color: #E2E2E2; }
+   .dropdown:hover .dropdown-content { display: block; }
+   .dropdown:hover .dropdown-button { background-color: white }
+
+
+    a.active-color { color:#000; }
+
+
+    :root{
+    --text-color:black;
+    --background-color: white;
+    --accent-color: #982323;
+    --backbackground-color: lightgray;
+    }
+    li.on{color:#982323}
 
 
     .v2_35 {
@@ -104,15 +188,25 @@
   <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:black">M:ANAM</a>
   <nav>
       <ul>
+          <div class="dropdown">
+              <button class="dropdown-button" style="color:black">성북구 문화 시설</button>
+              <div class="dropdown-content">
+                  <a href="{% url 'facility:facilitylist' %}">내 위치 인접<br>시설</a>
+                  <a href="{% url 'facility:showFacilitylist' %}">전체 문화 시설</a>
+              </div>
+          </div>
           <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">시설</a>
+              <a class="nav-link" href="{% url 'program:search' %}" style="color:black">맞춤 프로그램</a>
           </li>
-          <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">프로그램</a>
-          </li>
-          <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:index' %}" style="color:#982323">KU프로그램</a>
-          </li>
+          <div class="dropdown">
+              <button class="dropdown-button" a href="{% url 'manam:index' %}" style="color:black">성북구X고려대 M:ANAM</button>
+              <div class="dropdown-content">
+                  <a href="{% url 'circle:index' %}">메인 페이지</a>
+                  <a href="{% url 'circle:gwangjang' %}">성북구 어울림</a>
+                  <a href="{% url 'kuprogram:search' %}">KU 어울림</a>
+                  <a href="{% url 'circlelist:search' %}">KU 동아리 모아보기</a>
+              </div>
+          </div>
           <li class="nav-item">
               {% if user.is_authenticated %}
               <a class="nav-link" href="{% url 'common:logout' %}" style="color:grey">{{ user.username }} (로그아웃)</a>
@@ -125,11 +219,11 @@
               <a class="nav-link" href="{% url 'common:signup' %}" style="color:grey">회원가입</a>
               {% endif %}
           </li>
-          <li style="color:grey">문의사항</li>
 
     </ul>
   </nav>
 </header>
+<!-- 네비게이션바 -->
 
     <div class="v2_35"></div>
     <div class="v30_9">검색한 주소: {{ location_input }}</div>

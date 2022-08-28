@@ -11,6 +11,16 @@
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <title>Hello, pybo!</title>
     <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content=""width="device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <!-- pybo CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <title>M:ANAM</title>
+    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
     <style>
     @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
     html {
@@ -32,7 +42,7 @@
       justify-content: space-between;
       align-items: center;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-      z-index:4;
+      z-index:9;
     }
     ul {
       list-style-type: none;
@@ -47,6 +57,64 @@
     .navbar-brand {
       font-size: 40px;
     }
+
+    .navbar__menu {
+    list-style: none;
+    display: stick;
+    margin: 0;
+    padding-left: 0;
+    }
+
+    .navbar__menu li:hover {
+    text-color: var(--accent-color);
+    border-radius: 3px;
+     }
+
+    .dropdown-button {
+
+         background-color: white;
+         margin-right: 5px;
+            font-size: 18px;
+            color: black;
+            border:none;
+      }
+
+     .dropdown {
+        position: relative;
+        display: inline-block;
+     }
+
+     .dropdown-content {
+        display: none;
+        position: absolute;
+        min-width: 75px;
+        padding: 8px;
+        background-color: white;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+   }
+
+    .dropdown-content a {
+         color: black;
+         padding: 8px;
+         text-decoration: none;
+         display: block;
+      }
+   .dropdown-content a:hover { background-color: #E2E2E2; }
+   .dropdown:hover .dropdown-content { display: block; }
+   .dropdown:hover .dropdown-button { background-color: white }
+
+
+    a.active-color { color:#000; }
+
+
+    :root{
+    --text-color:black;
+    --background-color: white;
+    --accent-color: #982323;
+    --backbackground-color: lightgray;
+    }
+    li.on{color:#982323}
+
     .item{
       width: 300px;
       height: 300px;
@@ -72,15 +140,25 @@
   <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:black">M:ANAM</a>
   <nav>
       <ul>
+          <div class="dropdown">
+              <button class="dropdown-button" style="color:black">성북구 문화 시설</button>
+              <div class="dropdown-content">
+                  <a href="{% url 'facility:facilitylist' %}">내 위치 인접<br>시설</a>
+                  <a href="{% url 'facility:showFacilitylist' %}">전체 문화 시설</a>
+              </div>
+          </div>
           <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">시설</a>
+              <a class="nav-link" href="{% url 'program:search' %}" style="color:black">맞춤 프로그램</a>
           </li>
-          <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">프로그램</a>
-          </li>
-          <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:index' %}" style="color:#982323">KU프로그램</a>
-          </li>
+          <div class="dropdown">
+              <button class="dropdown-button" a href="{% url 'manam:index' %}" style="color:black">성북구X고려대 M:ANAM</button>
+              <div class="dropdown-content">
+                  <a href="{% url 'circle:index' %}">메인 페이지</a>
+                  <a href="{% url 'circle:gwangjang' %}">성북구 어울림</a>
+                  <a href="{% url 'kuprogram:search' %}">KU 어울림</a>
+                  <a href="{% url 'circlelist:search' %}">KU 동아리 모아보기</a>
+              </div>
+          </div>
           <li class="nav-item">
               {% if user.is_authenticated %}
               <a class="nav-link" href="{% url 'common:logout' %}" style="color:grey">{{ user.username }} (로그아웃)</a>
@@ -93,7 +171,6 @@
               <a class="nav-link" href="{% url 'common:signup' %}" style="color:grey">회원가입</a>
               {% endif %}
           </li>
-          <li style="color:grey">문의사항</li>
 
     </ul>
   </nav>
@@ -133,25 +210,30 @@
                 <h4>이런 프로그램은 어때요?</h4>
                 <div class="container" style="display: flex; flex-direction: row; flex-wrap: nowrap; justify-content:space-around; align-items: center;">
                     <div class="item item1" OnClick="location.href ='{% url 'program:detail' recommend1.id %}'" style="cursor:pointer;">
-                        <div class="select" style="text-align:center; font-weight:bold;">{{ recommend1.name }}</div>
-                        <div class="detail">{{ recommend1.category}}</div>
+                        <div class="select" style="text-align:center; font-weight:bold; padding:3px; font-size:17px;">{{ recommend1.name }}</div>
+                        <div class="detail" style="font-weight:bold;color:#5A5A5A;">{{ recommend1.category}}</div>
+                        <div class="detail">{{ recommend1.host}}</div>
                     </div>
                     <div class="item item2" OnClick="location.href ='{% url 'program:detail' recommend2.id %}'" style="cursor:pointer;">
-                        <div class="select" style="text-align:center; font-weight:bold;">{{ recommend2.name }}</div>
-                        <div class="detail">{{ recommend2.category}}</div>
+                        <div class="select" style="text-align:center; font-weight:bold;padding:3px;font-size:17px;">{{ recommend2.name }}</div>
+                        <div class="detail" style="font-weight:bold;color:#5A5A5A;">{{ recommend2.category}}</div>
+                        <div class="detail">{{ recommend2.host}}</div>
                     </div>
                     <div class="item item3" OnClick="location.href ='{% url 'program:detail' recommend3.id %}'" style="cursor:pointer;">
-                        <div class="select" style="text-align:center; font-weight:bold;">{{ recommend3.name }}</div>
-                        <div class="detail">{{ recommend3.category}}</div>
+                        <div class="select" style="text-align:center; font-weight:bold;padding:3px;font-size:17px;">{{ recommend3.name }}</div>
+                        <div class="detail" style="font-weight:bold;color:#5A5A5A;">{{ recommend3.category}}</div>
+                        <div class="detail">{{ recommend3.host}}</div>
                     </div>
                     <div class="item item4" OnClick="location.href ='{% url 'program:detail' recommend4.id %}'" style="cursor:pointer;">
-                        <div class="select" style="text-align:center; font-weight:bold;">{{ recommend4.name }}</div>
-                        <div class="detail">{{ recommend4.category}}</div>
+                        <div class="select" style="text-align:center; font-weight:bold;padding:3px;font-size:17px;">{{ recommend4.name }}</div>
+                        <div class="detail" style="font-weight:bold;color:#5A5A5A;">{{ recommend4.category}}</div>
+                        <div class="detail">{{ recommend4.host}}</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <a href="{% url 'kuprogram:search' %}" class="delete btn btn-sm btn-outline-success" >돌아가기</a>
 </div>
 
 <!-- Bootstrap JS -->

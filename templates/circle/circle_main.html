@@ -59,12 +59,22 @@
     }
     .container{
       background: white;
-      height: 650px;
+      height: 450px;
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
       justify-content: space-around;    /* 중심축 */
       align-items: center;  /* cross축 */
+    }
+    .title{
+        background: #e2e2e2
+        display: flex;
+        font-size: 36px;
+        text-align: center;
+        font-weight: bold;
+        padding: 0;
+        text-shadow: 0.5px 0px 0px gray;
+
     }
     .item{
       width: 350px;
@@ -97,7 +107,7 @@
 </head>
 <body>
 <header>
-  <a class="navbar-brand" href="{% url 'circle:index' %}" style="color:white">성북구X고려대 M:ANAM</a>
+  <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:white">M:ANAM으로 돌아가기</a>
   <nav>
       <ul>
           <li class="nav-item">
@@ -115,18 +125,19 @@
     </ul>
   </nav>
 </header>
-
+<br>
+<div class="title"<center>성북구X고려대 M:ANAM</center></div>
 <div class="container" id="menu">
     <div class="item item1" OnClick="location.href ='{% url 'circle:gwangjang' %}'" style="cursor:pointer;">
         <div class="select">성북 어울림</div>
-        <div class="detail">동아리 프로그램 신청 및 자율동아리 모집</div>
+        <div class="detail"><center>동아리 프로그램 신청 및<br>자율 동아리 모집</center></div>
     </div>
     <div class="item item2" OnClick="location.href ='{% url 'kuprogram:search' %}'" style="cursor:pointer;">
         <div class="select">KU 어울림</div>
         <div class="detail">고려대학교 동아리 제공 프로그램</div>
     </div>
     <div class="item item3" OnClick="location.href ='{% url 'circlelist:search' %}'" style="cursor:pointer;">
-        <div class="select">동아리 모아보기</div>
+        <div class="select">고려대학교 동아리<br>모아보기</div>
     </div>
 </div>
 
