@@ -6,3 +6,6 @@ def index(request):
 
 def intro(request):
     return render(request,'manam/intro.html')
+
+def index2(request):
+    return render(request,'manam/main2.html')

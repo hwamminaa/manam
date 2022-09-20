@@ -133,7 +133,7 @@
     div > form{
     width:500px;
     height:50px;
-    left: 680px;
+    left: 670px;
     position:relative;
     top : -350px;
     }
@@ -271,9 +271,9 @@
 <!-- 조회폼 -->
     <form action="{% url 'facility:location_input' %}" method="get">
     {% csrf_token %}
-    <label for="location_input"> 위치조회 </label>
+    <label for="location_input"> 위치조회 (도로명 주소 입력) </label>
     <input type="text" name="location_input" value="{{ location_input }}" id="location_input">
-    <input type="submit" value="해당주소로 지도 이동">
+    <input type="submit" value="검색">
     </form>
 </div>
 
@@ -287,7 +287,7 @@
     <input type="checkbox" id="chkTerrain" onclick="setOverlayMapTypeId()" /> 지형정보 보기
     </p>
 
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3464eb8d032a6121616cba7859e41673&libraries=service,clusterer,drawing"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3464eb8d032a6121616cba7859e41673&libraries=services,clusterer,drawing"></script>
     <script>
         var container = document.getElementById('map');
         var options = {
@@ -311,11 +311,12 @@
                 name : list_name[idx],
                 cate : list_cate[idx],
                 url : list_url[idx],
+                lat: list_lat[idx],
+                lng: list_lng[idx],
             }
             facilityCoordinates.push(content);
             };
             console.log(facilityCoordinates);
-
 
 
         for(var idx=0; idx<facilityCoordinates.length;idx++){
@@ -328,18 +329,20 @@
             (function(marker, place) {
 
                 kakao.maps.event.addListener(marker, 'click', function() {
+
                     var overlay = new kakao.maps.CustomOverlay({
                         content: '<div class="wrap">' +
                                 '    <div class="info">' +
                                 '        <div class="title">' +
                                             place.name +
-                                '            <div class="close" onclick= "closeOverlay()" title="닫기"></div> '+
+                                '            <div class="close" onclick= closeOverlay() title="닫기"></div> '+
                                 '        </div>' +
                                 '        <div class="body">' +
                                 '            <div class="desc">' +
                                 '                <div class="cate">' +  place.cate  +'</div>' +
                                 '                  <div> 시설 홈페이지: </div>' +
-                                '		         <div><a href= ' + place.url +  ' target="_blank">' + place.url + '</a></div>' +
+                                '               <div><a href= ' + place.url +  ' target="_blank">' + place.url + '</a></div>' +
+                                '               <div>길찾기: <a href= "https://map.kakao.com/link/to/'+ place.name +','+ place.lat +','+ place.lng + ' " target="_blank"> '+ place.name +'으로 길찾기 바로가기 </a></div>'+
                                 '            </div>' +
                                 '        </div>' +
                                 '    </div>' +
@@ -353,13 +356,14 @@
                     console.log(overlay);
                     overlay.setMap(map);
 
-                    function closeOverlay() {
-                        overlay.setMap(null);
-                    }
                     })
+
 
                 })(marker, facilityCoordinates[idx]);
 
+            function closeOverlay() {
+                alert('왜 창이 안닫히나 당황하셨겠지만 여러개 마커에 대해 창닫기 구현하는게 어렵더라구요ㅎ 창을 닫고 싶으시면 새로고침 하셔서 다시보는 것을 추천드립니다... 죄송합니다...🙏');
+            }
             }
 
 
