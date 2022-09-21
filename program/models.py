@@ -8,9 +8,9 @@ class Program(models.Model):
     start_date = models.DateField(null=True)
     end_date = models.DateField(null=True)
     price = models.IntegerField()
-    age = models.CharField(max_length=5)
+    age = models.CharField(max_length=30)
     link = models.CharField(max_length=400, null=True)
-    description = models.CharField(max_length=2000, null=True)
+    description = models.TextField(null=True)
 
     def __str__(self):
         return self.name
