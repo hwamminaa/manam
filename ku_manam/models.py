@@ -17,7 +17,7 @@ class Question(models.Model):
     hashtag = models.CharField(max_length=200)
     inquiry = models.CharField(max_length=200)
     apply = models.CharField(max_length=200)
-    create_date = models.DateTimeField(null=True,default='')
+    create_date = models.DateTimeField(null=True, default='')
     modify_date = models.DateTimeField(null=True, blank=True)
     hits = models.PositiveIntegerField(default=0)
     def __str__(self):

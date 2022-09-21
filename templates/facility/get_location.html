@@ -2,8 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Map</title>
     <meta charset="utf-8">
     <meta name="viewport" content=""width="device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS-->
@@ -12,61 +10,18 @@
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <title>Hello, pybo!</title>
     <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
-
-
     <style>
-     @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+        @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
     html {
       scroll-behavior: smooth;
     }
     * {
       font-family: 'Spoqa Han Sans Neo', sans-serif;
       }
-
-
-    .v2_35 {
-    width: 900px;
-    height: 65px;
-    background: rgba(245,245,245,1);
-    opacity: 1;
-    position: relative;
-    top: 5px;
-    left: 260px;
-    border-top-left-radius: 13px;
-    border-top-right-radius: 13px;
-    border-bottom-left-radius: 13px;
-    border-bottom-right-radius: 13px;
-    overflow: hidden;
-    }
-    .v30_9 {
-    width: 800px;
-    color: rgba(0,0,0,1);
-    position: absolute;
-    top: 115px;
-    left: 350px;
-    font-family: Inter;
-    font-weight: Bold;
-    font-size: 30px;
-    opacity: 1;
-    text-align: left;
-    }
-
-    #map {
-    width:800px;
-    height:400px;
-    position:relative;
-    top : 40px;
-    left: 300px;
-    }
-    p {
-    position:relative;
-    left: 555px;
-    top: -5px;
-    }
     header {
-      position: relative;
-      padding-top: 30px;
-      top: -32px;
+      position: sticky;
+      padding-top: 20px;
+      top: 0px;
       background: white;
       color: black;
       padding-left: 32px;
@@ -76,6 +31,7 @@
       justify-content: space-between;
       align-items: center;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+      z-index:9;
     }
     ul {
       list-style-type: none;
@@ -91,20 +47,95 @@
       font-size: 40px;
     }
 
-    .wrap {position: absolute;left: 0;bottom: 40px;width: 288px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
-    .wrap * {padding: 0;margin: 0;}
-    .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
-    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
-    .info .close:hover {cursor: pointer;}
-    .info .body {position: relative;overflow: hidden;}
-    .info .desc {position: relative;margin: 13px 0 0 90px;height: 75px;}
-    .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
-    .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
-    .info .img {position: absolute;top: 6px;left: 5px;width: 73px;height: 71px;border: 1px solid #ddd;color: #888;overflow: hidden;}
-    .info:after {content: '';position: absolute;margin-left: -12px;left: 50%;bottom: 0;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}
-    .info .link {color: #5085BB;}
+    .navbar__menu {
+    list-style: none;
+    display: stick;
+    margin: 0;
+    padding-left: 0;
+    }
+
+    .navbar__menu li:hover {
+    text-color: var(--accent-color);
+    border-radius: 3px;
+     }
+
+    .dropdown-button {
+
+         background-color: white;
+         margin-right: 5px;
+            font-size: 18px;
+            color: black;
+            border:none;
+      }
+
+     .dropdown {
+        position: relative;
+        display: inline-block;
+     }
+
+     .dropdown-content {
+        display: none;
+        position: absolute;
+        min-width: 75px;
+        padding: 8px;
+        background-color: white;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+   }
+
+    .dropdown-content a {
+         color: black;
+         padding: 8px;
+         text-decoration: none;
+         display: block;
+      }
+   .dropdown-content a:hover { background-color: #E2E2E2; }
+   .dropdown:hover .dropdown-content { display: block; }
+   .dropdown:hover .dropdown-button { background-color: white }
+
+
+    a.active-color { color:#000; }
+
+
+    :root{
+    --text-color:black;
+    --background-color: white;
+    --accent-color: #982323;
+    --backbackground-color: lightgray;
+    }
+    li.on{color:#982323}
+
+
+    .v30_9 {
+    width: 700px;
+    height: 65px;
+    background: rgba(245,245,245,1);
+    margin-top: 20px;
+    opacity: 1;
+    color: rgba(0,0,0,1);
+    font-family: Inter;
+    font-weight: Bold;
+    font-size: 28px;
+    opacity: 1;
+    text-align: center;
+    align-items: center;
+    padding: 10px 0;
+    border-top-left-radius: 13px;
+    border-top-right-radius: 13px;
+    border-bottom-left-radius: 13px;
+    border-bottom-right-radius: 13px;
+}
+    div > form{
+    width:500px;
+    height:50px;
+    }
+
+    #map {
+    width:800px;
+    height:400px;
+    }
+
+
+
 </style>
 </head>
 <body>
@@ -113,15 +144,30 @@
   <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:black">M:ANAM</a>
   <nav>
       <ul>
+          <div class="dropdown">
+              <button class="dropdown-button" style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KU 만남&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+              <div class="dropdown-content">
+                  <a href="{% url 'ku_manam:talent_donation' %}">고려대 동아리<br>지역 연계 프로그램</a>
+                  <a href="{% url 'circlelist:search' %}">동아리 모아보기</a>
+              </div>
+          </div>
+          <div class="dropdown">
+              <a href="{% url 'community:allarticles' %}" class="dropdown-button" style = "color:black; text-decoration:none;" >&nbsp;&nbsp;&nbsp;&nbsp;커뮤니티&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+              <div class="dropdown-content">
+                  <a href="{% url 'community:proposal' %}">프로그램<br>신청</a>
+                  <a href="{% url 'community:recruitment' %}">자율 동아리 모집</a>
+              </div>
+          </div>
           <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">시설</a>
+              <a class="nav-link" href="{% url 'program:search' %}" style="color:black">문화 프로그램&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
           </li>
-          <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:index' %}" style="color:black">프로그램</a>
-          </li>
-          <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:index' %}" style="color:#982323">KU프로그램</a>
-          </li>
+          <div class="dropdown">
+              <button class="dropdown-button" style="color:black">성북구 문화 시설&nbsp;&nbsp;</button>
+              <div class="dropdown-content">
+                  <a href="{% url 'facility:facilitylist' %}">내 위치 인접 시설</a>
+                  <a href="{% url 'facility:showFacilitylist' %}">전체 문화 시설</a>
+              </div>
+          </div>
           <li class="nav-item">
               {% if user.is_authenticated %}
               <a class="nav-link" href="{% url 'common:logout' %}" style="color:grey">{{ user.username }} (로그아웃)</a>
@@ -134,17 +180,18 @@
               <a class="nav-link" href="{% url 'common:signup' %}" style="color:grey">회원가입</a>
               {% endif %}
           </li>
-          <li style="color:grey">문의사항</li>
 
     </ul>
   </nav>
 </header>
 
-    <div class="v2_35"></div>
+<div class="container-fluid" style="display:flex; flex-direction:column;flex-wrap: nowrap;justify-content:center;align-items: center;">
     <div class="v30_9">검색한 주소: {{ location_input }}</div>
-    <div id="map"></div>
 
-<div style="position:relative;top:-390px;left:500px;"> * 유효하지 않은 도로명 주소를 입력하면 안암역으로 도출됩니다. </div>
+    <div> * 유효하지 않은 도로명 주소를 입력하면 안암역으로 도출됩니다. </div>
+
+    <div id="map" style="margin-top:10px;"></div>
+
 
     <div id="lat" style="display: none">
         {% for fa in facilities %}
@@ -171,14 +218,18 @@
             {{fa.url}},
         {% endfor %}
     </div>
-<a href="{% url 'facility:showFacilitylist' %}" class="delete btn btn-sm btn-outline-success" style="position:relative;top:-480px;left:1200px;">전체시설목록 보러가기</a>
 
-<p>
-    <input type="checkbox" id="chkTraffic" onclick="setOverlayMapTypeId()" /> 교통정보 보기
-    <input type="checkbox" id="chkBicycle" onclick="setOverlayMapTypeId()" /> 자전거도로 정보 보기
-    <input type="checkbox" id="chkUseDistrict" onclick="setOverlayMapTypeId()" /> 지적편집도 정보 보기
-    <input type="checkbox" id="chkTerrain" onclick="setOverlayMapTypeId()" /> 지형정보 보기
-    </p>
+    <div style="display:flex; flex-direction:row;flex-wrap:nowrap;justify-content:center;align-items:center;gap:110px";>
+        <p>
+        <input type="checkbox" id="chkTraffic" onclick="setOverlayMapTypeId()" /> 교통정보 보기
+        <input type="checkbox" id="chkBicycle" onclick="setOverlayMapTypeId()" /> 자전거도로 정보 보기
+        <input type="checkbox" id="chkUseDistrict" onclick="setOverlayMapTypeId()" /> 지적편집도 정보 보기
+        <input type="checkbox" id="chkTerrain" onclick="setOverlayMapTypeId()" /> 지형정보 보기
+        </p>
+        <a href="{% url 'facility:showFacilitylist' %}" class="delete btn btn-sm btn-outline-success">전체시설목록 보러가기</a>
+    </div>
+</div>
+
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3464eb8d032a6121616cba7859e41673&libraries=services,clusterer,drawing"></script>
     <script>

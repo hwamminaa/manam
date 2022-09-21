@@ -10,7 +10,7 @@
     <!-- pybo CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <!-- 폰트 불러오기 -->
-    <title>M:ANAM 만남</title>
+    <title>M:ANAM</title>
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
     <style>
     @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
@@ -49,7 +49,7 @@
         color: black;
     }
     .navbar-brand {
-        font-size: 30px;
+        font-size: 40px;
     }
     .navbar__menu {
         list-style: none;
@@ -85,6 +85,7 @@
          padding: 8px;
          text-decoration: none;
          display: block;
+         font-size: 16px;
     }
    .dropdown-content a:hover { background-color: #E2E2E2; }
    .dropdown:hover .dropdown-content { display: block; }
@@ -104,7 +105,7 @@
     a {
        list-style-type: none;
        font-size: 18px;
-       margin-left:16px;
+       margin-left:0px;
     }
     .container-fluid{
         height: 400px;
@@ -122,9 +123,9 @@
     }
     .fluid2{
         height: 400px;
-        gap: 150px;
         background: white;
-        padding: 70px;
+        justify-content: space-around;
+        padding: 80px;
     }
     .fluid3{
         height: 300px;
@@ -313,14 +314,14 @@
   <nav>
       <ul>
           <div class="dropdown">
-              <button class="dropdown-button" style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KU 만남&nbsp;&nbsp;&nbsp;&nbsp;</button>
+              <button class="dropdown-button" style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KU 만남&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
               <div class="dropdown-content">
                   <a href="{% url 'ku_manam:talent_donation' %}">고려대 동아리<br>지역 연계 프로그램</a>
                   <a href="{% url 'circlelist:search' %}">동아리 모아보기</a>
               </div>
           </div>
           <div class="dropdown">
-              <a href="{% url 'community:allarticles' %}" class="dropdown-button" style = "color:black; text-decoration:none;" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;커뮤니티&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+              <a href="{% url 'community:allarticles' %}" class="dropdown-button" style = "color:black; text-decoration:none;" >&nbsp;&nbsp;&nbsp;&nbsp;커뮤니티&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
               <div class="dropdown-content">
                   <a href="{% url 'community:proposal' %}">프로그램<br>신청</a>
                   <a href="{% url 'community:recruitment' %}">자율 동아리 모집</a>
@@ -477,17 +478,16 @@
 
     <div class="container-fluid fluid2">
         <div class="menudes" style="text-align:left">
-            캠퍼스의 가장 큰 사회적 의미는 다양한 관심사를 지니고 그에 대한 열정을 공유하는 학생들에게 만남의 장이 되어준다는 점입니다.
-            <br> 이 만남의 장을 통해 학생들은 서로로부터 많은 것들을 느끼고, 배우거나 익히며 발전해 나아갑니다.
-            <br> 우리는 만남M:ANAM이라는 새로운 장을 열어, 이러한 캠퍼스의 사회적 가치를 성북구 전반의 분위기로 확장시키고자 합니다.
-            <br> 자연어 처리, 추천 알고리즘 등 다양한 최신의 데이터 분석 기법을 적극 활용하여 ‘만남’을 주제로 하여
-            <br>여러 문화, 교육 프로그램 및 동아리들에 대한 정보를 제공하고, 소통의 계기를 마련하여 사회적 가치를 실현시키고자 합니다.
+            성북구 내 흩어져 있던 문화 시설들에 대한 정보를 한 곳에 모아 제공합니다.
+            <br> GPS를 통해 내 위치 주변 시설들을 지도에서 확인할 수 있으며 위치 검색을 통해 특정 위치 주변의 시설들을 조회할 수 있습니다.
+            <br> 더불어 자전거도로 및 교통정보, 해당 시설로의 길찾기 기능 등을 추가하여 편리성을 더했습니다.
+            <br> 내가 찾는 시설을 검색할 수 있고, 카테고리 별 분류가 가능하며, 각 시설의 홈페이지, 위치, 길찾기 등 관련 정보를 제공합니다.
             <br>
             <span class="go" OnClick="location.href ='{% url 'facility:facilitylist' %}'" style="">
                 바로 만나러가기 🡆
             </span>
         </div>
-            <h2 class="menu-title"> 성북구 문화시설 </h2>
+        <h2 class="menu-title"> 성북구 문화시설 </h2>
     </div>
 
     <div style="height:100px;"></div>

@@ -10,7 +10,7 @@ import time
 
 # Create your views here.
 def downloadProgram(request):
-    filename = 'C:\Korea university\데이터톤\장고\8월전체프로그램.csv'
+    filename = 'C:/dataton2022/9월문화프로그램.csv'
     df = pd.read_csv(filename, encoding="UTF-8", na_values='nan')
     count = 0
     for i in range(len(df)):
@@ -22,10 +22,9 @@ def downloadProgram(request):
         end_date_format = "%Y.%m.%d"
         end_date_result = datetime.strptime(end_date_string, end_date_format)
         # 프로그램 데이터 db에 저장
-        Program.objects.create(name=df["프로그램명"][i], type=df["유형"][i],
-                               category=df["카테고리"][i], host=df["행사시설명"][i], age=df["대상"][i],
-                               price=df["수강료"][i], start_date=start_date_result, end_date=end_date_result,
-                               link=df["안내URL"][i], coorx=df["X좌표값"][i], coory=df["Y좌표값"][i])
+        Program.objects.create(name=df["프로그램명"][i], category=df["카테고리"][i], host=df["행사시설명"][i],
+                               start_date=start_date_result, end_date=end_date_result, price=df["수강료"][i],
+                               age=df["대상"][i], link=df["안내URL"][i], description=df["상세설명"][i])
     return HttpResponse(f'''
     <html>
     <body>
@@ -92,7 +91,9 @@ def program_search(request):
     # 사이트에서 필터 선택 여부 받아오기
     b = request.GET.get('b', '')
     f = request.GET.get('f', '')
+
     price = request.GET.get('price', '')
+    age = request.GET.get('age', '')
     program_list = Program.objects.order_by('-start_date')
 
     ########## 카테고리 리스트 ###############
@@ -107,6 +108,25 @@ def program_search(request):
 
     if f:
         program_list = program_list.filter(Q(category__icontains=f))
+
+    if age == '0':
+        program_list = program_list
+    elif age == '1':
+        program_list = program_list.filter(Q(age__icontains="유아"))
+    elif age == '2':
+        program_list = program_list.filter(Q(age__icontains="어린이"))
+    elif age == '3':
+        program_list = program_list.filter(Q(age__icontains="청소년") | Q(age__icontains="초등")| Q(age__icontains="중고생")| Q(age__icontains="중등")| Q(age__icontains="고등"))
+    elif age == '4':
+        program_list = program_list.filter(Q(age__icontains="대학생"))
+    elif age == '5':
+        program_list = program_list.filter(Q(age__icontains="성인"))
+    elif age == '6':
+        program_list = program_list.filter(Q(age__icontains="전체"))
+    else:
+        program_list = program_list
+
+
 
     if price == '0':
         program_list = program_list
@@ -128,6 +148,7 @@ def program_search(request):
     # 필터 옵션
     context['b'] = b
     context['f'] = f
+    context['age'] = age
     context['price'] = price
 
     # 필터링 된 결과 개수
@@ -143,7 +164,7 @@ def program_search(request):
 
 
 def downloadRecommendation(request):
-    filename = 'C:/dataton2022/8월추천프로그램.csv'
+    filename = 'C:/dataton2022/9월추천프로그램.csv'
     df = pd.read_csv(filename, encoding="UTF-8", na_values='nan')
     list1 = []
     for i in range(len(df)):

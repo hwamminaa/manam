@@ -32,6 +32,7 @@
       justify-content: space-between;
       align-items: center;
       box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+      z-index:10;
     }
     ul {
       list-style-type: none;
@@ -112,14 +113,14 @@
   <nav>
       <ul>
           <div class="dropdown">
-              <button class="dropdown-button" style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KU 만남&nbsp;&nbsp;&nbsp;&nbsp;</button>
+              <button class="dropdown-button" style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KU 만남&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
               <div class="dropdown-content">
                   <a href="{% url 'ku_manam:talent_donation' %}">고려대 동아리<br>지역 연계 프로그램</a>
                   <a href="{% url 'circlelist:search' %}">동아리 모아보기</a>
               </div>
           </div>
           <div class="dropdown">
-              <a href="{% url 'community:allarticles' %}" class="dropdown-button" style = "color:black; text-decoration:none;" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;커뮤니티&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+              <a href="{% url 'community:allarticles' %}" class="dropdown-button" style = "color:black; text-decoration:none;" >&nbsp;&nbsp;&nbsp;&nbsp;커뮤니티&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
               <div class="dropdown-content">
                   <a href="{% url 'community:proposal' %}">프로그램<br>신청</a>
                   <a href="{% url 'community:recruitment' %}">자율 동아리 모집</a>

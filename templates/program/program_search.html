@@ -50,6 +50,26 @@
                       전체
                       {% endif %}
                   </div>
+                    <div style="line-height:170%; color:#696464">
+                      연령대 |
+                      {% if age == '0' %}
+                      전체
+                      {% elif age == '1' %}
+                      유아
+                      {% elif age == '2' %}
+                      어린이
+                      {% elif age == '3' %}
+                      청소년
+                      {% elif age == '4' %}
+                      대학생
+                      {% elif age == '5' %}
+                      성인
+                      {% elif age == '6' %}
+                      전체연령
+                      {% else %}
+                      전체
+                      {% endif %}
+                    </div>
                   <div style="line-height:170%; color:#696464">
                       가격 |
                       {% if price == '0' %}
@@ -70,66 +90,86 @@
                       전체
                       {% endif %}
                     </div>
+
+
                     <!--검색기능-->
                     <br>
                   <input class="form-control" type="text" placeholder="검색어 입력" aria-label="Search" name="b" value="{{b}}">
 
 
-                  <!--카테고리필터-->
-                 <label for="customRange3" style="color: #982323;line-height:200%;">카테고리</label>
+                 <!--카테고리필터-->
+                  <label for="customRange3" style="color: #982323;line-height:200%;">카테고리</label>
 
-                  <div class="form-check form-check-inline" >
+                  <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio1" name="f", value="생활교양">
-                      <label class="form-check-label" for="customRadio1" style="color: #696464">생활교양</label>
+                      <label class="form-check-label" for="customRadio1" style="color: #696464">👩‍🍳 생활교양 </label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio2" name="f", value="행사">
-                      <label class="form-check-label" for="customRadio2" style="color: #696464">행사</label>
+                      <label class="form-check-label" for="customRadio2" style="color: #696464">🎉 행사 </label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio3" name="f", value="미술">
-                      <label class="form-check-label" for="customRadio3" style="color: #696464">미술</label>
+                      <label class="form-check-label" for="customRadio3" style="color: #696464">🎨 미술 </label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio4" name="f", value="미디어">
-                      <label class="form-check-label" for="customRadio4" style="color: #696464">미디어</label>
+                      <label class="form-check-label" for="customRadio4" style="color: #696464">📽️ 미디어 </label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio5" name="f", value="음악">
-                      <label class="form-check-label" for="customRadio5" style="color: #696464">음악</label>
+                      <label class="form-check-label" for="customRadio5" style="color: #696464"> 🎸 음악</label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio6" name="f", value="공예">
-                      <label class="form-check-label" for="customRadio6" style="color: #696464">공예</label>
+                      <label class="form-check-label" for="customRadio6" style="color: #696464">🧵 공예 </label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio7" name="f", value="운동">
-                      <label class="form-check-label" for="customRadio7" style="color: #696464">운동</label>
+                      <label class="form-check-label" for="customRadio7" style="color: #696464">⚽ 운동 </label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio8" name="f", value="공연">
-                      <label class="form-check-label" for="customRadio8" style="color: #696464">공연</label>
+                      <label class="form-check-label" for="customRadio8" style="color: #696464">🎭️ 공연 </label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio9" name="f", value="무용">
-                      <label class="form-check-label" for="customRadio9" style="color: #696464">무용</label>
+                      <label class="form-check-label" for="customRadio9" style="color: #696464">🩰 무용 </label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio10" name="f", value="사회활동">
-                      <label class="form-check-label" for="customRadio10" style="color: #696464">사회활동</label>
+                      <label class="form-check-label" for="customRadio10" style="color: #696464">🧑‍🤝‍🧑 사회활동 </label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio11" name="f", value="문학">
-                      <label class="form-check-label" for="customRadio11" style="color: #696464">문학</label>
+                      <label class="form-check-label" for="customRadio11" style="color: #696464">📚️ 문학 </label>
                   </div>
 
+                    <!--연령필터-->
+                  <div class="form-group0">
+                    <a href = "#" onclick= "event.stopPropagation()"></a>
+                    <label for="customRange3" style="color: #982323; line-height: 200%;">연령대</label>
+                    <div> </div>
+                    <select source="[name=age]" style="color: #696464;">
+                      <option value="0">전체</option>
+                     <option value="1">유아</option>
+                      <option value="2">어린이</option>
+                      <option value="3">청소년</option>
+                      <option value="4">대학생</option>
+                      <option value="5">성인</option>
+                        <option value="6">전체연령</option>
+                    </select>
+
+                    <input type="range" class="custom-range" value = "0" min="0" max="6" step="1" id="customRange2" name="age", value= {{ age }}>
+
+                  </div>
 
                   <!--가격필터-->
                   <div class="form-group">
                     <a href = "#" onclick= "event.stopPropagation()"></a>
                     <label for="customRange3" style="color: #982323; line-height: 200%;">가격 범위</label>
 
-                    <select source="[name=price]" style="color: #696464;">
+                     <select source="[name=price]" style="color: #696464;">
                       <option value="0">전체</option>
                       <option value="1">무료</option>
                       <option value="2">~10,000원</option>
@@ -194,7 +234,7 @@
             <!-- 이전페이지 -->
             {% if program_list.has_previous %}
             <li class="page-item">
-                <a class="page-link" href="?b={{request.GET.b}}&f={{request.GET.f}}&price={{request.GET.price}}&page={{ program_list.previous_page_number }}">이전</a>
+                <a class="page-link" href="?b={{request.GET.b}}&f={{request.GET.f}}&age={{request.GET.age}}&price={{request.GET.price}}&page={{ program_list.previous_page_number }}">이전</a>
             </li>
             {% else %}
             <li class="page-item disabled">
@@ -206,11 +246,11 @@
             {% if page_number >= program_list.number|add:-5 and page_number <= program_list.number|add:5 %}
             {% if page_number == program_list.number %}
             <li class="page-item active" aria-current="page">
-                <a class="page-link" href="?b={{request.GET.b}}&f={{request.GET.f}}&price={{request.GET.price}}&page={{ page_number }}">{{ page_number }}</a>
+                <a class="page-link" href="?b={{request.GET.b}}&f={{request.GET.f}}&age={{request.GET.age}}&price={{request.GET.price}}&page={{ page_number }}">{{ page_number }}</a>
             </li>
             {% else %}
             <li class="page-item">
-                <a class="page-link" href="?b={{request.GET.b}}&f={{request.GET.f}}&price={{request.GET.price}}&page={{ page_number }}">{{ page_number }}</a>
+                <a class="page-link" href="?b={{request.GET.b}}&f={{request.GET.f}}&age={{request.GET.age}}&price={{request.GET.price}}&page={{ page_number }}">{{ page_number }}</a>
             </li>
             {% endif %}
             {% endif %}
@@ -218,7 +258,7 @@
             <!-- 다음페이지 -->
             {% if program_list.has_next %}
             <li class="page-item">
-                <a class="page-link" href="?b={{request.GET.b}}&f={{request.GET.f}}&price={{request.GET.price}}&page={{ program_list.next_page_number }}">다음</a>
+                <a class="page-link" href="?b={{request.GET.b}}&f={{request.GET.f}}&age={{request.GET.age}}&price={{request.GET.price}}&page={{ program_list.next_page_number }}">다음</a>
             </li>
             {% else %}
             <li class="page-item disabled">

@@ -21,7 +21,7 @@
     header {
       position: sticky;
       padding-top: 20px;
-      top: -32px;
+      top: 0px;
       background: white;
       color: black;
       padding-left: 32px;
@@ -105,90 +105,33 @@
     li.on{color:#982323}
 
 
-    .v2_35 {
+    .v30_9 {
     width: 700px;
     height: 65px;
     background: rgba(245,245,245,1);
+    margin-top: 20px;
     opacity: 1;
-    position: relative;
-    top: 10px;
-    left: 325px;
+    color: rgba(0,0,0,1);
+    font-family: Inter;
+    font-weight: Bold;
+    font-size: 35px;
+    opacity: 1;
+    text-align: center;
+    align-items: center;
     border-top-left-radius: 13px;
     border-top-right-radius: 13px;
     border-bottom-left-radius: 13px;
     border-bottom-right-radius: 13px;
-    }
-    .v30_9 {
-    width: 500px;
-    color: rgba(0,0,0,1);
-    position: absolute;
-    top: 105px;
-    left: 445px;
-    font-family: Inter;
-    font-weight: Bold;
-    font-size: 40px;
-    opacity: 1;
-    text-align: left;
-    }
+}
     div > form{
     width:500px;
     height:50px;
-    left: 670px;
-    position:relative;
-    top : -350px;
     }
+
     #map {
     width:800px;
     height:400px;
-    position:relative;
-    top : 90px;
-    left: 280px;
     }
-    p {
-    position:relative;
-    left: 540px;
-    top: -5px;
-    }
-    header {
-      position: sticky;
-      padding-top: 20px;
-      top: -32px;
-      background: white;
-      color: black;
-      padding-left: 32px;
-      padding-right: 32px;
-      padding-bottom: 5px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-    }
-    ul {
-      list-style-type: none;
-      padding: 0;
-    }
-    li {
-      display: inline-block;
-      margin-left: 16px;
-      font-size: 18px;
-      color: black;
-    }
-    .navbar-brand {
-      font-size: 40px;
-    }
-
-    .wrap {position: absolute;left: 0;bottom: 40px;width: 270px;height: 132px;margin-left: -144px;text-align: left;overflow: hidden;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
-    .wrap * {padding: 0;margin: 0;}
-    .wrap .info {width: 286px;height: 120px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;}
-    .wrap .info:nth-child(1) {border: 0;box-shadow: 0px 1px 2px #888;}
-    .info .title {padding: 5px 0 0 10px;height: 30px;background: #eee;border-bottom: 1px solid #ddd;font-size: 18px;font-weight: bold;}
-    .info .close {position: absolute;top: 10px;right: 10px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
-    .info .close:hover {cursor: pointer;}
-    .info .body {position: relative;overflow: hidden;}
-    .info .desc {position: relative;right:75px;margin: 13px 0 0 90px;height: 75px;}
-    .desc .ellipsis {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
-    .desc .jibun {font-size: 11px;color: #888;margin-top: -2px;}
-    .info .link {color: #5085BB;}
 
 
 
@@ -201,14 +144,14 @@
   <nav>
       <ul>
           <div class="dropdown">
-              <button class="dropdown-button" style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KU 만남&nbsp;&nbsp;&nbsp;&nbsp;</button>
+              <button class="dropdown-button" style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KU 만남&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
               <div class="dropdown-content">
                   <a href="{% url 'ku_manam:talent_donation' %}">고려대 동아리<br>지역 연계 프로그램</a>
                   <a href="{% url 'circlelist:search' %}">동아리 모아보기</a>
               </div>
           </div>
           <div class="dropdown">
-              <a href="{% url 'community:allarticles' %}" class="dropdown-button" style = "color:black; text-decoration:none;" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;커뮤니티&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+              <a href="{% url 'community:allarticles' %}" class="dropdown-button" style = "color:black; text-decoration:none;" >&nbsp;&nbsp;&nbsp;&nbsp;커뮤니티&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
               <div class="dropdown-content">
                   <a href="{% url 'community:proposal' %}">프로그램<br>신청</a>
                   <a href="{% url 'community:recruitment' %}">자율 동아리 모집</a>
@@ -241,9 +184,24 @@
   </nav>
 </header>
 <!-- 네비게이션바 -->
-
-    <div class="v2_35"></div>
+<div class="container-fluid" style="display:flex; flex-direction:column;flex-wrap: nowrap;justify-content:center;align-items: center;">
     <div class="v30_9">나의 위치는 어디인가요?</div>
+
+    <div style="margin-top:5px;"> * 위치접근 허용을 해주시면 현재 내 위치 주변으로 지도가 이동합니다 :)</div>
+
+    <div style="display:flex; flex-direction:row;flex-wrap:nowrap;justify-content:center;align-items:center;margin-top:0px;">
+        <div style="width:450px;"></div>
+    <!-- 조회폼 -->
+        <form action="{% url 'facility:location_input' %}" method="get">
+        {% csrf_token %}
+        <label for="location_input" style="margin-top:10px;"> 위치조회 (도로명 주소 입력) </label>
+        <input type="text" name="location_input" value="{{ location_input }}" id="location_input">
+        <input type="submit" value="검색">
+        </form>
+    </div>
+
+
+
     <div id="map" ></div>
 
     <div id="lat" style="display: none">
@@ -256,6 +214,7 @@
             {{fa.lng}},
         {% endfor %}
     </div>
+
     <div id="name" style="display: none">
         {%for fa in facilities%}
             {{fa.name}},
@@ -272,25 +231,20 @@
         {% endfor %}
     </div>
 
-<div>
-<!-- 조회폼 -->
-    <form action="{% url 'facility:location_input' %}" method="get">
-    {% csrf_token %}
-    <label for="location_input"> 위치조회 (도로명 주소 입력) </label>
-    <input type="text" name="location_input" value="{{ location_input }}" id="location_input">
-    <input type="submit" value="검색">
-    </form>
-</div>
 
-<a href="{% url 'facility:showFacilitylist' %}" class="delete btn btn-sm btn-outline-success" style="position:relative;top:-500px;left:1150px;">전체시설목록 보러가기</a>
 
-<div style="position:relative;top:-460px;left:435px;"> * 위치접근 허용을 해주시면 현재 내 위치 주변으로 지도가 이동합니다 :)</div>
-<p>
-    <input type="checkbox" id="chkTraffic" onclick="setOverlayMapTypeId()" /> 교통정보 보기
-    <input type="checkbox" id="chkBicycle" onclick="setOverlayMapTypeId()" /> 자전거도로 정보 보기
-    <input type="checkbox" id="chkUseDistrict" onclick="setOverlayMapTypeId()" /> 지적편집도 정보 보기
-    <input type="checkbox" id="chkTerrain" onclick="setOverlayMapTypeId()" /> 지형정보 보기
-    </p>
+    <div style="display:flex; flex-direction:row;flex-wrap:nowrap;justify-content:center;align-items:center;gap:110px";>
+        <p>
+        <input type="checkbox" id="chkTraffic" onclick="setOverlayMapTypeId()" /> 교통정보 보기
+        <input type="checkbox" id="chkBicycle" onclick="setOverlayMapTypeId()" /> 자전거도로 정보 보기
+        <input type="checkbox" id="chkUseDistrict" onclick="setOverlayMapTypeId()" /> 지적편집도 정보 보기
+        <input type="checkbox" id="chkTerrain" onclick="setOverlayMapTypeId()" /> 지형정보 보기
+        </p>
+        <a href="{% url 'facility:showFacilitylist' %}" class="delete btn btn-sm btn-outline-success">전체시설목록 보러가기</a>
+    </div>
+
+
+
 
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3464eb8d032a6121616cba7859e41673&libraries=services,clusterer,drawing"></script>
     <script>
@@ -431,49 +385,51 @@
             map.setCenter(locPosition);
         }
 
-var mapTypes = {
-    terrain : kakao.maps.MapTypeId.TERRAIN,
-    traffic :  kakao.maps.MapTypeId.TRAFFIC,
-    bicycle : kakao.maps.MapTypeId.BICYCLE,
-    useDistrict : kakao.maps.MapTypeId.USE_DISTRICT
-};
+    var mapTypes = {
+        terrain : kakao.maps.MapTypeId.TERRAIN,
+        traffic :  kakao.maps.MapTypeId.TRAFFIC,
+        bicycle : kakao.maps.MapTypeId.BICYCLE,
+        useDistrict : kakao.maps.MapTypeId.USE_DISTRICT
+    };
 
-// 체크 박스를 선택하면 호출되는 함수입니다
-function setOverlayMapTypeId() {
-    var chkTerrain = document.getElementById('chkTerrain'),
-        chkTraffic = document.getElementById('chkTraffic'),
-        chkBicycle = document.getElementById('chkBicycle'),
-        chkUseDistrict = document.getElementById('chkUseDistrict');
+    // 체크 박스를 선택하면 호출되는 함수입니다
+    function setOverlayMapTypeId() {
+        var chkTerrain = document.getElementById('chkTerrain'),
+            chkTraffic = document.getElementById('chkTraffic'),
+            chkBicycle = document.getElementById('chkBicycle'),
+            chkUseDistrict = document.getElementById('chkUseDistrict');
 
-    // 지도 타입을 제거합니다
-    for (var type in mapTypes) {
-        map.removeOverlayMapTypeId(mapTypes[type]);
+        // 지도 타입을 제거합니다
+        for (var type in mapTypes) {
+            map.removeOverlayMapTypeId(mapTypes[type]);
+        }
+
+        // 지적편집도정보 체크박스가 체크되어있으면 지도에 지적편집도정보 지도타입을 추가합니다
+        if (chkUseDistrict.checked) {
+            map.addOverlayMapTypeId(mapTypes.useDistrict);
+        }
+
+        // 지형정보 체크박스가 체크되어있으면 지도에 지형정보 지도타입을 추가합니다
+        if (chkTerrain.checked) {
+            map.addOverlayMapTypeId(mapTypes.terrain);
+        }
+
+        // 교통정보 체크박스가 체크되어있으면 지도에 교통정보 지도타입을 추가합니다
+        if (chkTraffic.checked) {
+            map.addOverlayMapTypeId(mapTypes.traffic);
+        }
+
+        // 자전거도로정보 체크박스가 체크되어있으면 지도에 자전거도로정보 지도타입을 추가합니다
+        if (chkBicycle.checked) {
+            map.addOverlayMapTypeId(mapTypes.bicycle);
+        }
+
     }
-
-    // 지적편집도정보 체크박스가 체크되어있으면 지도에 지적편집도정보 지도타입을 추가합니다
-    if (chkUseDistrict.checked) {
-        map.addOverlayMapTypeId(mapTypes.useDistrict);
-    }
-
-    // 지형정보 체크박스가 체크되어있으면 지도에 지형정보 지도타입을 추가합니다
-    if (chkTerrain.checked) {
-        map.addOverlayMapTypeId(mapTypes.terrain);
-    }
-
-    // 교통정보 체크박스가 체크되어있으면 지도에 교통정보 지도타입을 추가합니다
-    if (chkTraffic.checked) {
-        map.addOverlayMapTypeId(mapTypes.traffic);
-    }
-
-    // 자전거도로정보 체크박스가 체크되어있으면 지도에 자전거도로정보 지도타입을 추가합니다
-    if (chkBicycle.checked) {
-        map.addOverlayMapTypeId(mapTypes.bicycle);
-    }
-
-}
 
     </script>
-<div> {{ facilityCoordinates }} </div>
-<script src="{% static 'bootstrap.min.js' %}"></script>
+    <div> {{ facilityCoordinates }} </div>
+    <script src="{% static 'bootstrap.min.js' %}"></script>
+    </div>
+
 </body>
 </html>

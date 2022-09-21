@@ -2,7 +2,6 @@
 <! doctype html>
 <html lang="ko">
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content=""width="device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS-->
@@ -11,18 +10,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     <title>Hello, pybo!</title>
     <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content=""width="device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS-->
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
-    <!-- pybo CSS -->
-    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <title>M:ANAM</title>
-    <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
     <style>
-    @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+        @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
     html {
       scroll-behavior: smooth;
     }
@@ -32,7 +21,7 @@
     header {
       position: sticky;
       padding-top: 20px;
-      top: -32px;
+      top: 0px;
       background: white;
       color: black;
       padding-left: 32px;
@@ -132,8 +121,10 @@
       box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.25);
       overflow: hidden;
     }
+
     </style>
 </head>
+
 <body>
 <!-- 네비게이션바 -->
 <header>
@@ -141,22 +132,27 @@
   <nav>
       <ul>
           <div class="dropdown">
-              <button class="dropdown-button" style="color:black">성북구 문화 시설</button>
+              <button class="dropdown-button" style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KU 만남&nbsp;&nbsp;&nbsp;&nbsp;</button>
               <div class="dropdown-content">
-                  <a href="{% url 'facility:facilitylist' %}">내 위치 인접<br>시설</a>
-                  <a href="{% url 'facility:showFacilitylist' %}">전체 문화 시설</a>
+                  <a href="{% url 'ku_manam:talent_donation' %}">고려대 동아리<br>지역 연계 프로그램</a>
+                  <a href="{% url 'circlelist:search' %}">동아리 모아보기</a>
+              </div>
+          </div>
+          <div class="dropdown">
+              <a href="{% url 'community:allarticles' %}" class="dropdown-button" style = "color:black; text-decoration:none;" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;커뮤니티&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+              <div class="dropdown-content">
+                  <a href="{% url 'community:proposal' %}">프로그램<br>신청</a>
+                  <a href="{% url 'community:recruitment' %}">자율 동아리 모집</a>
               </div>
           </div>
           <li class="nav-item active">
-              <a class="nav-link" href="{% url 'program:search' %}" style="color:black">맞춤 프로그램</a>
+              <a class="nav-link" href="{% url 'program:search' %}" style="color:black">문화 프로그램&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
           </li>
           <div class="dropdown">
-              <button class="dropdown-button" a href="{% url 'manam:index' %}" style="color:black">성북구X고려대 M:ANAM</button>
+              <button class="dropdown-button" style="color:black">성북구 문화 시설&nbsp;&nbsp;</button>
               <div class="dropdown-content">
-                  <a href="{% url 'circle:index' %}">메인 페이지</a>
-                  <a href="{% url 'circle:gwangjang' %}">성북구 어울림</a>
-                  <a href="{% url 'kuprogram:search' %}">KU 어울림</a>
-                  <a href="{% url 'circlelist:search' %}">KU 동아리 모아보기</a>
+                  <a href="{% url 'facility:facilitylist' %}">내 위치 인접 시설</a>
+                  <a href="{% url 'facility:showFacilitylist' %}">전체 문화 시설</a>
               </div>
           </div>
           <li class="nav-item">
@@ -183,13 +179,13 @@
     <div class="card my-3">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;">
-                유형: {{ program.type }}
                 카테고리: {{ program.category }}
                 연령대: {{ program.age }}
                 비용: {{ program.price }}
-                시작일: {{ program.start_date }}
-                종료일: {{ program.end_date }}
+                시작일: {{ program.start_date }}  /  종료일: {{ program.end_date }}
                 기관: {{ program.host }}
+                상세설명:
+                {{ program.description }}
                 {% if program.link %}
                 신청링크: <a href = {{ program.link }}> {{ program.link }} </a>
                 {% else %}
@@ -233,7 +229,7 @@
             </div>
         </div>
     </div>
-    <a href="{% url 'kuprogram:search' %}" class="delete btn btn-sm btn-outline-success" >돌아가기</a>
+    <a href="{% url 'program:search' %}" class="delete btn btn-sm btn-outline-success" >돌아가기</a>
 </div>
 
 <!-- Bootstrap JS -->
