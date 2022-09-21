@@ -207,6 +207,7 @@
                 <div class="container" style="display: flex; flex-direction: row; flex-wrap: nowrap; justify-content:space-around; align-items: center;">
                     <div class="item item1" OnClick="location.href ='{% url 'program:detail' recommend1.id %}'" style="cursor:pointer;">
                         <div class="select" style="text-align:center; font-weight:bold; padding:3px; font-size:17px;">{{ recommend1.name }}</div>
+                        <img src={{recimage1}} width="50">
                         <div class="detail" style="font-weight:bold;color:#5A5A5A;">{{ recommend1.category}}</div>
                         <div class="detail">{{ recommend1.host}}</div>
                     </div>
