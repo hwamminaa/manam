@@ -10,14 +10,14 @@
 {% block title %} 검색 결과 {% endblock title %}
 {% block content %}
 <div class="container my-3">
-    <div class="row">
+    <div class="row my-100">
       <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="box-shadow: 0 0 2px; border-top-right-radius:10px;border-top-left-radius:10px;background-color: #F5F5F5;border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
-        <div class="sidebar-sticky pt-3">
+      <div class = "sidebar-sticky pt-3">
           <ul class="nav flex-column">
-            <table class = 'table' style="background-color: #000000; color: ##691414">
+            <table class = 'table' style="background-color: #EEEBBD; color: #EEEBBD">
               <br>
               <thead>
-                <a href="{% url 'facility:showFacilitylist' %}" class="btn" style="text-align:left; background-color: #982323; color: white;  font-size:1.5em;" >시설 찾기</a>
+                <a href="{% url 'facility:showFacilitylist' %}" class="btn" style="text-align:left; background-color: #F5F5F5; color: #630000;  font-size:1.5em" >시설 찾기</a>
 
               </thead>
               <br>
@@ -25,9 +25,11 @@
                 <!--필터 바-->
                 <form class="form-inline my-2 my-md-0" method="get" action="{% url 'facility:showFacilitylist' %}">
                   <!--검색기능-->
-                  <input class="form-control" type="text" placeholder="시설 검색" aria-label="Search" name="b" value="{{b}}">
+                  <input class="form-control" type="text" placeholder="검색어 입력" aria-label="Search" name="b" value="{{b}}">
                   <br>
-                  <div style="color:white">
+                    <label for="customRange3" style="color: #982323">현재 결과<br>
+                      </label>
+                  <div style="color:#696464">
                       조회된 시설 |
                       {% if price == '0' %}
                       전체
@@ -109,9 +111,9 @@
 
                   <div class="form-group">
                     <a href = "#" onclick= "event.stopPropagation()"></a>
-                    <label for="customRange3" style="color:white">교육·문화</label>
+                    <label for="customRange3" style="color:#982323">교육·문화</label>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <select source="[name=price]">
+                    <select source="[name=price]" style="color: #696464">
                       <option value="0">전체</option>
                       <option value="32">교육·문화시설 전체</option>
                       <option value="1">공공도서관</option>
@@ -131,9 +133,9 @@
 
                     </select>
                       <br>
-                    <label for="customRange3" style="color:white">노인</label>
+                    <label for="customRange3" style="color:#982323">노인</label>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <select source="[name=price]">
+                    <select source="[name=price]" style="color: #696464">
                       <option value="0">전체</option>
                       <option value="33">노인시설 전체</option>
                       <option value="14">노인복지시설(경로당)</option>
@@ -145,9 +147,9 @@
                       <option value="20">재가노인주야간보호</option>
                     </select>
 
-                    <label for="customRange3" style="color:white">보육·가족 및 여성</label>
+                    <label for="customRange3" style="color:#982323">보육·가족 및 여성</label>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <select source="[name=price]">
+                    <select source="[name=price]" style="color: #696464">
                       <option value="0">전체</option>
                       <option value="34">보육·가족및여성 전체</option>
                       <option value="21">방과후교실</option>
@@ -155,9 +157,9 @@
                       <option value="23">틈새돌봄기관</option>
                     </select>
 
-                    <label for="customRange3" style="color:white">사회복지일반</label>
+                    <label for="customRange3" style="color:#982323">사회복지일반</label>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <select source="[name=price]">
+                    <select source="[name=price]"style="color: #696464">
                       <option value="0">전체</option>
                       <option value="35">사회복지일반시설 전체</option>
                       <option value="24">거주시설</option>
@@ -217,8 +219,8 @@
                     }());
                     </script>
                   </div>
-
-                  <button type='submit' class='btn btn-warning' style="background-color:#ebc291;">검색</button>  <!--위에것과 기능은 같음-->
+<br>
+                  <button type='submit' class='btn btn-warning' style="background-color:#982323; color: #EEEBDD; border-color: #982323;">검색</button>  <!--위에것과 기능은 같음-->
                   <!-- <button type='reset' class='btn btn-info'>RESET</button> -->
                 </form>
               </tbody>
@@ -232,14 +234,17 @@
             </nav>
 
         <role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <a href="{% url 'facility:facilitylist' %}" class = 'btn btn-warning' style="background-color: #F5F5F5; color: #982323; border-color: #982323">내 주변 시설 보러가기</a>
+            <br>
+        <br>
         <table class="table">
-            <thead>
-            <tr class="table-dark">
-                <th>시설명</th>
-                <th><center>구분</center></th>
-                <th><center>행정동</center></th>
-            </tr>
-            </thead>
+                <thead>
+                    <tr class="table" style="background-color:#F5F5F5; color:#696464;border-style : hidden!important; box-shadow: 0 0 0.8px; border-top-radius:16px;">
+                    <th>시설명</th>
+                    <th><center>구분</center></th>
+                    <th><center>행정동</center></th>
+                 </tr>
+                </thead>
             <tbody>
             {% if facility_list %}
             {% for facility in facility_list %}

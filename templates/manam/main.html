@@ -15,159 +15,502 @@
     <style>
     @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
     html {
-      scroll-behavior: smooth;
+        scroll-behavior: smooth;
     }
     * {
-      font-family: 'Spoqa Han Sans Neo', sans-serif;
-      }
+        font-family: 'Spoqa Han Sans Neo', sans-serif;
+    }
+    body {
+        font-family: Consolas, monospace;
+    }
     header {
-      position: sticky;
-      padding-top: 70px;
-      top: -32px;
-      background: #982323;
-      color: white;
-      padding-left: 32px;
-      padding-right: 32px;
-      padding-bottom: 5px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+        position: sticky;
+        padding-top: 20px;
+        top: 0px;
+        background: white;
+        color: black;
+        padding-left: 32px;
+        padding-right: 32px;
+        padding-bottom: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+        z-index:9;
     }
     ul {
-      list-style-type: none;
-      padding: 0;
+        list-style-type: none;
+        padding: 0;
     }
+    li {
+        display: inline-block;
+        margin-left: 16px;
+        font-size: 18px;
+        color: black;
+    }
+    .navbar-brand {
+        font-size: 30px;
+    }
+    .navbar__menu {
+        list-style: none;
+        display: stick;
+        margin: 0;
+        padding-left: 0;
+    }
+    .navbar__menu li:hover {
+        text-color: var(--accent-color);
+        border-radius: 3px;
+     }
+    .dropdown-button {
+        background-color: white;
+        margin-right: 5px;
+        font-size: 18px;
+        color: black;
+        border:none;
+      }
+    .dropdown {
+        position: relative;
+        display: inline-block;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        min-width: 75px;
+        padding: 8px;
+        background-color: white;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    }
+    .dropdown-content a {
+         color: black;
+         padding: 8px;
+         text-decoration: none;
+         display: block;
+    }
+   .dropdown-content a:hover { background-color: #E2E2E2; }
+   .dropdown:hover .dropdown-content { display: block; }
+   .dropdown:hover .dropdown-button { background-color: white }
+
+    a.active-color { color:#000; }
+
+    :root{
+    --text-color:black;
+    --background-color: white;
+    --accent-color: #982323;
+    --background-color: lightgray;
+    }
+    li.on{color:#982323}
+
+
     a {
        list-style-type: none;
        font-size: 18px;
        margin-left:16px;
     }
-    li {
-      display: inline-block;
-      margin-left: 16px;
-      font-size: 18px;
-      color: black;
+    .container-fluid{
+        height: 400px;
+        padding: 0px;
+        gap: 50px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;    /* 중심축 */
+        align-items: center;  /* cross축 */
     }
-    .navbar-brand {
-      font-size: 40px;
+    .fluid1{
+        background: #F5F5F5;
+        padding: 70px;
     }
-    .intro{
-      background: white;
-      height: 550px;
-      padding-left: 60px;
-      padding-top: 30px;
+    .fluid2{
+        height: 400px;
+        gap: 150px;
+        background: white;
+        padding: 70px;
     }
-    .shortcut{
-      padding-top: 30px;
-      /* text-align: center; */
+    .fluid3{
+        height: 300px;
+        gap: 150px;
+        background: white;
+        color: grey;
+        font-size: 15px;
     }
-    .container{
-      background: white;
-      height: 450px;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: space-around;    /* 중심축 */
-      align-items: center;  /* cross축 */
+    .menu{
+        background: white;
+        height: 370px;
+        padding: 100px;
+        gap: 200px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;    /* 중심축 */
+        align-items: center;  /* cross축 */
     }
-    .item{
-      width: 350px;
-      height: 350px;
-      background: #F5F5F5;
-      color: black;
-      opacity: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content:center;
-      align-items:center;
-      border-top-left-radius: 60px;
-      border-top-right-radius: 60px;
-      border-bottom-left-radius: 60px;
-      border-bottom-right-radius: 60px;
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-      overflow: hidden;
+    .icon{
+        background: #F5F5F5;
+        width: 120px;
+        height: 120px;
+        display: flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items:center;
+        font-size: 14px;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
     }
-    .select{
-      font-weight: Bold;
-      font-size: 32px;
-      text-align: center;
+    .hot{
+        background: white;
+        height: 240px;
+        padding: 20px;
     }
-    .detail{
-      font-size: 20px;
-      font-weight: Regular;
+    .hot-title{
+        background: white;
+        color: black;
+        height: 40px;
+        text-align: center;
+    }
+    .hot-items{
+        background: white;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        gap: 50px;
+        justify-content: center;
+        align-items: center;  /* cross축 */
+    }
+    .item-hot{
+        width: 350px;
+        height: 170px;
+        background: #FCFBFB;
+        color: black;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        text-align: center;
+        justify-content: center;
+        align-items: center;  /* cross축 */
+        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.25);
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+    }
+    .item1{
+        background: white;
+        color: black;
+        opacity: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items:center;
+        overflow: hidden;
+        letter-spacing: 0px;
+        gap: 0px;
+        font-size: 18px;
+        line-height: 40px
+    }
+    .item2{
+        background: white;
+        color: black;
+        opacity: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items:center;
+        overflow: hidden;
+        letter-spacing: 0px;
+        gap: 10px;
+        font-size: 18px;
+        line-height: 40px
+    }
+    .item22{
+        width: 300px;
+        height: 130px;
+        color: black;
+        opacity: 1;
+        display: flex;
+        flex-direction: row;
+        justify-content:center;
+        align-items:center;
+        overflow: hidden;
+        letter-spacing: 0px;
+        gap: 20px;
+        font-size: 18px;
+        line-height: 40px
+    }
+    .item-box{
+        display: flex;
+        flex-direction: column;
+        justify-content:center;
+        align-items:center;
+        gap: 10px;
+    }
+    .description {
+        color: black;
+        font-size: 16px;
+    }
+    .logo {
+        color: #982323;
+        font-size: 68px;
+        line-height: 0.8;
+        letter-spacing: 2px;
+    }
+    .menu-title{
+        color: #982323;
+    }
+    .creators{
+        height: 200px;
+        padding: 100px;
+        background: white;
+        color: grey;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: center;    /* 중심축 */
+        align-items: center;  /* cross축 */
+        border-top: 2px solid #F5F5F5;
+    }
+    .info{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;    /* 중심축 */
+        align-items: center;  /* cross축 */
+        gap: 70px;
+        font-size: 12px;
+    }
+    .infotitle{
+        width: 50px;
+    }
+    .infodes{
+        width: 220px;
+    }
+    .line{
+        border-bottom: 3px solid #F5F5F5;
+    }
+    .menudes{
+        line-height: 1.9;
+    }
+    .go{
+        width: 140px;
+        text-decoration: none;
+        background: white;
+        color: black;
+        font-size: 15px;
+        cursor:pointer;
+        padding: 4px;
+        font-weight: bold;
+        text-decoration: underline;
+
     }
 
-      body {
-        font-family: Consolas, monospace;
-      }
-      .a {
-        letter-spacing: 0px;
-        font-size: 32px;
-      }
-      .b {
-        letter-spacing: 0px;
-        word-spacing: 2px;
-        font-stretch: condensed;
-        line-height: 35px
-      }
-      .c {
-        letter-spacing: 0px;
-        font-size: 22px;
-        line-height: 40px
-      }
-      .d {
-        word-spacing: 0px;
-        font-size: 45px;
-        line-height: 100px;
-        letter-spacing: 2px;
-      }
-      .e {
-        word-spacing: 0px;
-      }
-      .f {
-        word-spacing: 20px;
-      }
     </style>
   </head>
     </style>
 </head>
 <body>
+<div id="root">
 <header>
-  <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:white">M:ANAM</a>
+  <a class="navbar-brand" href="{% url 'manam:index' %}" style="color:black">M:ANAM</a>
   <nav>
       <ul>
-          <a class="nav-item" href="{% url 'manam:intro' %}" style="color:white; text-decoration-line : none;" >만남M:ANAM 소개</a>
+          <div class="dropdown">
+              <button class="dropdown-button" style="color:black">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;KU 만남&nbsp;&nbsp;&nbsp;&nbsp;</button>
+              <div class="dropdown-content">
+                  <a href="{% url 'ku_manam:talent_donation' %}">고려대 동아리<br>지역 연계 프로그램</a>
+                  <a href="{% url 'circlelist:search' %}">동아리 모아보기</a>
+              </div>
+          </div>
+          <div class="dropdown">
+              <a href="{% url 'community:allarticles' %}" class="dropdown-button" style = "color:black; text-decoration:none;" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;커뮤니티&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+              <div class="dropdown-content">
+                  <a href="{% url 'community:proposal' %}">프로그램<br>신청</a>
+                  <a href="{% url 'community:recruitment' %}">자율 동아리 모집</a>
+              </div>
+          </div>
+          <li class="nav-item active">
+              <a class="nav-link" href="{% url 'program:search' %}" style="color:black">문화 프로그램&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+          </li>
+          <div class="dropdown">
+              <button class="dropdown-button" style="color:black">성북구 문화 시설&nbsp;&nbsp;</button>
+              <div class="dropdown-content">
+                  <a href="{% url 'facility:facilitylist' %}">내 위치 인접 시설</a>
+                  <a href="{% url 'facility:showFacilitylist' %}">전체 문화 시설</a>
+              </div>
+          </div>
           <li class="nav-item">
               {% if user.is_authenticated %}
-              <a class="nav-link" href="{% url 'common:logout' %}" style="color:white">{{ user.username }} (로그아웃)</a>
+              <a class="nav-link" href="{% url 'common:logout' %}" style="color:grey">{{ user.username }} (로그아웃)</a>
               {% else %}
-              <a class="nav-link" href="{% url 'common:login' %}" style="color:white">로그인</a>
+              <a class="nav-link" href="{% url 'common:login' %}" style="color:grey">로그인</a>
               {% endif %}
           </li>
           <li>
               {% if not user.is_authenticated %}
-              <a class="nav-link" href="{% url 'common:signup' %}" style="color:white">회원가입</a>
+              <a class="nav-link" href="{% url 'common:signup' %}" style="color:grey">회원가입</a>
               {% endif %}
           </li>
-
 
     </ul>
   </nav>
 </header>
-<div class="container" id="menu">
-    <div class="item item1" OnClick="location.href ='{% url 'facility:facilitylist' %}'" style="cursor:pointer;">
-        <div class="select">주변 문화 시설 찾아보기</div>
-        <div class="detail">현재 내 주위 이용 가능한 문화 시설</div>
+<!-- 네비게이션바 -->
 
+
+    <div class="container menu">
+        <div class="item item1">
+            <h5 class="description">고려대X성북구 문화·여가활동 만남 플랫폼</h5>
+            <h1 class="logo">M:ANAM</h1>
+        </div>
+        <div class="item item2">
+            <div class="item item22">
+                <div class="icon" OnClick="location.href ='{% url 'ku_manam:talent_donation' %}'" style="cursor:pointer;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2602/2602412.png" width="50">
+                    KU 만남
+                </div>
+                <div class="icon" OnClick="location.href ='{% url 'community:allarticles' %}'" style="cursor:pointer;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4350/4350908.png" width="50">
+                    커뮤니티
+                </div>
+            </div>
+            <div class="item item22">
+                <div class="icon" OnClick="location.href ='{% url 'program:search' %}'" style="cursor:pointer;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2853/2853364.png" width="50">
+                    문화프로그램
+                </div>
+                <div class="icon" OnClick="location.href ='{% url 'facility:facilitylist' %}'" style="cursor:pointer;">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3037/3037818.png" width="50">
+                    문화시설 찾아보기
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="item item2" OnClick="location.href ='{% url 'program:search' %}'" style="cursor:pointer;">
-        <div class="select">맞춤 프로그램 찾아보기</div>
-        <div class="detail"><center>빅데이터가 추천해주는 <br>성북구 여가문화 프로그램<center></center></div>
+
+    <div class="container line"></div>
+
+    <div class="container hot">
+        <div class="container hot-title">
+            <h6>지금 가장 뜨거운🔥</h6>
+        </div>
+        <div class="container hot-items">
+            <div class="item item-hot">
+                <h6>KU 만남</h6>
+                <div>1. </div>
+                <div>2. </div>
+                <div>3. </div>
+            </div>
+            <div class="item item-hot">
+                <h6>커뮤니티 글</h6>
+                <div>1. </div>
+                <div>2. </div>
+                <div>3. </div>
+            </div>
+            <div class="item item-hot">
+                <h6>문화프로그램</h6>
+                <div>1. </div>
+                <div>2. </div>
+                <div>3. </div>
+            </div>
+        </div>
     </div>
-    <div class="item item3" OnClick="location.href ='{% url 'circle:index' %}'" style="cursor:pointer;">
-        <div class="select">성북구X고려대 M:ANAM</div>
-        <div class="detail">고려대 동아리 프로그램 /<br> 성북구 주민 자치 동아리 </div>
+
+    <div style="height: 30px;">
+    </div>
+
+    <div class="container-fluid fluid1">
+        <div class="item-box">
+            <h2 class="road"> 만남M:ANAM이 향하는 길</h2>
+            <img src="https://cdn-icons-png.flaticon.com/512/5073/5073577.png" width="70">
+        </div>
+        캠퍼스의 가장 큰 사회적 의미는 다양한 관심사를 지니고 그에 대한 열정을 공유하는 학생들에게 만남의 장이 되어준다는 점입니다.
+        <br> 이 만남의 장을 통해 학생들은 서로로부터 많은 것들을 느끼고, 배우거나 익히며 발전해 나아갑니다.
+        <br> 우리는 만남M:ANAM이라는 새로운 장을 열어, 이러한 캠퍼스의 사회적 가치를 성북구 전반의 분위기로 확장시키고자 합니다.
+        <br> 자연어 처리, 추천 알고리즘 등 다양한 최신의 데이터 분석 기법을 적극 활용하여 ‘만남’을 주제로 하여
+        <br>여러 문화, 교육 프로그램 및 동아리들에 대한 정보를 제공하고, 소통의 계기를 마련하여 사회적 가치를 실현시키고자 합니다.
+    </div>
+
+    <div class="container-fluid fluid2">
+        <h2 class="menu-title"> KU 만남 </h2>
+        <div class="menudes" style="text-align:right">
+            캠퍼스의 가장 큰 사회적 의미는 다양한 관심사를 지니고 그에 대한 열정을 공유하는 학생들에게 만남의 장이 되어준다는 점입니다.
+            <br> 이 만남의 장을 통해 학생들은 서로로부터 많은 것들을 느끼고, 배우거나 익히며 발전해 나아갑니다.
+            <br> 우리는 만남M:ANAM이라는 새로운 장을 열어, 이러한 캠퍼스의 사회적 가치를 성북구 전반의 분위기로 확장시키고자 합니다.
+            <br> 자연어 처리, 추천 알고리즘 등 다양한 최신의 데이터 분석 기법을 적극 활용하여 ‘만남’을 주제로 하여
+            <br>여러 문화, 교육 프로그램 및 동아리들에 대한 정보를 제공하고, 소통의 계기를 마련하여 사회적 가치를 실현시키고자 합니다.
+            <br>
+            <span class="go" OnClick="location.href ='{% url 'facility:facilitylist' %}'" style="">
+                바로 만나러가기 🡆
+            </span>
+        </div>
+    </div>
+    <div class="container line"></div>
+
+    <div class="container-fluid fluid2">
+        <div class="menudes" style="text-align:left">
+            캠퍼스의 가장 큰 사회적 의미는 다양한 관심사를 지니고 그에 대한 열정을 공유하는 학생들에게 만남의 장이 되어준다는 점입니다.
+            <br> 이 만남의 장을 통해 학생들은 서로로부터 많은 것들을 느끼고, 배우거나 익히며 발전해 나아갑니다.
+            <br> 우리는 만남M:ANAM이라는 새로운 장을 열어, 이러한 캠퍼스의 사회적 가치를 성북구 전반의 분위기로 확장시키고자 합니다.
+            <br> 자연어 처리, 추천 알고리즘 등 다양한 최신의 데이터 분석 기법을 적극 활용하여 ‘만남’을 주제로 하여
+            <br>여러 문화, 교육 프로그램 및 동아리들에 대한 정보를 제공하고, 소통의 계기를 마련하여 사회적 가치를 실현시키고자 합니다.
+            <br>
+            <span class="go" OnClick="location.href ='{% url 'facility:facilitylist' %}'" style="">
+                바로 만나러가기 🡆
+            </span>
+        </div>
+        <h2 class="menu-title"> 커뮤니티 </h2>
+    </div>
+    <div class="container line"></div>
+
+    <div class="container-fluid fluid2">
+        <h2 class="menu-title"> 문화프로그램 </h2>
+        <div class="menudes" style="text-align:right">
+            성북구 내의 파편화된 문화프로그램 정보를 한 곳에 모아 제공하고자 하였습니다.
+            <br> 카테고리, 가격대, 연령대에 따른 성북구의 문화·여가 프로그램을 조회할 수 있으며
+            <br> 각 프로그램에 대한 기본적인 정보와 신청 링크를 확인할 수 있습니다.
+            <br> 더불어 apriori 연관분석 알고리즘과 텍스트 유사도 알고리즘을 통해 구축한 추천시스템을 기반으로
+            <br> 열람하거나 좋아요를 누른 프로그램과 유사한 컨텐츠를 추천받을 수 있습니다.
+            <br>
+            <span class="go" OnClick="location.href ='{% url 'facility:facilitylist' %}'" style="">
+                바로 만나러가기 🡆
+            </span>
+        </div>
+    </div>
+    <div class="container line"></div>
+
+    <div class="container-fluid fluid2">
+        <div class="menudes" style="text-align:left">
+            캠퍼스의 가장 큰 사회적 의미는 다양한 관심사를 지니고 그에 대한 열정을 공유하는 학생들에게 만남의 장이 되어준다는 점입니다.
+            <br> 이 만남의 장을 통해 학생들은 서로로부터 많은 것들을 느끼고, 배우거나 익히며 발전해 나아갑니다.
+            <br> 우리는 만남M:ANAM이라는 새로운 장을 열어, 이러한 캠퍼스의 사회적 가치를 성북구 전반의 분위기로 확장시키고자 합니다.
+            <br> 자연어 처리, 추천 알고리즘 등 다양한 최신의 데이터 분석 기법을 적극 활용하여 ‘만남’을 주제로 하여
+            <br>여러 문화, 교육 프로그램 및 동아리들에 대한 정보를 제공하고, 소통의 계기를 마련하여 사회적 가치를 실현시키고자 합니다.
+            <br>
+            <span class="go" OnClick="location.href ='{% url 'facility:facilitylist' %}'" style="">
+                바로 만나러가기 🡆
+            </span>
+        </div>
+            <h2 class="menu-title"> 성북구 문화시설 </h2>
+    </div>
+
+    <div style="height:100px;"></div>
+
+    <div class="container creators">
+        <div class="info">
+            2022 KU 스마트 캠퍼스 데이터톤 출품작
+        </div>
+        <br>
+        <div class="info">
+            <div class="infotitle">Creators</div>
+            <div class="infodes">반민정 안영지 오화진 조혜윤 최지호 황민아</div>
+        </div>
+        <div class="info">
+            <div class="infotitle">Developers</div>
+            <div class="infodes">반민정 최지호 황민아</div>
+        </div>
+        <div class="info">
+            <div class="infotitle">Analysts</div>
+            <div class="infodes">안영지 오화진 조혜윤</div>
+        </div>
+        <br>
+
     </div>
 </div>
 </body>

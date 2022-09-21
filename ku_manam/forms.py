@@ -1,15 +1,18 @@
-from circle.models import Question, Answer
+from ku_manam.models import Question, Answer
 from django import forms
-
 
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question  # 사용할 모델
-        fields = ['subject', 'category', 'content']
+        fields = ['title','subject', 'category', 'content','hashtag','inquiry','apply']
         labels = {
+            'title': '동아리명',
             'subject': '제목',
-            'category': '종류(모집/신청)',
+            'category': '카테고리',
             'content': '내용',
+            'hashtag': '해시태그',
+            'inquiry': '문의 사항',
+            'apply': '신청 방법'
         }
 
 

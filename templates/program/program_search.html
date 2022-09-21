@@ -1,26 +1,46 @@
 {% extends 'base.html' %}
+<! doctype html>
+<html lang="ko">
+<head>
+    <style>
+    body {
+        font-family: Consolas, monospace;
+    }
+        .nav {
+        border-top-left-radius: 60px;
+        border-top-right-radius: 60px;
+        border-bottom-left-radius: 60px;
+        border-bottom-right-radius: 60px;
+        }
+        ul {
+        border-top-left-radius: 60px;
+        border-top-right-radius: 60px;
+        border-bottom-left-radius: 60px;
+        border-bottom-right-radius: 60px;
+        }
+    </style>
+</head>
+</html>
 
 {% block title %} 검색 결과 {% endblock title %}
 {% block content %}
-<div class="container">
+<div class="container my-3">
     <div class="row">
-      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="background-color: #982323">
+      <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="box-shadow: 0 0 2px; border-top-right-radius:10px;border-top-left-radius:10px;background-color: #F5F5F5;border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
         <div class="sidebar-sticky pt-3">
           <ul class="nav flex-column">
             <table class = 'table' style="background-color: #000000; color: ##691414">
               <thead>
                   <table class = 'table' style="background-color: #000000; color: ##691414">
               <thead>
-                  <a href="{% url 'program:search' %}" class="btn" style="text-align:left; background-color: #982323; color: white;  font-size:1.5em" >프로그램 찾기</a>
+                  <a href="{% url 'program:search' %}" class="btn" style="text-align:left; background-color: #F5F5F5; color: #630000;  font-size:1.3em; text-alignrjr:left;" >프로그램 찾기</a>
               </thead>
+                      <br>
               <tbody>
                 <!--필터 바-->
                 <form class="form-inline my-2 my-md-0" method="get" action="{% url 'program:search' %}">
-                  <!--검색기능-->
-                  <input class="form-control" type="text" placeholder="프로그램 검색" aria-label="Search" name="b" value="{{b}}">
-
-                  <div style="line-height:170%; color:grey">
-                      <label for="customRange3" style="color: #CDCDCD">현재 결과<br>
+                  <div style="line-height:170%; color:#696464">
+                      <label for="customRange3" style="color: #982323">현재 결과<br>
                       </label>
                       <br>
                       카테고리 |
@@ -30,7 +50,7 @@
                       전체
                       {% endif %}
                   </div>
-                  <div style="line-height:170%; color:grey">
+                  <div style="line-height:170%; color:#696464">
                       가격 |
                       {% if price == '0' %}
                       전체
@@ -50,61 +70,66 @@
                       전체
                       {% endif %}
                     </div>
-                  <!--카테고리필터-->
-                  <label for="customRange3" style="color: #CDCDCD">카테고리</label>
+                    <!--검색기능-->
+                    <br>
+                  <input class="form-control" type="text" placeholder="검색어 입력" aria-label="Search" name="b" value="{{b}}">
 
-                  <div class="form-check form-check-inline">
+
+                  <!--카테고리필터-->
+                 <label for="customRange3" style="color: #982323;line-height:200%;">카테고리</label>
+
+                  <div class="form-check form-check-inline" >
                       <input class="form-check-input" type="radio" id="customRadio1" name="f", value="생활교양">
-                      <label class="form-check-label" for="customRadio1" style="color: white">생활교양</label>
+                      <label class="form-check-label" for="customRadio1" style="color: #696464">생활교양</label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio2" name="f", value="행사">
-                      <label class="form-check-label" for="customRadio2" style="color: white">행사</label>
+                      <label class="form-check-label" for="customRadio2" style="color: #696464">행사</label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio3" name="f", value="미술">
-                      <label class="form-check-label" for="customRadio3" style="color: white">미술</label>
+                      <label class="form-check-label" for="customRadio3" style="color: #696464">미술</label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio4" name="f", value="미디어">
-                      <label class="form-check-label" for="customRadio4" style="color: white">미디어</label>
+                      <label class="form-check-label" for="customRadio4" style="color: #696464">미디어</label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio5" name="f", value="음악">
-                      <label class="form-check-label" for="customRadio5" style="color: white">음악</label>
+                      <label class="form-check-label" for="customRadio5" style="color: #696464">음악</label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio6" name="f", value="공예">
-                      <label class="form-check-label" for="customRadio6" style="color: white">공예</label>
+                      <label class="form-check-label" for="customRadio6" style="color: #696464">공예</label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio7" name="f", value="운동">
-                      <label class="form-check-label" for="customRadio7" style="color: white">운동</label>
+                      <label class="form-check-label" for="customRadio7" style="color: #696464">운동</label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio8" name="f", value="공연">
-                      <label class="form-check-label" for="customRadio8" style="color: white">공연</label>
+                      <label class="form-check-label" for="customRadio8" style="color: #696464">공연</label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio9" name="f", value="무용">
-                      <label class="form-check-label" for="customRadio9" style="color: white">무용</label>
+                      <label class="form-check-label" for="customRadio9" style="color: #696464">무용</label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio10" name="f", value="사회활동">
-                      <label class="form-check-label" for="customRadio10" style="color: white">사회활동</label>
+                      <label class="form-check-label" for="customRadio10" style="color: #696464">사회활동</label>
                   </div>
                   <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" id="customRadio11" name="f", value="문학">
-                      <label class="form-check-label" for="customRadio11" style="color: white">문학</label>
+                      <label class="form-check-label" for="customRadio11" style="color: #696464">문학</label>
                   </div>
 
 
                   <!--가격필터-->
                   <div class="form-group">
                     <a href = "#" onclick= "event.stopPropagation()"></a>
-                    <label for="customRange3" style="color: #CDCDCD">가격 범위</label>
+                    <label for="customRange3" style="color: #982323; line-height: 200%;">가격 범위</label>
 
-                    <select source="[name=price]">
+                    <select source="[name=price]" style="color: #696464;">
                       <option value="0">전체</option>
                       <option value="1">무료</option>
                       <option value="2">~10,000원</option>
@@ -117,22 +142,22 @@
                     <input type="range" class="custom-range" value = "0" min="0" max="6" step="1" id="customRange3" name="price", value={{price}}>
 
                   </div>
-                  <button type='submit' class='btn btn-warning' style="background-color:#ebc291">검색</button>  <!--위에것과 기능은 같음-->
-                  <!-- <button type='reset' class='btn btn-info'>RESET</button> -->
+                    <br>
+                 <button type='submit' class='btn btn-warning' style="background-color: #982323; color: #EEEBDD; border-color: #982323;">검색</button>  <!--위에것과 기능은 같음-->
+                      <!-- <button type='reset' class='btn btn-info'>RESET</button> -->
+                <br>
                 </form>
               </tbody>
             </table>
 
-            <br>
-            <br>
           </ul>
         </div>
       </nav>
       <role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-        <br>총 <b>{{ program_number }}</b>개의 프로그램
+        총 <b>{{ program_number }}</b>개의 프로그램
         <table class="table">
             <thead>
-            <tr class="table-dark">
+            <tr class="table" style="background-color:#F5F5F5; color:#696464;border-style : hidden!important; box-shadow: 0 0 0.8px; border-top-radius:16px;">
                 <th>프로그램명</th>
                 <th>카테고리</th>
                 <th>연령대</th>

@@ -22,7 +22,6 @@
     </style>
 </head>
 </html>
-{% load pybo_filter %}
 <!-- 네비게이션바 -->
 {% block content %}
 <div class="container my-3">
@@ -111,14 +110,15 @@
     <role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
         <a href="{% url 'ku_manam:talent_donation' %}" class='btn btn-warning' style="background-color: #982323;color: #EEEBDD; border-color: #982323">고려대 동아리 지역 연계 프로그램</a> &nbsp;
         <a href="{% url 'circlelist:search' %}" class='btn btn-warning' style="background-color: #F5F5F5;color: #982323; border-color: #982323">동아리 모아보기</a>
+        <a href="{% url 'ku_manam:question_create' %}" class='btn btn-warning' style="background-color: #F5F5F5;color: #982323; float:right; border-color: #982323">새 글 작성</a>
+
         <br>
         <br>
         <table class="table">
             <thead>
             <tr class="table" style="background-color:#F5F5F5; color:#696464;border-style : hidden!important; box-shadow: 0 0 0.8px; border-top-radius:16px;">
-                <th><center>번호</center></th>
                 <th><center>제목</center></th>
-                <th><center>분과</center></th>
+                <th><center>해시태그</center></th>
                 <th><center>동아리명</center></th>
                 <th><center>작성일시</center></th>
                 </tr>
@@ -127,17 +127,10 @@
         {% if question_list %}
         {% for question in question_list %}
         <tr class="text-center">
-            <td>
-                <!-- 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
-                {{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}
-            </td>
             <td class="text-start">
-                <a href="{% url 'ku_manam:detail' question.id %}"><center>{{ question.subject }}</center></a>
-                {% if question.answer_set.count > 0 %}
-                <span class="text-danger small mx-2">{{ question.answer_set.count }}</span>
-                {% endif %}
+                <a href="{% url 'ku_manam:detail' question.id %}" style="text-decoration:none; color: black; font-weight: bold"><center>{{ question.subject }}</center></a>
             </td>
-            <td><center>{{ question.category }}</center></td>
+            <td><center>{{ question.hashtag }}</center></td>
             <td>{{ question.title }}</td>
             <td>{{ question.create_date }}</td>
         </tr>
@@ -154,65 +147,47 @@
     <br>
     <!-- 페이징처리 시작 -->
     <ul class="pagination justify-content-center">
-        <!-- 이전페이지 -->
-        {% if question_list.has_previous %}
-        <li class="page-item">
-            <a class="page-link" href="?page={{ question_list.previous_page_number }}" href="javascript:void(0)">이전</a>
-        </li>
-        {% else %}
-        <li class="page-item disabled">
-            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
-        </li>
-        {% endif %}
-        <!-- 페이지리스트 -->
-        {% for page_number in question_list.paginator.page_range %}
-        {% if page_number >= question_list.number|add:-5 and page_number <= question_list.number|add:5 %}
-        {% if page_number == question_list.number %}
-        <li class="page-item active" aria-current="page">
-           <a class="page-link" data-page="{{ page_number }}" href="javascript:void(0)">{{ page_number }}</a>
-        </li>
-        {% else %}
-        <li class="page-item">
-            <a class="page-link" data-page="{{ question_list.next_page_number }}"
-           href="javascript:void(0)">다음</a>
-        </li>
-        {% endif %}
-        {% endif %}
-        {% endfor %}
-        <!-- 다음페이지 -->
-        {% if question_list.has_next %}
-        <li class="page-item">
-            <a class="page-link" href="?page={{ question_list.next_page_number }}" href="javascript:void(0)"">다음</a>
-        </li>
-        {% else %}
-        <li class="page-item disabled">
-            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
-        </li>
-        {% endif %}
-    </ul>
-    <!-- 페이징처리 끝 -->
+        <!-- 페이징처리 시작 -->
+        <ul class="pagination justify-content-center">
+            <!-- 이전페이지 -->
+            {% if question_list.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ question_list.previous_page_number }}">이전</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+            </li>
+            {% endif %}
+            <!-- 페이지리스트 -->
+            {% for page_number in question_list.paginator.page_range %}
+            {% if page_number >= question_list.number|add:-5 and page_number <= question_list.number|add:5 %}
+            {% if page_number == question_list.number %}
+            <li class="page-item active" aria-current="page">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% else %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+            </li>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+            <!-- 다음페이지 -->
+            {% if question_list.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ question_list.next_page_number }}">다음</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+            </li>
+            {% endif %}
+        </ul>
+        <!-- 페이징처리 끝 -->
 
 </div>
 </div>
-<form id="searchForm" method="get" action="{% url 'ku_manam:talent_donation' %}">
-    <input type="hidden" id="b" name="b" value="{{ b|default_if_none:'' }}">
-    <input type="hidden" id="page" name="page" value="{{ page }}">
-</form>
+
 {% endblock %}
-{% block script %}
-<script type='text/javascript'>
-const page_elements = document.getElementsByClassName("page-link");
-Array.from(page_elements).forEach(function(element) {
-    element.addEventListener('click', function() {
-        document.getElementById('page').value = this.dataset.page;
-        document.getElementById('searchForm').submit();
-    });
-});
-const btn_search = document.getElementById("btn_search");
-btn_search.addEventListener('click', function() {
-    document.getElementById('kw').value = document.getElementById('search_kw').value;
-    document.getElementById('page').value = 1;  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
-    document.getElementById('searchForm').submit();
-});
-</script>
-{% endblock %}
+

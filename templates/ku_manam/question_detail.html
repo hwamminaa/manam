@@ -24,7 +24,9 @@
                 <문의 사항>
                     {{ question.inquiry }}<br>
                 <신청 방법>
-                    {{ question.apply }}
+                    {{ question.apply }}<br>
+                <작성자>
+                    {{ user }}
             </div>
             <div class="d-flex justify-content-end">
                 {% if question.modify_date %}
@@ -42,19 +44,9 @@
             {% if request.user == question.author %}
             <a href="{% url 'ku_manam:question_modify' question.id  %}"
                class="btn btn-sm btn-outline-secondary">수정</a>
-            <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
-                data-uri="{% url 'ku_manam:question_delete' question.id  %}">삭제</a>
-            {% endif %}
-            <a href="{% url 'ku_manam:talent_donation' %}" class="delete btn btn-sm btn-outline-success" >돌아가기</a>
-            <form action="{% url 'ku_manam:likes' question.id %}" method='POST'>
-                {% csrf_token %}
-                {% if question in question_list.like_users.all %}
-                    <input type="submit" value='좋아요 취소'>
-                {% else %}
-                    <input type="submit" value='좋아요'>
-                {% endif %}
-
-            </form>
+             <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
+                data-uri="{% url 'ku_manam:question_delete' question.id  %}">삭제</a>{% endif %}
+            <a href="{% url 'ku_manam:talent_donation' %}" class="btn btn-sm btn-outline-success" >돌아가기</a>
             </div>
         </div>
     </div>

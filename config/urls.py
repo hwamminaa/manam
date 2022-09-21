@@ -24,9 +24,9 @@ urlpatterns = [
     path('', views.index, name='index'),  # '/' 에 해당되는 path
     path('facility/', include('facility.urls')),
     path('program/', include('program.urls')),
-    path('circle/', include('circle.urls')),
-    path('circle/kuprogram/', include('kuprogram.urls')),
-    path('circle/circlelist/', include('circlelist.urls')),
+    path('ku_manam/',include('ku_manam.urls')),
+    path('ku_manam/circlelist/', include('circlelist.urls')),
+    path('community/', include('community.urls')),
 ]
 
 handler404 = 'common.views.page_not_found'

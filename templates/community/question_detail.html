@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <!-- message 표시 -->
+    {% if messages %}
+    <div class="alert alert-danger my-3" role="alert">
+    {% for message in messages %}
+        <strong>{{ message.tags }}</strong>
+        <ul><li>{{ message.message }}</li></ul>
+    {% endfor %}
+    </div>
+    {% endif %}
+    <!-- 질문 -->
+    <h2 class="border-bottom py-2">{{ article.subject }}</h2>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">{{ article.content }}</div>
+            <div class="d-flex justify-content-end">
+                {% if article.modify_date %}
+                <div class="badge bg-light text-dark p-2 text-start mx-3">
+                    <div class="mb-2">modified at</div>
+                    <div>{{ article.modify_date }}</div>
+                </div>
+                {% endif %}
+                <div class="badge bg-light text-dark p-2 text-start">
+                    <div class="mb-2">{{ article.author.username }}</div>
+                    <div>{{ article.create_date }}</div>
+                </div>
+            </div>
+            <div class="my-3">
+            {% if request.user == article.author %}
+            <a href="{% url 'community:question_modify' article.id  %}"
+               class="btn btn-sm btn-outline-secondary">수정</a>
+            <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
+       data-uri="{% url 'community:question_delete' article.id  %}">삭제</a>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+    <!-- 댓글 -->
+    <h5 class="border-bottom my-3 py-2">{{article.comment_set.count}}개의 댓글이 있습니다.</h5>
+    {% for comment in article.comment_set.all %}
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">{{ comment.content }}</div>
+            <div class="d-flex justify-content-end">
+                {% if comment.modify_date %}
+                <div class="badge bg-light text-dark p-2 text-start mx-3">
+                    <div class="mb-2">modified at</div>
+                    <div>{{ comment.modify_date }}</div>
+                </div>
+                {% endif %}
+                <div class="badge bg-light text-dark p-2 text-start">
+                    <div class="mb-2">{{ comment.author.username }}</div>
+                    <div>{{ comment.create_date }}</div>
+                </div>
+            </div>
+            <div class="my-3">
+            {% if request.user == comment.author %}
+            <a href="{% url 'community:answer_modify' comment.id  %}"
+               class="btn btn-sm btn-outline-secondary">수정</a>
+            <a href="#" class="delete btn btn-sm btn-outline-secondary "
+               data-uri="{% url 'community:answer_delete' comment.id  %}">삭제</a>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <!-- 댓글 등록 -->
+    <form action="{% url 'community:answer_create' article.id %}" method="post" class="my-3">
+        {% csrf_token %}
+        <!-- 오류표시 Start -->
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for field in form %}
+            {% if field.errors %}
+            <div>
+                <strong>{{ field.label }}</strong>
+                {{ field.errors }}
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+        {% endif %}
+        <!-- 오류표시 End -->
+        <div class="mb-3">
+            <label for="content" class="form-label">댓글 내용</label>
+            <textarea {% if not user.is_authenticated %}disabled{% endif %}
+              name="content" id="content" class="form-control" rows="5"></textarea>
+            <br>
+        <input type="submit" value="댓글 등록" class="btn btn-primary">
+    </form>
+     <a href="{% url 'community:allarticles' %}" class="btn btn-sm btn-outline-success" >돌아가기</a>
+</div>
+{% endblock %}
+{% block script %}
+<script type='text/javascript'>
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+</script>
+{% endblock %}

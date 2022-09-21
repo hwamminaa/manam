@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+<! doctype html>
+<html lang="ko">
+<head>
+    <style>
+    body {
+        font-family: Consolas, monospace;
+    }
+        .nav {
+        border-top-left-radius: 60px;
+        border-top-right-radius: 60px;
+        border-bottom-left-radius: 60px;
+        border-bottom-right-radius: 60px;
+
+        }
+        ul {
+        border-top-left-radius: 60px;
+        border-top-right-radius: 60px;
+        border-bottom-left-radius: 60px;
+        border-bottom-right-radius: 60px;
+        }
+    </style>
+</head>
+</html>
+<!-- 네비게이션바 -->
+{% load pybo_filter %}
+{% block content %}
+<div class="container my-3">
+    <div class="row my-100">
+        <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block sidebar collapse" style="box-shadow: 0 0 2px; border-top-right-radius:10px;border-top-left-radius:10px;background-color: #F5F5F5;border-bottom-right-radius: 10px;border-bottom-left-radius: 10px; height:700px;">
+        <div class="sidebar-sticky pt-3">
+          <ul class="nav flex-column">
+                <table class = 'table' style="background-color: #EEEBBD; color: #EEEBBD">
+                  <thead>
+                  <br>
+                      <a href="{% url 'community:allarticles' %}" class="btn" style="text-align:left; background-color: #F5F5F5; color: #630000;  font-size:1.5em" >커뮤니티</a>
+                  <br>
+                  <br>
+                  </thead>
+
+                  <tbody>
+                    <!--필터 바-->
+                    <form class="form-inline my-2 my-md-0" method="get" action="{% url 'community:allarticles' %}">
+                      <!--검색기능-->
+                      <input class="form-control" type="text" placeholder="검색어 입력" aria-label="Search" name="kw" value="{{kw}}">
+                      <br>
+                      <button type='submit' class='btn btn-warning' style="background-color: #982323; color: #EEEBDD; border-color: #982323;">검색</button>  <!--위에것과 기능은 같음-->
+                      <!-- <button type='reset' class='btn btn-info'>RESET</button> -->
+                        <br>
+                    </form>
+                  </tbody>
+                </table>
+
+            <br>
+            <br>
+          </ul>
+        </div>
+      </nav>
+
+     <role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            <a href="{% url 'community:allarticles' %}" class='btn btn-warning' style="background-color: #F5F5F5;color: #982323; border-color: #982323;">전체 글 보기</a> &nbsp;
+            <a href="{% url 'community:proposal' %}" class='btn btn-warning' style="background-color: #982323;color: #EEEBDD; border-color: #982323;">KU 동아리 프로그램 신청만 보기</a> &nbsp;
+            <a href="{% url 'community:recruitment' %}" class='btn btn-warning' style="background-color: #F5F5F5;color: #982323; border-color: #982323">자율 동아리 모집만 보기</a>
+            <a href="{% url 'community:question_create' %}" class='btn btn-warning' style="background-color: #F5F5F5;color: #982323; border-color: #982323; float:right;">새 글 작성</a>
+        <br> <br>
+        <table class="table">
+            <thead>
+            <tr class="table" style="background-color:#F5F5F5; color:#696464;border-style : hidden!important; box-shadow: 0 0 0.8px; border-top-radius:16px;">
+                <th><center>번호</center>
+                <th style="width:30%"><center>제목</center></th>
+                <th><center>종류(신청/모집)</center></th>
+                <th><center>작성자</center></th>
+                <th><center>작성일시</center></th>
+                </tr>
+                </thead>
+        <tbody>
+        {% if article_list %}
+        {% for article in article_list %}
+        <tr class="text-center">
+            <td>
+                <!-- 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1 -->
+                {{ article_list.paginator.count|sub:article_list.start_index|sub:forloop.counter0|add:1 }}
+            </td>
+            <td class="text-start">
+                <a href="{% url 'community:detail' article.id %}" style="text-decoration:none; color: black; font-weight: bold"><center>{{ article.subject }}<center></a>
+                {% if article.comment_set.count > 0 %}
+                <span class="text-danger small mx-2">{{ article.comment_set.count }}</span>
+                {% endif %}
+            </td>
+            <td>{{ article.category }}</td>
+            <td>{{ article.author.username }}</td>
+            <td>{{ article.create_date }}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="4">글이 없습니다.</td>
+        </tr>
+    {% endif %}
+    </tbody>
+
+    </role>
+        </table>
+
+    <br>
+    <!-- 페이징처리 시작 -->
+    <ul class="pagination justify-content-center">
+        <!-- 이전페이지 -->
+        {% if article_list.has_previous %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ article_list.previous_page_number }}" href="javascript:void(0)">이전</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+        </li>
+        {% endif %}
+        <!-- 페이지리스트 -->
+        {% for page_number in article_list.paginator.page_range %}
+        {% if page_number >= article_list.number|add:-5 and page_number <= article_list.number|add:5 %}
+        {% if page_number == article_list.number %}
+        <li class="page-item active" aria-current="page">
+           <a class="page-link" data-page="{{ page_number }}" href="javascript:void(0)">{{ page_number }}</a>
+        </li>
+        {% else %}
+        <li class="page-item">
+            <a class="page-link" data-page="{{ article_list.next_page_number }}"
+           href="javascript:void(0)">다음</a>
+        </li>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+        <!-- 다음페이지 -->
+        {% if article_list.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ article_list.next_page_number }}" href="javascript:void(0)"">다음</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+        </li>
+        {% endif %}
+    </ul>
+    <!-- 페이징처리 끝 -->
+
+</div>
+</div>
+<form id="searchForm" method="get" action="{% url 'community:allarticles' %}">
+    <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
+    <input type="hidden" id="page" name="page" value="{{ page }}">
+</form>
+{% endblock %}
+{% block script %}
+<script type='text/javascript'>
+const page_elements = document.getElementsByClassName("page-link");
+Array.from(page_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        document.getElementById('page').value = this.dataset.page;
+        document.getElementById('searchForm').submit();
+    });
+});
+const btn_search = document.getElementById("btn_search");
+btn_search.addEventListener('click', function() {
+    document.getElementById('kw').value = document.getElementById('search_kw').value;
+    document.getElementById('page').value = 1;  // 검색버튼을 클릭할 경우 1페이지부터 조회한다.
+    document.getElementById('searchForm').submit();
+});
+</script>
+{% endblock %}
