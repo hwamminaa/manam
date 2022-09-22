@@ -39,7 +39,7 @@ class Answer(models.Model):
 class Article(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     #제목
-    subject = models.CharField(max_length = 200)
+    subject = models.CharField(max_length=200)
     #내용
     content = models.TextField()
     #카테고리

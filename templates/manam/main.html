@@ -395,17 +395,20 @@
             <div class="item item-hot">
                 <h6>KU 만남</h6>
                 <div>
-                {% if circleprogram_list %}
-                    {% for circleprogram in circleprogram_list %}
-                        {{ circleprogram.title }}
-                    {% endfor %}
+                {% if question_list %}
+                {% for question in question_list %}
+                    <div>✔ <a href="{% url 'ku_manam:detail' question.id %}" style="text-decoration:none; color:black;font-size:14px;">{{ question.subject }}</a></div>
+                {% endfor %}
                 {% endif %}
                 </div>
-                <div>2. </div>
-                <div>3. </div>
             </div>
             <div class="item item-hot">
                 <h6>커뮤니티 글</h6>
+                {% if article_list %}
+                {% for article in article_list %}
+                    <div>✔ <a href="{% url 'community:detail' article.id %}" style="text-decoration:none; color:black;font-size:14px;">{{ article.subject }}</a></div>
+                {% endfor %}
+                {% endif %}
             </div>
             <div class="item item-hot">
                 <h6>문화프로그램</h6>
