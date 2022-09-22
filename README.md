@@ -70,58 +70,46 @@ RAM: 8.00GB
 ### -models.py
 2.1 Program: 프로그램 데이터 다운로드\
 2.2 Category: 프로그램 카테고리들\
-2.3 Recommendation: 프로그램 추천데이터 다운로드
+2.3 Recommendation: 프로그램 추천데이터 다운로드\
 ### -views.py
 2.1 downloadprogram: 성북구 프로그램 데이터 다운로드\
 2.2 index: 메인 페이지\
 2.3 detail: 프로그램 상세 페이지 및 추천\
 2.4 program_Search: 프로그램 필터링\
-2.5 downloadRecommedation: 추천데이터 다운로드
+2.5 downloadRecommedation: 추천데이터 다운로드\
+2.6 like: 프로그램 좋아요 기능 구현\
 ### -html
 2.1 program_list: 성북구 프로그램 목록 페이지\
 2.2 program_search: 성북구 프로그램 필터링\
 2.3 program_result: 추천시스템 결과\
 2.4 program_detail: 프로그램 상세정보 페이지
 
-### 3. circle, kuprogram, circlelist : 성북구X고려대 M:ANAM 구현 
-### 3.1 circle
+### 3. ku_manam: KU 만남
+### 3.1 talent_donation: 고려대 동아리 지역 연계 프로그램\
 ### -models.py
 3.1.1 Question: 게시글 등록\
-3.1.2 Answer: 댓글 등록
+3.1.2 Answer: 댓글 등록\
+3.1.3 Article: 게시글 등록(커뮤니티)\
+3.1.4 Comment: 댓글 등록(커뮤니티)\
 ### -views.py
-3.1.1 index: 성북구X고려대 만남 불러오기 불러오기\
+3.1.1 index: KU 만남 불러오기\
 3.1.2 circle_list: 동아리 모아보기 페이지 불러오기\
-3.1.3 gwangjang: 성북구 어울림 페이지 불러오기 및 카테고리 필터링, 검색 적용\
-3.1.4 autonomy_program: 성북구 어울림 글 중 글 종류가 "모집"인 것만 불러오는 페이지 및 카테고리 필터링, 검색 적용\
-3.1.5 proposal: 성북구 어울림 글 중 글 종류가 "신청"인 것만 불러오는 페이지 및 카테고리 필터링, 검색 적용\
+3.1.3 talent_donation: 고려대 동아리 지역 연계 프로그램 페이지 불러오기\
+3.1.4 detail: 고려대 동아리 지역 연계 프로그램 글 상세페이지\
+3.1.5 like: 고려대 동아리 지역 연계 프로그램 좋아요 기능 구현\
 3.1.6 detail: 성북구 어울림 글 상세페이지
+3.1.7 question_create: 고려대 동아리 지역 연계 프로그램 등록\
+3.1.8 question_modify: 글 수정\
+3.1.9 question_delete: 글 삭제\
+3.1.10 answer_create: 댓글 등록\
+3.1.11 answer_modify: 댓글 수정\
+3.1.12 answer_delete: 댓글 삭제\
 ### -html
-3.1.1 circle_main.html: 성북구X고려대 메인 페이지\
-3.1.2 gwangjang.html: 성북구 어울림 전체글 리스트 페이지\
-3.1.3 proposal.html: 성북구 어울림 글 중 종류가 "신청"에 해당하는 글 리스트 페이지\
-3.1.4 question_form.html: 성북구 어울림 메뉴에 새 글을 등록하는 페이지\
-3.1.5 question_detail.html: 성북구 어울림 글 상세 정보 페이지\
-3.1.6 answer_form.html: 댓글 다는 페이지\
-3.1.7 autonomy_program.html: 성북구 어울림 글 중 종류가 "모집"에 해당하는 글 리스트 페이지
+3.1.1 index.html: 고려대 동아리 지역 연계 프로그램 메인 페이지\
+3.1.2 question_form.html: 고려대 동아리 지역 연계 프로그램 메뉴에 새 글을 등록하는 페이지\
+3.1.3 question_detail.html: 고려대 동아리 지역 연계 프로그램 글 상세 정보 페이지\
 
-### 3.2 kuprogram
-### -models.py
-3.2.1 Circleprogram: 글 등록 시 입력 양식\
-3.2.2 Category: 동아리 카테고리
-### -views.py
-3.2.1 index: KU어울림 메인 페이지\
-3.2.2 search: KU어울림 불러오기 및 카테고리 필터링, 검색 적용\
-3.2.3 detail: KU어울림 글 상세페이지\
-3.2.4 question_create: KU어울림 글 등록\
-3.2.5 question_modify: 글 수정\
-3.2.6 question_delete: 글 삭제
-### -html
-3.2.1 kuprogram_main: KU어울림 메인 페이지\
-3.2.2 kuprogram_search: KU어울림 메인 페이지 + 검색, 카테고리 기능 추가\
-3.2.3 question_detail: KU어울림 글 상세페이지\
-3.2.4 question_form: KU어울림 글 등록
-
-### 3.3 circlelist
+### 3.2 circlelist
 ### -models.py
 3.3.1 Facility: 고려대 동아리 데이터\
 3.3.2 Category: 동아리 카테고리들
@@ -133,7 +121,31 @@ RAM: 8.00GB
 3.3.1 circle_search.html: 동아리 목록 페이지\
 3.3.2 circle_detail.html: 동아리 세부정보 페이지
 
-### 4. common: 로그인, 회원가입 구현
+### 4. community
+### -models.py
+충돌을 막기 위하여 ku_manam의 모델을 활용함
+### -views.py
+4.1.1 allarticles: 커뮤니티 메인 페이지 불러오기\
+4.1.2 recruitment: 커뮤니티 글 중 자율동아리 모집 글만 필터링\
+4.1.3 proposal: 커뮤니티 글 중 프로그램 제안 글만 필터링\
+4.1.4 detail: 커뮤니티 글 상세 페이지\
+4.1.5 question_create: 커뮤니티 글 등록\
+4.1.6 question_modify: 글 수정\
+4.1.7 question_delete: 글 삭제\
+4.1.8 answer_create: 댓글 등록\
+4.1.9 answer_modify: 댓글 수정\
+4.1.10 answer_delete: 댓글 삭제\
+4.1.11 like: 커뮤니티 글 좋아요 기능\
+### -html
+4.2.1 allarticles: 커뮤니티 메인 페이지\
+4.2.2 proposal: 커뮤니티 글 중 프로그램 제안 글만 보기\
+4.2.3 question_detail: 커뮤니티 글 상세 페이지\
+4.2.4 question_form: 커뮤니티 메뉴에 새로운 글을 등록하는 페이지\
+4.2.5 recruitment: 커뮤니티 글 중  글만 보기
+
+
+
+### 5. common: 로그인, 회원가입 구현
 
 # Acknowledgments
 ## References
