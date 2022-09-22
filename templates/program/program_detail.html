@@ -207,22 +207,25 @@
                 <div class="container" style="display: flex; flex-direction: row; flex-wrap: nowrap; justify-content:space-around; align-items: center;">
                     <div class="item item1" OnClick="location.href ='{% url 'program:detail' recommend1.id %}'" style="cursor:pointer;">
                         <div class="select" style="text-align:center; font-weight:bold; padding:3px; font-size:17px;">{{ recommend1.name }}</div>
-                        <img src={{recimage1}} width="50">
+                        <img src={{recimage1}} style="width:40px;margin:3px;">
                         <div class="detail" style="font-weight:bold;color:#5A5A5A;">{{ recommend1.category}}</div>
                         <div class="detail">{{ recommend1.host}}</div>
                     </div>
                     <div class="item item2" OnClick="location.href ='{% url 'program:detail' recommend2.id %}'" style="cursor:pointer;">
                         <div class="select" style="text-align:center; font-weight:bold;padding:3px;font-size:17px;">{{ recommend2.name }}</div>
+                        <img src={{recimage2}} style="width:40px;margin:3px;">
                         <div class="detail" style="font-weight:bold;color:#5A5A5A;">{{ recommend2.category}}</div>
                         <div class="detail">{{ recommend2.host}}</div>
                     </div>
                     <div class="item item3" OnClick="location.href ='{% url 'program:detail' recommend3.id %}'" style="cursor:pointer;">
                         <div class="select" style="text-align:center; font-weight:bold;padding:3px;font-size:17px;">{{ recommend3.name }}</div>
+                        <img src={{recimage3}} style="width:40px;margin:3px;">
                         <div class="detail" style="font-weight:bold;color:#5A5A5A;">{{ recommend3.category}}</div>
                         <div class="detail">{{ recommend3.host}}</div>
                     </div>
                     <div class="item item4" OnClick="location.href ='{% url 'program:detail' recommend4.id %}'" style="cursor:pointer;">
                         <div class="select" style="text-align:center; font-weight:bold;padding:3px;font-size:17px;">{{ recommend4.name }}</div>
+                        <img src={{recimage4}} style="width:40px;margin:3px;">
                         <div class="detail" style="font-weight:bold;color:#5A5A5A;">{{ recommend4.category}}</div>
                         <div class="detail">{{ recommend4.host}}</div>
                     </div>

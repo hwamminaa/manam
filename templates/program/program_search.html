@@ -43,7 +43,7 @@
                       <label for="customRange3" style="color: #982323">현재 결과<br>
                       </label>
                       <br>
-                      카테고리 |
+                      <label style="color:#630000;">카테고리 |</label>
                       {% if f %}
                       {{ f }}
                       {% else %}
@@ -51,7 +51,7 @@
                       {% endif %}
                   </div>
                     <div style="line-height:170%; color:#696464">
-                      연령대 |
+                      <label style="color:#630000;">연령대 |</label>
                       {% if age == '0' %}
                       전체
                       {% elif age == '1' %}
@@ -71,7 +71,7 @@
                       {% endif %}
                     </div>
                   <div style="line-height:170%; color:#696464">
-                      가격 |
+                      <label style="color:#630000;">가격 |</label>
                       {% if price == '0' %}
                       전체
                       {% elif price == '1' %}
@@ -198,26 +198,26 @@
         <table class="table">
             <thead>
             <tr class="table" style="background-color:#F5F5F5; color:#696464;border-style : hidden!important; box-shadow: 0 0 0.8px; border-top-radius:16px;">
-                <th>프로그램명</th>
-                <th>카테고리</th>
-                <th>연령대</th>
-                <th>비용</th>
-                <th>시작일</th>
-                <th>종료일</th>
+                <th style="width:40%"><center>프로그램명</center></th>
+                <th style="width:10%"><center>카테고리</center></th>
+                <th style="width:10%"><center>연령대</center></th>
+                <th style="width:5%"><center>비용</center></th>
+                <th style="width:12%"><center>시작일</center></th>
+                <th style="width:12%"><center>종료일</center></th>
             </tr>
             </thead>
             <tbody>
             {% if program_list %}
             {% for program in program_list %}
             <tr class="text-center">
-                <td class="text-start">
+                <td class="text-start" style="width:40%; ">
                     <a href="{% url 'program:detail' program.id %}" style="text-decoration:none; color:black;">{{ program.name }}</a>
                 </td>
-                <td>{{ program.category }}</td>
-                <td>{{ program.age }}</td>
-                <td>{{ program.price }}</td>
-                <td>{{ program.start_date }}</td>
-                <td>{{ program.end_date }}</td>
+                <td style="width:10%">{{program.category }}</td>
+                <td style="width:10%">{{program.age }}</td>
+                <td style="width:5%">{{program.price }}</td>
+                <td style="width:12%">{{program.start_date }}</td>
+                <td style="width:12%">{{program.end_date }}</td>
             </tr>
             {% endfor %}
             {% else %}

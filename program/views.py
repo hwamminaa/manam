@@ -51,6 +51,7 @@ def index(request):
 def detail(request, program_id):
     program = get_object_or_404(Program, pk=program_id)
     context = {}
+
     context['program'] = program
 
     # detail의 프로그램에 대한 recommendation 정보 불러오기
@@ -64,19 +65,6 @@ def detail(request, program_id):
     recommend1 = recommend.first()
     context['recommend1'] = recommend1
 
-    categorylist = ['생활교양','행사','미술','미디어','음악','공예','운동','공연','무용','사회활동','문학']
-    imagelist = ['https://cdn-icons-png.flaticon.com/512/1830/1830878.png', 'https://cdn-icons-png.flaticon.com/512/1830/1830878.png',
-                 'https://cdn-icons-png.flaticon.com/512/1830/1830878.png', 'https://cdn-icons-png.flaticon.com/512/1830/1830878.png',
-                 'https://cdn-icons-png.flaticon.com/512/1830/1830878.png', 'https://cdn-icons-png.flaticon.com/512/1830/1830878.png',
-                 'https://cdn-icons-png.flaticon.com/512/1830/1830878.png', 'https://cdn-icons-png.flaticon.com/512/1830/1830878.png',
-                 'https://cdn-icons-png.flaticon.com/512/1830/1830878.png', 'https://cdn-icons-png.flaticon.com/512/1830/1830878.png',
-                 'https://cdn-icons-png.flaticon.com/512/2702/2702134.png']
-    for i in range(11):
-        if recommend1.category == categorylist[i]:
-            context['recimage1'] = imagelist[i]
-
-
-
     # 추천 프로그램2
     recommend = Program.objects.filter(Q(name=recobj.rec2) & Q(age=recobj.rec2age)).order_by('-start_date')
     recommend2 = recommend.first()
@@ -89,6 +77,26 @@ def detail(request, program_id):
     recommend = Program.objects.filter(Q(name=recobj.rec4) & Q(age=recobj.rec4age)).order_by('-start_date')
     recommend4 = recommend.first()
     context['recommend4'] = recommend4
+
+    categorylist = ['생활교양','행사','미술','미디어','음악','공예','운동','공연','무용','사회활동','문학']
+    imagelist = ['https://cdn-icons-png.flaticon.com/512/2751/2751585.png', 'https://cdn-icons-png.flaticon.com/512/1049/1049329.png',
+                 'https://cdn-icons-png.flaticon.com/512/4783/4783220.png', 'https://cdn-icons-png.flaticon.com/512/1466/1466966.png',
+                 'https://cdn-icons-png.flaticon.com/512/4472/4472616.png', 'https://cdn-icons-png.flaticon.com/512/3436/3436530.png',
+                 'https://cdn-icons-png.flaticon.com/512/857/857492.png', 'https://cdn-icons-png.flaticon.com/512/864/864834.png',
+                 'https://cdn-icons-png.flaticon.com/512/2402/2402477.png', 'https://cdn-icons-png.flaticon.com/512/3364/3364875.png',
+                 'https://cdn-icons-png.flaticon.com/512/2702/2702134.png']
+    for i in range(11):
+        if recommend1.category == categorylist[i]:
+            context['recimage1'] = imagelist[i]
+    for i in range(11):
+        if recommend2.category == categorylist[i]:
+            context['recimage2'] = imagelist[i]
+    for i in range(11):
+        if recommend3.category == categorylist[i]:
+            context['recimage3'] = imagelist[i]
+    for i in range(11):
+        if recommend4.category == categorylist[i]:
+            context['recimage4'] = imagelist[i]
 
     return render(request, 'program/program_detail.html', context)
 
@@ -108,7 +116,7 @@ def program_search(request):
 
     price = request.GET.get('price', '')
     age = request.GET.get('age', '')
-    program_list = Program.objects.order_by('start_date')
+    program_list = Program.objects.order_by('end_date')
 
     ########## 카테고리 리스트 ###############
     category_list = Category.objects.all()
