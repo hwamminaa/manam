@@ -63,6 +63,7 @@
         </div>
                 <div class="my-3">
                 {% if request.user == question.author %}
+                    &nbsp&nbsp&nbsp
                 <a href="{% url 'ku_manam:question_modify' question.id  %}"
                     class="btn btn-sm btn-outline-secondary">수정</a>
                 <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
