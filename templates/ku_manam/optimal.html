@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container my-3">
+    <!-- message 표시 -->
+    {% if messages %}
+    <div class="alert alert-danger my-3" role="alert">
+    {% for message in messages %}
+        <strong>{{ message.tags }}</strong>
+        <ul><li>{{ message.message }}</li></ul>
+    {% endfor %}
+    </div>
+    {% endif %}
+    <!-- 질문 -->
+    <h2 class="border-bottom py-2">{{ question.subject }}</h2>
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">
+                <동아리명>
+                     옵티말 <br>
+                <해시태그>
+                    <img src="{%static 'optimal1.png' %}">
+                    <br>
+                <상세 설명>
+                    {{ question.content }}<br>
+                    <img src="C:\Users\황민아\Pictures\78549_149118.png">
+                    {% if question.image %}
+                        <img src='http://drive.google.com/uc?export=view&id=16PujFBxQr1aFyLOjaOwib-obhajpxhQF'>
+                        <br><br>
+                    {% endif %}
+                <문의 사항>
+                    {{ question.inquiry }}<br>
+                <신청 방법>
+                    {{ question.apply }}<br>
+                <작성자>
+                    {{ user }}
+            </div>
+            <div class="d-flex justify-content-end">
+                {% if question.modify_date %}
+                <div class="badge bg-light text-dark p-2 text-start mx-3">
+                    <div class="mb-2">modified at</div>
+                    <div>{{ question.modify_date }}</div>
+                </div>
+                {% endif %}
+                <div class="badge bg-light text-dark p-2 text-start">
+                    <div class="mb-2">{{ question.writer.username }}</div>
+                    <div>{{ question.create_date }}</div>
+                </div>
+            </div>
+
+        </div>
+                <div class="my-3">
+                {% if request.user == question.author %}
+                <a href="{% url 'ku_manam:question_modify' question.id  %}"
+                    class="btn btn-sm btn-outline-secondary">수정</a>
+                <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
+                    data-uri="{% url 'ku_manam:question_delete' question.id  %}">삭제</a>{% endif %}
+                <a href="{% url 'ku_manam:talent_donation' %}" class="btn btn-sm btn-outline-success" >돌아가기</a>
+                    </div>
+            </div>
+    </div>
+    <!-- 댓글 -->
+
+</div>
+{% endblock %}
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type='text/javascript'>
+const delete_elements = document.getElementsByClassName("delete");
+Array.from(delete_elements).forEach(function(element) {
+    element.addEventListener('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = this.dataset.uri;
+        };
+    });
+});
+
+</script>
+{% endblock %}

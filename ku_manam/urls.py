@@ -22,8 +22,6 @@ urlpatterns = [
     path('talent_donation/answer/delete/<int:answer_id>/', views.answer_delete, name='answer_delete'),
     path('talent_donation/<int:question_id>/likes/',views.likes, name='likes'),
     path('talent_donation/<int:question_id>/like/',views.like, name='like'),
-
-
-
+    path('talent_donation/optimal/', views.optimal, name='optimal'),
 
 ]

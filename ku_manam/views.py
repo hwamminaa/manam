@@ -154,3 +154,6 @@ def like(request, question_id):
     else:
         question.like_users.add(request.user)
     return redirect('ku_manam:detail', question.id)
+
+def optimal(request):
+    return render(request, 'ku_manam/optimal.html')
