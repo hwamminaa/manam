@@ -7,19 +7,19 @@
     <div class="card my-3">
         <div class="card-body" ">
             <div class="card-text" style="white-space: pre-line;">
-                <구분>
+                <label style="color:#630000; font-weight:bold;">구분</label>
                 {{ facility.cate_1 }}
 
-                <행정동>
+                <label style="color:#630000; font-weight:bold;">행정동</label>
                 {{ facility.dong }}
 
-                <분류체계>
+                <label style="color:#630000; font-weight:bold;">분류체계</label>
                 {{ facility.cate_2 }}
 
-                <시설정보>
+                <label style="color:#630000; font-weight:bold;">시설정보</label>
                 {{ facility.content }}
 
-                <홈페이지>
+                 <label style="color:#630000; font-weight:bold;">홈페이지</label>
                 <a href= "{{ facility.url }}" target="_blank"> {{ facility.url }}</a>
 
                 <div id="map" style="width:70%;height:350px;position:relative;top:30px;left:150px"></div>

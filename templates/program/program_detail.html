@@ -179,17 +179,18 @@
     <div class="card my-3">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;">
-                카테고리: {{ program.category }}
-                연령대: {{ program.age }}
-                비용: {{ program.price }}
-                시작일: {{ program.start_date }}  /  종료일: {{ program.end_date }}
-                기관: {{ program.host }}
-                상세설명:
-                {{ program.description }}
-                {% if program.link %}
-                신청링크: <a href = {{ program.link }}> {{ program.link }} </a>
+                <label style="color:#630000; font-weight:bold;">카테고리</label>&nbsp&nbsp&nbsp{{ program.category }} <br>
+                <label style="color:#630000;font-weight:bold">연령대</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ program.age }} <br>
+                <label style="color:#630000;font-weight:bold">비용</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ program.price }} <br>
+                <label style="color:#630000;font-weight:bold">시작일</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ program.start_date }} <br>
+                <label style="color:#630000;font-weight:bold">종료일</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ program.end_date }} <br>
+                <label style="color:#630000;font-weight:bold;">기관</label>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{ program.host }} <br><br>
+                <label style="color:#630000;font-weight:bold;">상세설명</label>
+                {{ program.description }} <br><br>
+                <label style="color:#630000;font-weight:bold">신청링크</label>{% if program.link %}
+                <a href = {{ program.link }}> {{ program.link }} </a>
                 {% else %}
-                신청링크: 제공되지 않습니다
+                제공되지 않습니다
                 {% endif %}
             </div>
             <div>

@@ -15,21 +15,21 @@
     <div class="card my-3">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;">
-                <동아리명>
+                <label style="color:#630000; font-weight:bold">동아리명</label>
                     {{ question.title }}<br>
-                <해시태그>
+                <label style="color:#630000;font-weight:bold">해시태그</label>
                     {{ question.hashtag }}<br>
-                <상세 설명>
+                <label style="color:#630000;font-weight:bold">상세 설명</label>
                     {{ question.content }}<br>
                     {% if question.image %}
                         <img src="{{question.image.url}}">
                         <br><br>
                     {% endif %}
-                <문의 사항>
+                <label style="color:#630000;font-weight:bold">문의 사항</label>
                     {{ question.inquiry }}<br>
-                <신청 방법>
+                <label style="color:#630000;font-weight:bold">신청 방법</label>
                     {{ question.apply }}<br>
-                <작성자>
+                <label style="color:#630000;font-weight:bold">작성자</label>
                     {{ user }}
             </div>
             <div class="d-flex justify-content-end">
@@ -50,7 +50,7 @@
             <a href="{% url 'ku_manam:like' question.id %}">
                 <i class="fas fa-heart fa-lg" style="color: red;">
                     <i style="color:gray; font-size:13px;"> {{user}}님 포함 {{ question.like_users.count }}명이 좋아합니다.</i></i>
-            </a>
+            </a>sk
             {% else %}
             <a href="{% url 'ku_manam:like' question.id %}">
                 <i class="far fa-heart fa-lg animated infinite bounce delay-1s" style="color: gray;">
@@ -61,7 +61,7 @@
 
     </form>
         </div>
-                <div class="my-3"> &nbsp;&nbsp;
+                <div class="my-3">
                 {% if request.user == question.author %}
                 <a href="{% url 'ku_manam:question_modify' question.id  %}"
                     class="btn btn-sm btn-outline-secondary">수정</a>
