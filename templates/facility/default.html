@@ -107,14 +107,14 @@
 
     .v30_9 {
     width: 700px;
-    height: 65px;
+    height: 50px;
     background: rgba(245,245,245,1);
     margin-top: 20px;
     opacity: 1;
     color: rgba(0,0,0,1);
     font-family: Inter;
     font-weight: Bold;
-    font-size: 35px;
+    font-size: 30px;
     opacity: 1;
     text-align: center;
     align-items: center;
@@ -147,15 +147,9 @@
     .info .link {color: #5085BB;}
 
     .category, .category *{margin:0;padding:0;color:#000;}
-    .category {position:absolute;overflow:hidden;top:10px;left:10px;width:550px;height:100px;z-index:10;font-family:'Malgun Gothic','맑은 고딕',sans-serif;font-size:12px;text-align:center;background-color:#fff;}
+    .category {overflow:hidden;top:10px;left:10px;width:600px;height:50px;z-index:10;font-size:12px;text-align:center;background-color:#F5F5F5;}
     .category .menu_selected {background:#FF5F4A;color:#fff;border-left:1px solid #915B2F;border-right:1px solid #915B2F;margin:0 -1px;}
     .category li{list-style:none;float:left;width:110px;height:100px;padding-top:5px;cursor:pointer;}
-    .category .ico_total {display:block;margin:0 auto 2px;width:32px;height:35px;background: url( "https://cdn.icon-icons.com/icons2/317/PNG/32/map-marker-icon_34392.png" ) no-repeat;}
-    .category .ico_education {display:block;margin:0 auto 2px;width:32px;height:35px;background:url('https://cdn.icon-icons.com/icons2/317/PNG/32/map-marker-icon_34392.png') no-repeat;}
-    .category .ico_elderly {display:block;margin:0 auto 2px;width:32px;height:35px;background:url('https://cdn.icon-icons.com/icons2/1283/PNG/32/1497619936-jd21_85172.png') no-repeat;}
-    .category .ico_family {display:block;margin:0 auto 2px;width:32px;height:35px;background:url('https://cdn.icon-icons.com/icons2/2073/PNG/32/location_map_twitter_icon_127126.png') no-repeat;}
-    .category .ico_social {display:block;margin:0 auto 2px;width:32px;height:35px;background:url('https://cdn.icon-icons.com/icons2/567/PNG/32/marker_icon-icons.com_54388.png') no-repeat;}
-
 
 </style>
 </head>
@@ -209,7 +203,7 @@
 <div class="container-fluid" style="display:flex; flex-direction:column;flex-wrap: nowrap;justify-content:center;align-items: center;">
     <div class="v30_9">나의 위치는 어디인가요?</div>
 
-    <div style="margin-top:5px;"> * 위치접근 허용을 해주시면 현재 내 위치 주변으로 지도가 이동합니다 :)</div>
+    <div style="margin-top:2px;"> * 위치접근 허용을 해주시면 현재 내 위치 주변으로 지도가 이동합니다 :)</div>
 
     <div style="display:flex; flex-direction:row;flex-wrap:nowrap;justify-content:center;align-items:center;margin-top:0px;">
         <div style="width:450px;"></div>
@@ -252,8 +246,14 @@
             {{fa.url}},
         {% endfor %}
     </div>
+    <div id="cate2" style="display: none">
+        {%for fa in facilities%}
+            {{fa.cate_2}},
+        {% endfor %}
+    </div>
 
-    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3464eb8d032a6121616cba7859e41673&libraries=services,clusterer,drawing"></script>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3464eb8d032a6121616cba7859e41673&libraries=services,clusterer,drawing"></script>
     <script>
         var container = document.getElementById('map');
         var options = {
@@ -268,8 +268,12 @@
         var list_name = document.getElementById("name").innerText.split(',');
         var list_cate = document.getElementById("cate").innerText.split(',');
         var list_url = document.getElementById("url").innerText.split(',');
+        var list_cate2 = document.getElementById("cate2").innerText.split(',');
 
-        var facilityCoordinates = [];
+        var education = [];
+        var elderly = [];
+        var family = [];
+        var social = [];
 
         for(var idx=0; idx<list_lat.length;idx++){
             var content = {
@@ -279,20 +283,52 @@
                 url : list_url[idx],
                 lat: list_lat[idx],
                 lng: list_lng[idx],
+                cate2 : list_cate2[idx],
             }
-            facilityCoordinates.push(content);
+
+            if(list_cate2[idx] === list_cate2[65]){
+               social.push(content);
+
+            } else if(list_cate2[idx] === list_cate2[0]){
+                elderly.push(content);
+
+            } else if(list_cate2[idx] === list_cate2[255]){
+                family.push(content);
+
+            } else {
+                education.push(content);
+            }
             };
-            console.log(facilityCoordinates);
+            console.log(education);
+            console.log(elderly);
+            console.log(family);
+            console.log(social);
+
+        educationMarkers = [],
+        elderlyMarkers = [],
+        familyMarkers = [],
+        socialMarkers = [];
 
 
-        for(var idx=0; idx<facilityCoordinates.length;idx++){
-            var marker = new kakao.maps.Marker({
-            map: map,
-            position: facilityCoordinates[idx].latlng,
-            title: facilityCoordinates[idx].name
-            });
+        createEducationMarkers();
+        createElderlyMarkers();
+        createFamilyMarkers();
+        createSocialMarkers();
 
-            (function(marker, place) {
+        changeMarker('total');
+
+
+// 좌표와 마커이미지를 받아 마커를 생성하여 리턴하는 함수입니다
+function createMarker(position) {
+    var marker = new kakao.maps.Marker({
+        position: position
+    });
+
+    return marker;
+}
+
+// 마커에 info표시하는 함수
+function addinfo(marker, place) {
 
                 kakao.maps.event.addListener(marker, 'click', function() {
 
@@ -325,13 +361,186 @@
                     })
 
 
-                })(marker, facilityCoordinates[idx]);
+                }
 
-            function closeOverlay() {
-                alert('왜 창이 안닫히나 당황하셨겠지만 여러개 마커에 대해 창닫기 구현하는게 어렵더라구요ㅎ 창을 닫고 싶으시면 새로고침 하셔서 다시보는 것을 추천드립니다... 죄송합니다...🙏');
-            }
-            }
+function closeOverlay() {
+   alert('왜 창이 안닫히나 당황하셨겠지만 여러개 마커에 대해 창닫기 구현하는게 어렵더라구요ㅎ 창을 닫고 싶으시면 새로고침 하셔서 다시보는 것을 추천드립니다... 죄송합니다...🙏');
+}
+// 교육문화
+function createEducationMarkers() {
 
+    for (var i = 0; i < education.length; i++) {
+
+        // 마커이미지와 마커를 생성합니다
+        var marker = createMarker(education[i].latlng);
+
+        // 생성된 마커를 마커 배열에 추가합니다
+        educationMarkers.push(marker);
+
+        addinfo(marker, education[i]);
+
+
+}
+}
+// 마커들의 지도 표시 여부를 설정하는 함수입니다
+function setEducationMarkers(map) {
+    for (var i = 0; i < educationMarkers.length; i++) {
+        educationMarkers[i].setMap(map);
+    }
+}
+
+// 노인
+function createElderlyMarkers() {
+
+    for (var i = 0; i < elderly.length; i++) {
+
+        // 마커이미지와 마커를 생성합니다
+        var marker = createMarker(elderly[i].latlng);
+
+        // 생성된 마커를 마커 배열에 추가합니다
+        elderlyMarkers.push(marker);
+
+        addinfo(marker, elderly[i]);
+    }
+}
+
+// 마커들의 지도 표시 여부를 설정하는 함수입니다
+function setElderlyMarkers(map) {
+    for (var i = 0; i < elderlyMarkers.length; i++) {
+        elderlyMarkers[i].setMap(map);
+    }
+}
+
+// 가족 여성
+function createFamilyMarkers() {
+
+    for (var i = 0; i < family.length; i++) {
+
+        // 마커이미지와 마커를 생성합니다
+        var marker = createMarker(family[i].latlng);
+
+        // 생성된 마커를 마커 배열에 추가합니다
+        familyMarkers.push(marker);
+
+        addinfo(marker, family[i]);
+    }
+}
+
+// 마커들의 지도 표시 여부를 설정하는 함수입니다
+function setFamilyMarkers(map) {
+    for (var i = 0; i < familyMarkers.length; i++) {
+        familyMarkers[i].setMap(map);
+    }
+}
+
+// 사회복지일반
+function createSocialMarkers() {
+
+    for (var i = 0; i < social.length; i++) {
+
+            // 마커이미지와 마커를 생성합니다
+        var marker = createMarker(social[i].latlng);
+
+        // 생성된 마커를 마커 배열에 추가합니다
+        socialMarkers.push(marker);
+
+        addinfo(marker, social[i]);
+    }
+}
+
+// 마커들의 지도 표시 여부를 설정하는 함수입니다
+function setSocialMarkers(map) {
+    for (var i = 0; i < socialMarkers.length; i++) {
+        socialMarkers[i].setMap(map);
+    }
+}
+
+// 카테고리를 클릭했을 때 type에 따라 카테고리의 스타일과 지도에 표시되는 마커를 변경합니다
+function changeMarker(type){
+
+    var totalMenu = document.getElementById('totalMenu');
+    var educationMenu = document.getElementById('educationMenu');
+    var elderlyMenu = document.getElementById('elderlyMenu');
+    var familyMenu = document.getElementById('familyMenu');
+    var socialMenu = document.getElementById('socialMenu');
+
+    // 교육문화 카테고리가 클릭됐을 때
+    if (type === 'education') {
+
+        // 교육문화 카테고리를 선택된 스타일로 변경하고
+        totalMenu.className = '';
+        educationMenu.className = 'menu_selected';
+        elderlyMenu.className = '';
+        familyMenu.className = '';
+        socialMenu.className = '';
+
+        // 교육문화 마커들만 지도에 표시하도록 설정합니다
+        setEducationMarkers(map);
+        setElderlyMarkers(null);
+        setFamilyMarkers(null);
+        setSocialMarkers(null);
+
+    } else if (type === 'elderly') { // 노인 카테고리가 클릭됐을 때
+
+        // 노인 카테고리를 선택된 스타일로 변경하고
+        totalMenu.className = '';
+        educationMenu.className = '';
+        elderlyMenu.className = 'menu_selected';
+        familyMenu.className = '';
+        socialMenu.className = '';
+
+        // 노인 마커들만 지도에 표시하도록 설정합니다
+        setEducationMarkers(null);
+        setElderlyMarkers(map);
+        setFamilyMarkers(null);
+        setSocialMarkers(null);
+
+    } else if (type === 'family') { // 가족 카테고리가 클릭됐을 때
+
+        // 가족 카테고리를 선택된 스타일로 변경하고
+        totalMenu.className = '';
+        educationMenu.className = '';
+        elderlyMenu.className = '';
+        familyMenu.className = 'menu_selected';
+        socialMenu.className = '';
+
+        // 가족 마커들만 지도에 표시하도록 설정합니다
+        setEducationMarkers(null);
+        setElderlyMarkers(null);
+        setFamilyMarkers(map);
+        setSocialMarkers(null);
+
+    } else if (type === 'social') { // 사회복지 카테고리가 클릭됐을 때
+
+        // 사회복지 카테고리를 선택된 스타일로 변경하고
+        totalMenu.className = '';
+        educationMenu.className = '';
+        elderlyMenu.className = '';
+        familyMenu.className = '';
+        socialMenu.className = 'menu_selected';
+
+        // 사회복지 마커들만 지도에 표시하도록 설정합니다
+        setEducationMarkers(null);
+        setElderlyMarkers(null);
+        setFamilyMarkers(null);
+        setSocialMarkers(map);
+
+    } else if (type === 'total') { // 전체 카테고리가 클릭됐을 때
+
+        // 전체 카테고리를 선택된 스타일로 변경하고
+        totalMenu.className = 'menu_selected';
+        educationMenu.className = '';
+        elderlyMenu.className = '';
+        familyMenu.className = '';
+        socialMenu.className = '';
+
+        // 전체 마커들만 지도에 표시하도록 설정합니다
+        setEducationMarkers(map);
+        setElderlyMarkers(map);
+        setFamilyMarkers(map);
+        setSocialMarkers(map);
+    }
+}
 
         // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
         if (navigator.geolocation) {
@@ -445,6 +654,33 @@
         </p>
         <a href="{% url 'facility:showFacilitylist' %}" class="delete btn btn-sm btn-outline-success">전체시설목록 보러가기</a>
     </div>
+
+    <div class="category">
+        <ul>
+            <li id="totalMenu" onclick="changeMarker('total')" style="font-size:15px;">
+                <span class="ico_comm ico_total"></span>
+                전체
+            </li>
+            <li id="educationMenu" onclick="changeMarker('education')" style="font-size:15px;">
+                <span class="ico_comm ico_education"></span>
+                교육·문화
+            </li>
+            <li id="familyMenu" onclick="changeMarker('family')" style="font-size:15px;">
+                <span class="ico_comm ico_family"></span>
+                보육·가족  <br> 및 여성
+            </li>
+            <li id="elderlyMenu" onclick="changeMarker('elderly')" style="font-size:15px;">
+                <span class="ico_comm ico_elderly"></span>
+                노인
+            </li>
+            <li id="socialMenu" onclick="changeMarker('social')" style="font-size:15px;">
+                <span class="ico_comm ico_social"></span>
+                사회복지일반
+            </li>
+        </ul>
+    </div>
+
+
 
 
     <div> {{ facilityCoordinates }} </div>
