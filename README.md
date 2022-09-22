@@ -70,14 +70,14 @@ RAM: 8.00GB
 ### -models.py
 2.1 Program: 프로그램 데이터 다운로드\
 2.2 Category: 프로그램 카테고리들\
-2.3 Recommendation: 프로그램 추천데이터 다운로드\
+2.3 Recommendation: 프로그램 추천데이터 다운로드
 ### -views.py
 2.1 downloadprogram: 성북구 프로그램 데이터 다운로드\
 2.2 index: 메인 페이지\
 2.3 detail: 프로그램 상세 페이지 및 추천\
 2.4 program_Search: 프로그램 필터링\
 2.5 downloadRecommedation: 추천데이터 다운로드\
-2.6 like: 프로그램 좋아요 기능 구현\
+2.6 like: 프로그램 좋아요 기능 구현
 ### -html
 2.1 program_list: 성북구 프로그램 목록 페이지\
 2.2 program_search: 성북구 프로그램 필터링\
@@ -90,7 +90,7 @@ RAM: 8.00GB
 3.1.1 Question: 게시글 등록\
 3.1.2 Answer: 댓글 등록\
 3.1.3 Article: 게시글 등록(커뮤니티)\
-3.1.4 Comment: 댓글 등록(커뮤니티)\
+3.1.4 Comment: 댓글 등록(커뮤니티)
 ### -views.py
 3.1.1 index: KU 만남 불러오기\
 3.1.2 circle_list: 동아리 모아보기 페이지 불러오기\
@@ -103,11 +103,11 @@ RAM: 8.00GB
 3.1.9 question_delete: 글 삭제\
 3.1.10 answer_create: 댓글 등록\
 3.1.11 answer_modify: 댓글 수정\
-3.1.12 answer_delete: 댓글 삭제\
+3.1.12 answer_delete: 댓글 삭제
 ### -html
 3.1.1 index.html: 고려대 동아리 지역 연계 프로그램 메인 페이지\
 3.1.2 question_form.html: 고려대 동아리 지역 연계 프로그램 메뉴에 새 글을 등록하는 페이지\
-3.1.3 question_detail.html: 고려대 동아리 지역 연계 프로그램 글 상세 정보 페이지\
+3.1.3 question_detail.html: 고려대 동아리 지역 연계 프로그램 글 상세 정보 페이지
 
 ### 3.2 circlelist
 ### -models.py
@@ -135,7 +135,7 @@ RAM: 8.00GB
 4.1.8 answer_create: 댓글 등록\
 4.1.9 answer_modify: 댓글 수정\
 4.1.10 answer_delete: 댓글 삭제\
-4.1.11 like: 커뮤니티 글 좋아요 기능\
+4.1.11 like: 커뮤니티 글 좋아요 기능
 ### -html
 4.2.1 allarticles: 커뮤니티 메인 페이지\
 4.2.2 proposal: 커뮤니티 글 중 프로그램 제안 글만 보기\
