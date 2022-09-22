@@ -157,3 +157,18 @@ def like(request, question_id):
 
 def optimal(request):
     return render(request, 'ku_manam/optimal.html')
+
+def optimal2(request):
+    return render(request, 'ku_manam/optimal2.html')
+
+def yangji(request):
+    return render(request, 'ku_manam/yangji.html')
+
+def kusep(request):
+    return render(request, 'ku_manam/kusep.html')
+
+def alleyopt(request):
+    return render(request, 'ku_manam/alleyopt.html')
+
+def observer(request):
+    return render(request, 'ku_manam/observer.html')

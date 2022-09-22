@@ -22,6 +22,11 @@ urlpatterns = [
     path('talent_donation/answer/delete/<int:answer_id>/', views.answer_delete, name='answer_delete'),
     path('talent_donation/<int:question_id>/likes/',views.likes, name='likes'),
     path('talent_donation/<int:question_id>/like/',views.like, name='like'),
-    path('talent_donation/optimal/', views.optimal, name='optimal'),
+    path('talent_donation/optimal/', views.optimal, name='optimal'),  ##옵티말
+    path('talent_donation/optimal2/', views.optimal2, name='optimal2'),  ##옵티말
+    path('talent_donation/yangji/', views.yangji, name='yangji'),  ##옵티말2
+    path('talent_donation/kusep/', views.kusep, name='kusep'),  ##옵티말2
+    path('talent_donation/alleyopt/', views.alleyopt, name='alleyopt'),  ##옵티말2
+    path('talent_donation/observer/', views.observer, name='observer'),  ##옵티말2
 
 ]
