@@ -250,7 +250,7 @@
             {% for facility in facility_list %}
             <tr class="text-center">
                 <td class="text-start">
-                    <a href="{% url 'facility:detail' facility.id %}">{{ facility.name }}</a>
+                    <a href="{% url 'facility:detail' facility.id %}" style="text-decoration:none; color:black; font-weight:bold;">{{ facility.name }}</a>
                 </td>
                 <td>{{ facility.cate_1 }}</td>
                 <td>{{ facility.dong }}</td>

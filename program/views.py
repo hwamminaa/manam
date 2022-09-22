@@ -4,6 +4,7 @@ import pandas as pd
 from datetime import datetime
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 import time
 
@@ -204,3 +205,12 @@ def downloadRecommendation(request):
     </body>
     </html>
     ''')
+
+@login_required(login_url='common:login')
+def like(request, program_id):
+    program = get_object_or_404(Program, pk=program_id)
+    if request.user in program.like_users.all():
+        program.like_users.remove(request.user)
+    else:
+        program.like_users.add(request.user)
+    return redirect('program:detail', program.id)

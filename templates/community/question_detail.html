@@ -34,9 +34,23 @@
             <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
        data-uri="{% url 'community:question_delete' article.id  %}">삭제</a>
             {% endif %}
-            </div>
+                <br>
+                <br>
+            {% if request.user in article.like_users.all %}
+            <a href="{% url 'community:like' article.id %}">
+                <i class="fas fa-heart fa-lg" style="color: red;">
+                    <i style="color:gray; font-size:13px;"> {{user}}님 포함 {{ article.like_users.count }}명이 좋아합니다.</i></i>
+            </a>
+            {% else %}
+            <a href="{% url 'community:like' article.id %}">
+                <i class="far fa-heart fa-lg animated infinite bounce delay-1s" style="color: gray;">
+                    <i style="color:gray; font-size:13px;">{{ article.like_users.count }}명이 좋아합니다.</i></i>
+            </a>
+            {% endif %}
+
         </div>
-    </div>
+
+        <div>
     <!-- 댓글 -->
     <h5 class="border-bottom my-3 py-2">{{article.comment_set.count}}개의 댓글이 있습니다.</h5>
     {% for comment in article.comment_set.all %}
@@ -65,7 +79,15 @@
             </div>
         </div>
     </div>
+            </div>
     {% endfor %}
+
+
+
+
+
+
+</form>
     <!-- 댓글 등록 -->
     <form action="{% url 'community:answer_create' article.id %}" method="post" class="my-3">
         {% csrf_token %}

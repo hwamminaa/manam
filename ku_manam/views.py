@@ -46,7 +46,6 @@ def talent_donation(request):
 
 def detail(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
-    question.hits += 1
     context = {'question': question}
     return render(request, 'ku_manam/question_detail.html', context)
 
@@ -147,3 +146,11 @@ def answer_delete(request, answer_id):
         answer.delete()
     return redirect('ku_manam:detail', question_id=answer.question.id)
 
+@login_required(login_url='common:login')
+def like(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.user in question.like_users.all():
+        question.like_users.remove(question.author)
+    else:
+        question.like_users.add(request.user)
+    return redirect('ku_manam:detail', question.id)

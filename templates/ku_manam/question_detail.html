@@ -21,6 +21,10 @@
                     {{ question.hashtag }}<br>
                 <상세 설명>
                     {{ question.content }}<br>
+                    {% if question.image %}
+                        <img src="{{question.image.url}}">
+                        <br><br>
+                    {% endif %}
                 <문의 사항>
                     {{ question.inquiry }}<br>
                 <신청 방법>
@@ -40,15 +44,32 @@
                     <div>{{ question.create_date }}</div>
                 </div>
             </div>
-            <div class="my-3">
-            {% if request.user == question.author %}
-            <a href="{% url 'ku_manam:question_modify' question.id  %}"
-               class="btn btn-sm btn-outline-secondary">수정</a>
-             <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
-                data-uri="{% url 'ku_manam:question_delete' question.id  %}">삭제</a>{% endif %}
-            <a href="{% url 'ku_manam:talent_donation' %}" class="btn btn-sm btn-outline-success" >돌아가기</a>
+
+            <div style="display:flex; flex-direction: row;">
+            {% if request.user in question.like_users.all %}
+            <a href="{% url 'ku_manam:like' question.id %}">
+                <i class="fas fa-heart fa-lg" style="color: red;">
+                    <i style="color:gray; font-size:13px;"> {{user}}님 포함 {{ question.like_users.count }}명이 좋아합니다.</i></i>
+            </a>
+            {% else %}
+            <a href="{% url 'ku_manam:like' question.id %}">
+                <i class="far fa-heart fa-lg animated infinite bounce delay-1s" style="color: gray;">
+                    <i style="color:gray; font-size:13px;"> {{ question.like_users.count }}명이 좋아합니다.</i></i>
+             </a>
+            {% endif %}
             </div>
+
+    </form>
         </div>
+                <div class="my-3"> &nbsp;&nbsp;
+                {% if request.user == question.author %}
+                <a href="{% url 'ku_manam:question_modify' question.id  %}"
+                    class="btn btn-sm btn-outline-secondary">수정</a>
+                <a href="javascript:void(0)" class="delete btn btn-sm btn-outline-secondary"
+                    data-uri="{% url 'ku_manam:question_delete' question.id  %}">삭제</a>{% endif %}
+                <a href="{% url 'ku_manam:talent_donation' %}" class="btn btn-sm btn-outline-success" >돌아가기</a>
+                    </div>
+            </div>
     </div>
     <!-- 댓글 -->
 
@@ -64,5 +85,6 @@ Array.from(delete_elements).forEach(function(element) {
         };
     });
 });
+
 </script>
 {% endblock %}

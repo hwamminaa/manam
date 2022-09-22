@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
     <!-- pybo CSS -->
     <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
-    <title>Hello, pybo!</title>
+    <title>M:ANAM</title>
     <script src="https://kit.fontawesome.com/def66b134a.js" crossorigin="anonymous"></script>
     <style>
         @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
@@ -192,6 +192,21 @@
                 신청링크: 제공되지 않습니다
                 {% endif %}
             </div>
+            <div>
+            {% if request.user in program.like_users.all %}
+            <a href="{% url 'program:like' program.id %}">
+                <i class="fas fa-heart fa-lg" style="color: red;">
+                    <i style="color:gray; font-size:13px;"> {{user}}님 포함 {{ program.like_users.count }}명이 좋아합니다.</i></i>
+            </a>
+            {% else %}
+            <a href="{% url 'program:like' program.id %}">
+                <i class="far fa-heart fa-lg animated infinite bounce delay-1s" style="color: gray;">
+                    <i style="color:gray; font-size:13px;"> {{ program.like_users.count }}명이 좋아합니다.</i></i>
+             </a>
+            {% endif %}
+            </div>
+            <br>
+
             <div class="d-flex justify-content-end">
                 <div class="badge bg-light text-dark p-2 text-start">
                     <div class="mb-2">{{ program.category }}</div>

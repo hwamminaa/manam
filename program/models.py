@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 class Program(models.Model):
@@ -11,6 +12,7 @@ class Program(models.Model):
     age = models.CharField(max_length=30)
     link = models.CharField(max_length=400, null=True)
     description = models.TextField(null=True)
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_program')
 
     def __str__(self):
         return self.name

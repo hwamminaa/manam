@@ -6,12 +6,11 @@ from django.conf import settings
 ##KU만남
 class Question(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='like_articles')
-    #제목
-    subject = models.CharField(max_length = 200)
-    #내용
+    # 제목
+    subject = models.CharField(max_length=200)
+    # 내용
     content = models.TextField()
-    #카테고리
+    # 카테고리
     category = models.CharField(max_length=20)
     title = models.CharField(max_length=200)
     hashtag = models.CharField(max_length=200)
@@ -19,14 +18,12 @@ class Question(models.Model):
     apply = models.CharField(max_length=200)
     create_date = models.DateTimeField(null=True, default='')
     modify_date = models.DateTimeField(null=True, blank=True)
-    hits = models.PositiveIntegerField(default=0)
+    image = models.ImageField(blank=True, null=True)
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL,
+                                        related_name='like_questions')
+
     def __str__(self):
         return self.subject
-
-    @property
-    def click(self):
-        self.hits += 1
-        self.save()
 
 
 class Answer(models.Model):
@@ -49,8 +46,11 @@ class Article(models.Model):
     category = models.CharField(max_length=20)
     create_date = models.DateTimeField(null=True,default='')
     modify_date = models.DateTimeField(null=True, blank=True)
+    like_users = models.ManyToManyField(settings.AUTH_USER_MODEL,
+                                        related_name='like_community')
     def __str__(self):
         return self.subject
+
 
 class Comment(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)

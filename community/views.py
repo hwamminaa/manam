@@ -141,3 +141,12 @@ def answer_delete(request, comment_id):
     else:
         comment.delete()
     return redirect('community:detail', article_id=comment.article.id)
+
+@login_required(login_url='common:login')
+def like(request, article_id):
+    article = get_object_or_404(Article, pk=article_id)
+    if request.user in article.like_users.all():
+        article.like_users.remove(article.author)
+    else:
+        article.like_users.add(request.user)
+    return redirect('community:detail', article.id)
