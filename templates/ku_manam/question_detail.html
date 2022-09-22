@@ -50,7 +50,7 @@
             <a href="{% url 'ku_manam:like' question.id %}">
                 <i class="fas fa-heart fa-lg" style="color: red;">
                     <i style="color:gray; font-size:13px;"> {{user}}님 포함 {{ question.like_users.count }}명이 좋아합니다.</i></i>
-            </a>sk
+            </a>
             {% else %}
             <a href="{% url 'ku_manam:like' question.id %}">
                 <i class="far fa-heart fa-lg animated infinite bounce delay-1s" style="color: gray;">
