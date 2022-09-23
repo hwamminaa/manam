@@ -251,7 +251,30 @@
             {{fa.cate_2}},
         {% endfor %}
     </div>
-
+    <div class="category">
+        <ul>
+            <li id="totalMenu" onclick="changeMarker('total')" style="font-size:15px;">
+                <span class="ico_comm ico_total"></span>
+                전체
+            </li>
+            <li id="educationMenu" onclick="changeMarker('education')" style="font-size:15px;">
+                <span class="ico_comm ico_education"></span>
+                교육·문화
+            </li>
+            <li id="familyMenu" onclick="changeMarker('family')" style="font-size:15px;">
+                <span class="ico_comm ico_family"></span>
+                보육·가족  <br> 및 여성
+            </li>
+            <li id="elderlyMenu" onclick="changeMarker('elderly')" style="font-size:15px;">
+                <span class="ico_comm ico_elderly"></span>
+                노인
+            </li>
+            <li id="socialMenu" onclick="changeMarker('social')" style="font-size:15px;">
+                <span class="ico_comm ico_social"></span>
+                사회복지일반
+            </li>
+        </ul>
+    </div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3464eb8d032a6121616cba7859e41673&libraries=services,clusterer,drawing"></script>
     <script>
@@ -542,7 +565,7 @@ function changeMarker(type){
     }
 }
 
-        // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
+       // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
         if (navigator.geolocation) {
 
             // GeoLocation을 이용해서 접속 위치를 얻어옵니다
@@ -654,33 +677,6 @@ function changeMarker(type){
         </p>
         <a href="{% url 'facility:showFacilitylist' %}" class="delete btn btn-sm btn-outline-success">전체시설목록 보러가기</a>
     </div>
-
-    <div class="category">
-        <ul>
-            <li id="totalMenu" onclick="changeMarker('total')" style="font-size:15px;">
-                <span class="ico_comm ico_total"></span>
-                전체
-            </li>
-            <li id="educationMenu" onclick="changeMarker('education')" style="font-size:15px;">
-                <span class="ico_comm ico_education"></span>
-                교육·문화
-            </li>
-            <li id="familyMenu" onclick="changeMarker('family')" style="font-size:15px;">
-                <span class="ico_comm ico_family"></span>
-                보육·가족  <br> 및 여성
-            </li>
-            <li id="elderlyMenu" onclick="changeMarker('elderly')" style="font-size:15px;">
-                <span class="ico_comm ico_elderly"></span>
-                노인
-            </li>
-            <li id="socialMenu" onclick="changeMarker('social')" style="font-size:15px;">
-                <span class="ico_comm ico_social"></span>
-                사회복지일반
-            </li>
-        </ul>
-    </div>
-
-
 
 
     <div> {{ facilityCoordinates }} </div>
