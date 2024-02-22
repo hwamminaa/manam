@@ -9,6 +9,8 @@
 
 ![image](https://github.com/hwamminaa/manam/assets/110156673/55935a9d-2901-46b1-a75b-5251903973c7)
 
+더 자세한 설명은 다음 PDF 에서 확인하실 수 있습니다.
+[M:ANAM 소개](https://github.com/hwamminaa/manam/blob/main/MANAM%20%EC%86%8C%EA%B0%9C.pdf)
 
 
 # Environment
